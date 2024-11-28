@@ -10,7 +10,7 @@
 
 ## 📝 Sobre l'aplicació
 
-L'aplicació web **Indicadors de Salut Comunitària** és una eina interactiva i gratuïta desenvolupada mitjançant R Studio i Shiny. Està dissenyada per facilitar la consulta, l'anàlisi i l'exportació de dades sobre indicadors bàsics de salut comunitària per Àrees Bàsiques de Salut (ABS) de l'any 2022 a Catalunya.
+L'aplicació web **Indicadors de Salut Comunitària** és una eina interactiva desenvolupada mitjançant R Studio i Shiny. Està dissenyada per facilitar la consulta, l'anàlisi i l'exportació de dades sobre indicadors bàsics de salut comunitària per Àrees Bàsiques de Salut (ABS) de l'any 2022 a Catalunya.
 
 ### ⚡ Funcionalitats principals
 
