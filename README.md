@@ -1,20 +1,18 @@
-# 🏥 Indicadors de Salut Comunitària - 3a edició
+# 🏥 Indicadors de Salut Comunitària
 
 ## 🌐 Accés en línia a l'aplicació
 
-[Indicadors de Salut Comunitària v3.0](https://01936a34-5718-c57b-aa7d-170664a8c150.share.connect.posit.cloud/)
+[Indicadors de Salut Comunitària - 3a edició](https://01936a34-5718-c57b-aa7d-170664a8c150.share.connect.posit.cloud/)
 
 ## 📝 Sobre l'aplicació
 
 L'aplicació web **Indicadors de Salut Comunitària** és una eina interactiva i gratuïta desenvolupada mitjançant R Studio i Shiny. Està dissenyada per facilitar la consulta, l'anàlisi i l'exportació de dades sobre indicadors bàsics de salut comunitària per Àrees Bàsiques de Salut (ABS) de l'any 2022 a Catalunya.
 
-### ⚡ Funcionalitats principals:
+### ⚡ Funcionalitats principals
 
 * 📊 **Dades**: Taula interactiva per consultar, filtrar i exportar dades en diversos formats (CSV, XLSX, PDF).
 * 📈 **Anàlisi**: Eina per crear visualitzacions personalitzades mitjançant una interfície intuïtiva d'arrossegar i deixar anar variables.
 * 📄 **Fitxes**: Accés a les fitxes metodològiques detallades de cada indicador.
-
-Si teniu suggeriments de millora, podeu compartir-los a la secció de **Discussions** del nostre repositori de GitHub. 💬
 
 ## 👥 Autoria
 
@@ -39,7 +37,7 @@ Servei de Planificació Lingüística del Departament de Salut.
 
 ## 🌐 URL del projecte
 
-[Indicadors de Salut Comunitària al web de l'Observatori](http://observatorisalut.gencat.cat/ca/observatori-desigualtats-salut/indicadors_comunitaria/)
+[Indicadors de Salut Comunitària al web de l'Observatori de les Desigualtats en Salut](http://observatorisalut.gencat.cat/ca/observatori-desigualtats-salut/indicadors_comunitaria/)
 
 ## 📜 Llicència
 
