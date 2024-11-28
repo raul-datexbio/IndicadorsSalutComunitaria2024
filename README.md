@@ -1,6 +1,10 @@
 # 🏥 Indicadors de Salut Comunitària
 
-## 🌐 Accés en línia a l'aplicació
+## 🌐 URL del projecte
+
+[Observatori de les Desigualtats en Salut - Indicadors de Salut Comunitària](http://observatorisalut.gencat.cat/ca/observatori-desigualtats-salut/indicadors_comunitaria/)
+
+## 🌐 URL de la Shiny app
 
 [Indicadors de Salut Comunitària - 3a edició](https://01936a34-5718-c57b-aa7d-170664a8c150.share.connect.posit.cloud/)
 
@@ -14,7 +18,7 @@ L'aplicació web **Indicadors de Salut Comunitària** és una eina interactiva i
 * 📈 **Anàlisi**: Eina per crear visualitzacions personalitzades mitjançant una interfície intuïtiva d'arrossegar i deixar anar variables.
 * 📄 **Fitxes**: Accés a les fitxes metodològiques detallades de cada indicador.
 
-## 👥 Autoria
+### 👥 Autoria
 
 L'aplicació ha estat desenvolupada pel Grup de Treball d'Indicadors de Salut per ABS, format per:
 
@@ -25,28 +29,24 @@ L'aplicació ha estat desenvolupada pel Grup de Treball d'Indicadors de Salut pe
 
 Amb la col·laboració de l'Institut Català de la Salut (ICS) i l'Idescat.
 
-## 📅 Edicions
+### 📅 Edicions
 
 * **1a edició**: Barcelona maig 2018
 * **2a edició**: Barcelona abril 2021
 * **3a edició**: Barcelona desembre 2024
 
-## 📖 Assessorament lingüístic
+### 📖 Assessorament lingüístic
 
 Servei de Planificació Lingüística del Departament de Salut.
 
-## 🌐 URL del projecte
-
-[Indicadors de Salut Comunitària al web de l'Observatori de les Desigualtats en Salut](http://observatorisalut.gencat.cat/ca/observatori-desigualtats-salut/indicadors_comunitaria/)
-
-## 📜 Llicència
+### 📜 Llicència
 
 Aquesta aplicació està sota una llicència [Creative Commons Reconeixement-NoComercial-SenseObraDerivada 4.0 Internacional](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ca) (CC BY-NC-ND 4.0).
 
-### ✅ Ets lliure de:
+#### ✅ Ets lliure de:
 * 🔗 **Compartir** — Copiar i redistribuir el material en qualsevol mitjà i format.
 
-### ⚠️ Sota els termes següents:
+#### ⚠️ Sota els termes següents:
 * 📛 **Reconeixement** — Has de reconèixer l'autoria de manera apropiada, proporcionar un enllaç a la llicència i indicar si s'han fet canvis.
 * 🚫 **NoComercial** — No pots utilitzar el material amb finalitats comercials.
 * 🚷 **SenseObraDerivada** — Si remescles, transformes o crees a partir del material, no pots difondre el material modificat.
