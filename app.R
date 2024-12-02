@@ -16,7 +16,7 @@ df <- read.csv('https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutC
 # Interfície d'usuari de la Shiny app
 ui <- fluidPage(
   
-  # Activar shinyjs
+  # Activar Shinyjs
   useShinyjs(),
   
   # Tema
@@ -185,9 +185,11 @@ ui <- fluidPage(
     )
   ),
   
-  # Estil dels selectInput
+  # Estils dels selectInput
   tags$head(
     tags$style(HTML("
+    
+    /* Estil selectInput */
     .selectize-dropdown .active {
       background: #5EAEFF !important;
       color: white !important;
@@ -196,6 +198,72 @@ ui <- fluidPage(
       background: #5EAEFF !important;
       color: white !important;
     }
+    
+    /* Estil encapçalat nivell 1 */
+    .header-level1-style {
+        font-family: 'Helvetica Now Display', sans-serif;
+        font-style: bold;
+        font-size: 36px;
+        color: #5EAEFF;
+        background-color: white;
+        text-align: left;
+        margin-top: 0px; 
+        padding: 0px;
+    }
+    
+    /* Estil encapçalat nivell 2 */
+    .header-level2-style {
+        font-family: 'Helvetica Now Display', sans-serif;
+        font-style: bold;
+        font-size: 24px;
+        color: #5EAEFF;
+        background-color: white;
+        text-align: left;
+        margin-top: 0px; 
+        padding: 0px;
+    }
+    
+    /* Estil paràgraf nivell 1*/
+    .paragraph-level1-style {
+        font-family: 'Helvetica Now Display', sans-serif;
+        font-size: 16px;
+        color: #5E5E5E;
+        text-align: justify;
+        line-height: 1.5;
+    }
+      
+    /* Estil paràgraf nivell 2*/
+    .paragraph-level2-style {
+        font-family: 'Helvetica Now Display', sans-serif;
+        font-size: 14px;
+        color: #5E5E5E;
+        text-align: justify;
+        line-height: 1.5;
+    }
+    
+    /* Estil fórmules matemàtiques */
+      .formula-container {
+        display: flex;
+        align-items: center;
+        font-family: 'Helvetica Now Display', sans-serif;
+        font-size: 14px;
+        color: #5E5E5E;
+      }
+      .fraction {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 5px 0 0;
+      }
+      .fraction-top {
+        border-bottom: 1px solid #5E5E5E;
+        padding: 0 5px;
+        text-align: center;
+      }
+      .fraction-bottom {
+        padding: 0 5px;
+        text-align: center;
+      }
+      
   "))
   ),
   
@@ -222,24 +290,23 @@ ui <- fluidPage(
         
         # Contingut
         div(
-          style = "padding: 20px;",
+          style = "margin-top: 20px; margin-bottom: 20px; margin-left: 15px; margin-right: 0px;",
           
           # Presentació
           card(
             card_header(
               h1("Presentació", 
-                 style = "font-family: 'Helvetica Now Display', sans-serif; font-style: bold; font-size: 36px; color: #5EAEFF; 
-                 background-color: white; text-align: left; margin-top: 0px; padding: 0px;")
+                 class = "header-level1-style")
             ),
             card_body(
               div(
-                style = "font-family: 'Helvetica Now Display', sans-serif; font-size: 16px; color: #5E5E5E; text-align: justify; line-height: 1.5;",
+                class = "paragraph-level1-style",
                 p("Per desplegar l'orientació comunitària és essencial comptar amb dades fiables i robustes per àrees petites, que permetin una 
                   primera aproximació al diagnòstic comunitari."),
                 p("En el marc del Pla de Salut de Catalunya, s’han seleccionat i calculat un conjunt d’indicadors bàsics a nivell d'Àrees Bàsiques de
                   Salut (ABS), seguint el marc conceptual dels determinants socials de la salut."),
                 p(HTML("Per donar suport a aquest projecte, s'ha desenvolupat l’aplicació web interactiva <b>Indicadors de Salut Comunitària</b>, 
-                  creada mitjançant <a href='https://shiny.posit.co/' target='_blank' title='Pàgina web de Shiny' style='color: #5E5E5E; text-decoration: underline;'>Shiny</a>.
+                  creada mitjançant el paquet <a href='https://shiny.posit.co/' target='_blank' title='Pàgina web de Shiny' style='color: #5E5E5E; text-decoration: underline;'>Shiny</a> de R.
                   Aquesta eina està pensada per facilitar la consulta, l'anàlisi i l’exportació intuïtiva de les dades disponibles sobre indicadors 
                   bàsics de salut comunitària per ABS de l’any 2022 a Catalunya.")),
                 p("L’aplicació s’organitza en quatre pestanyes principals per optimitzar-ne l’ús:"),
@@ -263,23 +330,24 @@ ui <- fluidPage(
           card(
             card_header(
               h2("Autoria", 
-                 style = "font-family: 'Helvetica Now Display', sans-serif; font-style: bold; font-size: 24px; color: #5EAEFF; background-color: white; 
-                 text-align: left; margin-top: 10px; padding: 0px;")
+                 class = "header-level2-style",
+                 style = "margin-top: 10px;")
             ),
             card_body(
               p(
-                style = "font-family: 'Helvetica Now Display', sans-serif; font-size: 14px; color: #5E5E5E; line-height: 1.5;",
+                class = "paragraph-level2-style",
                 "Grup de Treball d'Indicadors de Salut per ABS, format per:"
               ),
               tags$ul(
-                style = "font-family: 'Helvetica Now Display', sans-serif; font-size: 14px; color: #5E5E5E; line-height: 1.5; padding-left: 20px;",
+                class = "paragraph-level2-style",
+                style = "padding-left: 20px;",
                 tags$li("Agència de Salut Pública de Catalunya (ASPCAT)."),
                 tags$li("Observatori del Sistema de Salut de Catalunya (OSSC), Agència de Qualitat i Avaluació sanitàries de Catalunya (AQuAS)."),
                 tags$li("Direcció General de Planificació en Salut, Departament de Salut."),
                 tags$li("Secretaria General, Departament de Salut.")
               ),
               p(
-                style = "font-family: 'Helvetica Now Display', sans-serif; font-size: 14px; color: #5E5E5E; line-height: 1.5;",
+                class = "paragraph-level2-style",
                 "Amb la col·laboració de l'Institut Català de la Salut (ICS) i l'Idescat."
               )
             )
@@ -291,12 +359,12 @@ ui <- fluidPage(
           card(
             card_header(
               h2("Edicions", 
-                 style = "font-family: 'Helvetica Now Display', sans-serif; font-style: bold; font-size: 24px; color: #5EAEFF; background-color: white; 
-                 text-align: left; margin-top: 0px; padding: 0px;")
+                 class = "header-level2-style")
             ),
             card_body(
               tags$ul(
-                style = "font-family: 'Helvetica Now Display', sans-serif; font-size: 14px; color: #5E5E5E; line-height: 1.5; padding-left: 20px;",
+                class = "paragraph-level2-style",
+                style = "padding-left: 20px; margin-bottom: 0px",
                 tags$li("1a edició: Barcelona maig 2018."),
                 tags$li("2a edició: Barcelona abril 2021."),
                 tags$li("3a edició: Barcelona desembre 2024.")
@@ -310,12 +378,11 @@ ui <- fluidPage(
           card(
             card_header(
               h2("Assessorament lingüístic", 
-                 style = "font-family: 'Helvetica Now Display', sans-serif; font-style: bold; font-size: 24px; color: #5EAEFF; background-color: white; 
-                 text-align: left; margin-top: 0px; padding: 0px;")
+                 class = "header-level2-style")
             ),
             card_body(
               p(
-                style = "font-family: 'Helvetica Now Display', sans-serif; font-size: 14px; color: #5E5E5E; line-height: 1.5;",
+                class = "paragraph-level2-style",
                 "Servei de Planificació Lingüística del Departament de Salut."
               )
             )
@@ -327,15 +394,14 @@ ui <- fluidPage(
           card(
             card_header(
               h2("URL", 
-                 style = "font-family: 'Helvetica Now Display', sans-serif; font-style: bold; font-size: 24px; color: #5EAEFF; background-color: white; 
-                 text-align: left; margin-top: 0px; padding: 0px;")
+                 class = "header-level2-style")
             ),
             card_body(
               p(
                 tags$a(
                   href = "http://observatorisalut.gencat.cat/ca/observatori-desigualtats-salut/indicadors_comunitaria/",
                   target = "_blank", "http://observatorisalut.gencat.cat/ca/observatori-desigualtats-salut/indicadors_comunitaria/",
-                  style = "font-family: 'Helvetica Now Display', sans-serif; font-size: 14px; color: #5E5E5E; line-height: 1.5;",
+                  class = "paragraph-level2-style",
                   title = "Pàgina web del projecte Indicadors de Salut Comunitària"
                 )
               )
@@ -353,18 +419,17 @@ ui <- fluidPage(
         
         # Estructura amb fila fluida: text
         fluidRow(
-          style = "margin: 20px;",
+          style = "margin-top: 20px; margin-bottom: 20px; margin-left: 0px; margin-right: 0px;",
           column(
             width = 12,
             card(
               card_header(
                 h1("Taula de dades", 
-                   style = "font-family: 'Helvetica Now Display', sans-serif; font-style: bold; font-size: 36px; color: #5EAEFF; 
-             background-color: white; text-align: left; margin-top: 0px; padding: 0px;")
+                   class = "header-level1-style")
               ),
               card_body(
                 p(
-                  style = "font-family: 'Helvetica Now Display', sans-serif; font-size: 16px; color: #5E5E5E; text-align: justify; line-height: 1.5;",
+                  class = "paragraph-level1-style",
                   "En aquesta pestanya, podeu interactuar amb una taula que conté dades sobre diversos indicadors bàsics de salut comunitària per ABS de l'any 2022
                   a Catalunya. Les dades d'aquesta taula interactiva es poden ordenar, filtrar, cercar i exportar en diferents formats."
                 )
@@ -373,9 +438,14 @@ ui <- fluidPage(
           )
         ),
         
+        # Separador
+        div(
+          style = "border-top: 1px solid #CCCCCC; margin: 30px 0;",
+        ),
+        
         # Estructura amb fila fluida: filtres
         fluidRow(
-          style = "margin-top: 20px; margin-bottom: 20px; margin-left: 15px; margin-right: 0px;",
+          style = "margin-top: 20px; margin-bottom: 20px; margin-left: 0px; margin-right: 0px;",
           column(
             width = 4,
             selectInput(
@@ -413,7 +483,7 @@ ui <- fluidPage(
         
         # Estructura amb fila fluida: taula de dades
         fluidRow(
-          style = "margin-top: 20px; margin-bottom: 20px; margin-left: 15px; margin-right: 0px;",
+          style = "margin-top: 20px; margin-bottom: 20px; margin-left: 0px; margin-right: 0px;",
           column(
             width = 12,
             dataTableOutput("taula_dades")
@@ -430,18 +500,17 @@ ui <- fluidPage(
         
         # Estructura amb files fluides: text
         fluidRow(
-          style = "margin: 20px;",
+          style = "margin-top: 20px; margin-bottom: 20px; margin-left: 0px; margin-right: 0px;",
           column(
             width = 12,
             card(
               card_header(
                 h1("Anàlisi exploratòria de dades", 
-                   style = "font-family: 'Helvetica Now Display', sans-serif; font-style: bold; font-size: 36px; color: #5EAEFF; 
-             background-color: white; text-align: left; margin-top: 0px; padding: 0px;")
+                   class = "header-level1-style")
               ),
               card_body(
                 div(
-                  style = "font-family: 'Helvetica Now Display', sans-serif; font-size: 16px; color: #5E5E5E; text-align: justify; line-height: 1.5;",
+                  class = "paragraph-level1-style",
                   p(
                     HTML("En aquesta pestanya, podeu analitzar de manera interactiva les dades dels indicadors bàsics de salut comunitària per ABS de l'any 2022 a Catalunya utilitzant
                     <a href='https://github.com/Kanaries/GWalkR' target='_blank' title='GitHub del paquet GWalkR' style='color: #5E5E5E; text-decoration: underline;'>GWalkR</a>. 
@@ -462,9 +531,14 @@ ui <- fluidPage(
           )
         ),
         
+        # Separador
+        div(
+          style = "border-top: 1px solid #CCCCCC; margin: 30px 0;",
+        ),
+        
         # Estructura amb files fluides: GWalkR
         fluidRow(
-          style = "margin: 20px;",
+          style = "margin-top: 20px; margin-bottom: 20px; margin-left: 0px; margin-right: 0px;",
           column(
             width = 12,
             gwalkrOutput("analisi_exploratoria_dades_eda")
@@ -481,22 +555,21 @@ ui <- fluidPage(
         
         # Estructura amb fila fluida: text
         fluidRow(
-          style = "margin: 20px;",
+          style = "margin-top: 20px; margin-bottom: 20px; margin-left: 0px; margin-right: 0px;",
           column(
             width = 12,
             card(
               card_header(
                 h1("Fitxes metodològiques", 
-                   style = "font-family: 'Helvetica Now Display', sans-serif; font-style: bold; font-size: 36px; color: #5EAEFF; 
-             background-color: white; text-align: left; margin-top: 0px; padding: 0px;")
+                   class = "header-level1-style")
               ),
               card_body(
                 p(
-                  style = "font-family: 'Helvetica Now Display', sans-serif; font-size: 16px; color: #5E5E5E; text-align: justify; line-height: 1.5;",
+                  class = "paragraph-level1-style",
                   "En aquesta pestanya, podeu consultar les fitxes metodològiques dels Indicadors de Salut Comunitària, 
                   desenvolupades per l'Agència de Qualitat i Avaluació Sanitàries de Catalunya (AQuAS). Cada fitxa proporciona
                   informació detallada sobre la descripció de l'indicador, la fórmula de càlcul, els criteris d'inclusió 
-                  i exclusió, les dimensions de desagregació, l'origen de les dades i altres notes metodològiques 
+                  i exclusió, les dimensions de desagregació, l'origen de les dades i altres comentaris o notes metodològiques 
                   d'interès. Per accedir al contingut complet d'una fitxa, només cal que la seleccioneu al menú desplegable."
                 )
               )
@@ -504,33 +577,38 @@ ui <- fluidPage(
           )
         ),
         
+        # Separador
+        div(
+          style = "border-top: 1px solid #CCCCCC; margin: 30px 0;",
+        ),
+        
         # Estructura amb fila fluida: filtre
-        fluidRow(
-          style = "margin: 20px;",
-          column(
-            width = 3,
-            selectInput(
-              inputId = "filtre_fitxes",
-              label = HTML("<span style='font-family: \"Helvetica Now Display\", sans-serif; font-style: bold; 
-                     font-size: 24px; color: #5EAEFF;'>Selecciona una fitxa</span>"),
-              choices = c(
-                "Consumidors de fàrmacs" = "SCRE06_fitxa_consumidors_farmacs",
-                "Pacients polimedicats amb més de 10 principis actius" = "SCRE08_fitxa_pacients_polimedicats",
-                "Població assignada" = "SCDE01_fitxa_poblacio_assignada",
-                "Població atesa en un centre de salut mental d'adults (CSMA)" = "SCRE05_fitxa_poblacio_atesa_CSMA",
-                "Visites a l'atenció primaria" = "SCMO01_SCMO02_visites_atencio_primaria"
-              ),
-              selected = "SCRE06_fitxa_consumidors_farmacs",
-              width = "100%"
+        div(
+          style = "border: 1px solid #CCCCCC; border-radius: 12px; padding: 20px; background-color: #FFFFFF;",
+          fluidRow(
+            style = "margin-top: 20px; margin-bottom: 20px; margin-left: 0px; margin-right: 0px;",
+            column(
+              width = 4,
+              selectInput(
+                inputId = "filtre_fitxes",
+                label = h2("Indicador", 
+                           class = "header-level2-style"),
+                choices = c(
+                  "Població assignada" = "fitxa_poblacio_assignada",
+                  "Població de 18 anys i més atesa a centres ambulatoris de salut mental" = "fitxa_poblacio_atesa"
+                ),
+                selected = "fitxa_poblacio_assignada",
+                width = "100%"
+              )
+            ),
+            column(
+              width = 8,
+              uiOutput("fitxa_seleccionada")
             )
-          ),
-          column(
-            width = 9,
-            uiOutput("fitxa_seleccionada")
           )
         )
+        
       )
-      
     )
   )
 )
@@ -785,19 +863,61 @@ server <- function(input, output, session) {
     gwalkr(df)
   )
   
-  # Mostrar imatge de la fitxa seleccionada
+  # Mostrar fitxa seleccionada
   output$fitxa_seleccionada <- renderUI({
-    imatge_url <- switch(input$filtre_fitxes,
-                         "SCRE06_fitxa_consumidors_farmacs" = "https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/imatges/SCRE06_fitxa_consumidors_farmacs.png",
-                         "SCRE08_fitxa_pacients_polimedicats" = "https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/imatges/SCRE08_fitxa_pacients_polimedicats.png",
-                         "SCDE01_fitxa_poblacio_assignada" = "https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/imatges/SCDE01_fitxa_poblacio_assignada.png",
-                         "SCRE05_fitxa_poblacio_atesa_CSMA" = "https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/imatges/SCRE05_fitxa_poblacio_atesa_CSMA.png",
-                         "SCMO01_SCMO02_visites_atencio_primaria" = "https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/imatges/SCMO01_SCMO02_visites_atencio_primaria.png"
-    )
-    
-    tags$img(
-      src = imatge_url,
-      style = "max-width: 100%; height: auto;"
+    switch(input$filtre_fitxes,
+           
+           "fitxa_poblacio_assignada" = card(
+             card_body(
+               div(
+                 class = "paragraph-level2-style",
+                 h2("Descripció", class = "header-level2-style"),
+                 p("Població assignada a un equip d'atenció primària (EAP) que ha estat assignada per aquest equip en l'any d'estudi."),
+                 
+                 h2("Fórmula", class = "header-level2-style"),
+                 p("Població assignada a l'EAP."),
+                 
+                 h2("Origen de les dades", class = "header-level2-style"),
+                 p("Registre central de persones assegurades (RCA). Servei Català de la Salut.")
+               )
+             )
+           ),
+           
+           "fitxa_poblacio_atesa" = card(
+             card_body(
+               div(
+                 class = "paragraph-level2-style",
+                 h2("Descripció", class = "header-level2-style"),
+                 p("Percentatge de la població de 18 anys o més que ha estat atesa per un centre de salut mental d'adults (CSMA)."),
+                 
+                 h2("Fórmula", class = "header-level2-style"),
+                 div(
+                   class = "formula-container",
+                   div(
+                     class = "fraction",
+                     div(
+                       class = "fraction-top",
+                       "Nombre de persones de 18 anys o més amb el diagnòstic seleccionat ateses per un CSMA"
+                     ),
+                     div(
+                       class = "fraction-bottom",
+                       "Població de 18 anys o més"
+                     )
+                   ),
+                   "× 100"
+                 ),
+                 
+                 h2("Comentaris", class = "header-level2-style"),
+                 p("L'indicador es calcula per territori de residència del pacient (àrea bàsica de salut i agrupacions superiors) i per CSMA. L'indicador per territori de residència del pacient té en compte l'activitat realitzada pels pacients a qualsevol centre, no únicament el seu centre de referència. L'indicador per CSMA només té en compte l'activitat que ha realitzat aquell centre amb la seva població de referència. La població de referència d'un CSMA és la població assignada als equips d'atenció primària que poden derivar pacients a aquest centre."),
+                 
+                 h2("Dimensions de desagregació", class = "header-level2-style"),
+                 p("Per centre; per diagnòstics seleccionats (trastorn per esquizofrènia, trastorn depressiu, trastorn bipolar, altres trastorns de l'estat d'ànim, ansietat i trastorns de la por, trastorn obsessivocompulsiu, trastorns per traumes i estrès, trastorns de conducta, trastorns de la personalitat, trastorns de la conducta alimentària, trastorns somàtics, idees suïcides, trastorns de comportament, trastorns del neurodesenvolupament); per sexe; per grup d'edat."),
+                 
+                 h2("Origen de les dades", class = "header-level2-style"),
+                 p("Registre del conjunt mínim bàsic de dades de salut mental (CMBD SM) i Registre Central d'Assegurats (RCA). Servei Català de la Salut (CatSalut).")
+               )
+             )
+           )
     )
   })
   
