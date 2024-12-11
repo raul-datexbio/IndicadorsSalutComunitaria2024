@@ -1,253 +1,124 @@
 # Carregar llibreries
 library(bslib)
 library(DT)
+library(dplyr)
 library(GWalkR)
 library(readr)
 library(shiny)
 library(shinyjs)
 library(shinythemes)
 
-# Carregar CSV (df = dataframe)
+# Carregar CSV
 df <- read.csv('https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/Indicadors_ABS.csv',
                sep = ",", encoding = "latin1", check.names = FALSE)
 
 ################################################################################
 
 # Interfície d'usuari de la Shiny app
-ui <- fluidPage(
+ui <- tagList(
   
-  # Activar Shinyjs
+  # Activar shinyjs
   useShinyjs(),
   
-  # Tema
-  theme = shinytheme("paper"),
-  
-  # Adaptació interfície a diferents dispositius
-  responsive = TRUE,
-  
-  # Títol a la pestanya del navegador
-  title = "Indicadors de Salut Comunitària",
-  
-  # Títol a la interfície
-  titlePanel(
-    div(
-      style = "font-family: 'Helvetica Now Display', sans-serif; font-style: bold; font-size: 48px; color: #5EAEFF; 
-      background-color: white; text-align: left; margin-top: 80px; padding: 20px;",
-      "Indicadors de Salut Comunitària – 3a edició")
-  ),
-  
-  # Panell de capçalera
-  headerPanel(
-    div(
-      style = "position: fixed; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; padding: 10px; 
-               background-color: #5EAEFF; z-index: 10;",
-      
-      # Contenidor lateral esquerra: logotip
-      div(
-        style = "margin-top: -10px;; margin-left: 20px;",
-        tags$a(
-          href = "https://salutweb.gencat.cat/ca/inici",
-          target = "_blank",
-          img(
-            src = "https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/imatges/salut_logotip_negatiu.png", 
-            alt = "salut_logotip", 
-            height = "40px"
-          ),
-          title = "Pàgina web Salut"
-        )
-      ),
-      
-      # Contenidor lateral dret: icones
-      div(
-        style = "display: flex; align-items: center; gap: 15px; margin-right: 20px;",
-        actionLink(
-          inputId = "anar_pestanya_inici", 
-          label = icon("home"), 
-          style = "font-size: 20px; color: white; text-decoration: none;",
-          title = "Anar a l'inici"
-        ),
-        actionLink(
-          inputId = "anar_baix",
-          label = icon("arrow-down"),
-          style = "font-size: 20px; color: white; text-decoration: none;",
-          title = "Anar a baix"
-        ),
-        actionLink(
-          inputId = "anar_dalt",
-          label = icon("arrow-up"),
-          style = "font-size: 20px; color: white; text-decoration: none;",
-          title = "Anar a dalt"
-        ),
-        tags$a(
-          href = "https://ovt.gencat.cat/gsitfc/AppJava/generic/conqxsGeneric.do?webFormId=391&topicLevel1.id=1523&set-locale=ca_ES",
-          target = "_blank",
-          icon("envelope"),
-          style = "font-size: 20px; color: white; text-decoration: none;",
-          title = "Bústia de contacte"
-        )
-      )
-    )
-  ),
-  
-  # Funcionalitat de desplaçament suau cap amunt i cap avall
-  tags$script('
-  $(document).ready(function() {
-    window.js = {
-      scrollToBottom: function() {
-        $("html, body").animate({ scrollTop: $(document).height() }, "smooth");
-      },
-      scrollToTop: function() {
-        $("html, body").animate({ scrollTop: 0 }, "smooth");
-      }
-    };
-  });
-'),
-  
-  # Peu de pàgina
-  tags$footer(
-    style = "position: fixed; bottom: 0; left: 0; right: 0; padding: 5px; background-color: #f8f9fa; 
-             border-top: 1px solid #5EAEFF; font-size: 16px; z-index: 10;", 
-    
-    # Contenidor principal
-    div(
-      style = "display: flex; justify-content: space-between; ",
-      
-      # Contenidor lateral esquerra: llicència
-      div(
-        style = "font-family: 'Helvetica Now Display', sans-serif; font-style: bold; color: #5EAEFF; margin-left: 20px;", 
-        HTML("© 2024, 
-         <a href='https://web.gencat.cat/ca/inici' target='_blank' style='color: #5EAEFF;' title='Pàgina web de la Generalitat de Catalunya'>Generalitat Catalunya</a>,
-         <a href='https://salutweb.gencat.cat/ca/inici' target='_blank' style='color: #5EAEFF;' title='Pàgina web del Departament de Salut'>Departament de Salut</a>,
-         <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ca' target='_blank' style='color: #5EAEFF;' title='Informació sobre la llicència CC BY-NC-ND 4.0'>CC BY-NC-ND 4.0</a>")
-      ),
-      
-      # Contenidor lateral dret: xarxes socials
-      div(
-        style = "font-family: 'Helvetica Now Display', sans-serif; font-style: bold; color: #5EAEFF; margin-right: 20px; gap: 15px; display: flex;",
-        span("Segueix les xarxes socials de Salut:"),
-        tags$a(
-          href = "https://x.com/salutcat",
-          target = "_blank",
-          icon("x-twitter"),
-          style = "color: #5EAEFF; font-size: 16px;",
-          title = "Twitter Salut"
-        ),
-        tags$a(
-          href = "https://www.facebook.com/salutcat",
-          target = "_blank",
-          icon("facebook-f"),
-          style = "color: #5EAEFF; font-size: 16px;",
-          title = "Facebook Salut"
-        ),
-        tags$a(
-          href = "https://www.instagram.com/salut_cat/",
-          target = "_blank",
-          icon("instagram"),
-          style = "color: #5EAEFF; font-size: 16px;",
-          title = "Instagram Salut"
-        ),
-        tags$a(
-          href = "https://t.me/salutcat",
-          target = "_blank",
-          icon("telegram"),
-          style = "color: #5EAEFF; font-size: 16px;",
-          title = "Telegram Salut"
-        ),
-        tags$a(
-          href = "https://www.linkedin.com/company/salutcat",
-          target = "_blank",
-          icon("linkedin"),
-          style = "color: #5EAEFF; font-size: 16px;",
-          title = "LinkedIn Salut"
-        ),
-        tags$a(
-          href = "https://www.youtube.com/salutgeneralitat",
-          target = "_blank",
-          icon("youtube"),
-          style = "color: #5EAEFF; font-size: 16px;",
-          title = "YouTube Salut"
-        ),
-        tags$a(
-          href = "https://canalsalut.gencat.cat/ca/actualitat/butlletins/",
-          target = "_blank",
-          icon("file-lines"),
-          style = "color: #5EAEFF; font-size: 16px;",
-          title = "Butlletins de salut"
-        ),
-        tags$a(
-          href = "https://canalsalut.gencat.cat/ca/actualitat/xarxes-socials/",
-          target = "_blank",
-          icon("share-nodes"),
-          style = "color: #5EAEFF; font-size: 16px;",
-          title = "Xarxes socials"
-        )
-      )
-    )
-  ),
-  
-  # Estils dels selectInput
+  # Recursos addicionals i estils personalitzats 
   tags$head(
+    
+    # Bootstrap icons
+    tags$link(rel = "stylesheet", href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"),
+    
+    # CSS
     tags$style(HTML("
-    
-    /* Estil selectInput */
-    .selectize-dropdown .active {
-      background: #5EAEFF !important;
-      color: white !important;
-    }
-    .selectize-dropdown-content .option:hover {
-      background: #5EAEFF !important;
-      color: white !important;
-    }
-    
-    /* Estil encapçalat nivell 1 */
-    .header-level1-style {
-        font-family: 'Helvetica Now Display', sans-serif;
+      
+      /* Estils barra navegació */
+      .navbar {
+        border-bottom: 1px solid #CCCCCC;
+        height: 70px;
+        align-items: center;
+      }
+      
+      /* Separar logotip de pestanyes */
+      .navbar-brand {
+        margin-right: 20px;
+        margin-left: 10px; 
+      }
+      
+      /* Estils pestanyes barra navegació */
+      .navbar-nav .nav-link {
+        color: #5E5E5E;
+        font-size: 14px;
+        padding: 10px 15px 10px 25px;
+
+      }
+      .navbar-nav .nav-link.active {
+        color: #000000;
+        position: relative;
+      }
+      .navbar-nav .nav-link:hover {
+        background-color: #CCCCCC;
+        color: #000000;
+        cursor: pointer;
+      }
+      .nav-link i {
+        margin-right: 6px;
+      }
+      
+      /* Estil menú hamburguesa */
+      @media (max-width: 1200px) {
+        .navbar-collapse {
+          background-color: #f8f9fa;
+          opacity: 1;
+          padding: 10px 30px 15px 30px;
+          border-bottom: 1px solid #CCCCCC;
+          position: absolute;
+          top: 70px;
+          left: 0;
+          right: 0;
+          bottom: auto;
+          z-index: 1000;
+          transition: all 0.5s linear;
+        }
+        .navbar-collapse.collapsing {
+          opacity: 1;
+        }
+      }
+
+      /* Estil títols */
+      .title-style {
         font-style: bold;
-        font-size: 36px;
-        color: #5EAEFF;
-        background-color: white;
-        text-align: left;
-        margin-top: 0px; 
-        padding: 0px;
-    }
-    
-    /* Estil encapçalat nivell 2 */
-    .header-level2-style {
-        font-family: 'Helvetica Now Display', sans-serif;
-        font-style: bold;
-        font-size: 24px;
-        color: #5EAEFF;
-        background-color: white;
-        text-align: left;
-        margin-top: 0px; 
-        padding: 0px;
-    }
-    
-    /* Estil paràgraf nivell 1*/
-    .paragraph-level1-style {
-        font-family: 'Helvetica Now Display', sans-serif;
+        font-weight: 600;
+        color: #000000;
+      }
+      
+      /* Estil paràgraf*/
+      .paragraph-style {
         font-size: 16px;
         color: #5E5E5E;
         text-align: justify;
         line-height: 1.5;
-    }
+      }
       
-    /* Estil paràgraf nivell 2*/
-    .paragraph-level2-style {
-        font-family: 'Helvetica Now Display', sans-serif;
-        font-size: 14px;
-        color: #5E5E5E;
-        text-align: justify;
-        line-height: 1.5;
-    }
-    
-    /* Estil fórmules matemàtiques */
+      /* Estil botó primari */
+      .action-button-primary {
+        margin-top: 20px;
+        color: white;
+        background-color: #5EAEFF;
+        border: none;
+        border-radius: 20px;
+        padding: 8px 16px;
+        transition: background-color 0.3s;
+      }
+      .action-button-primary:hover {
+        background-color: #1565C0;
+      }
+      
+      /* Estil fórmules matemàtiques */
       .formula-container {
         display: flex;
         align-items: center;
         font-family: 'Helvetica Now Display', sans-serif;
-        font-size: 14px;
+        font-size: 16px;
         color: #5E5E5E;
+        margin-bottom: 20px;
       }
       .fraction {
         display: inline-block;
@@ -263,267 +134,253 @@ ui <- fluidPage(
         padding: 0 5px;
         text-align: center;
       }
-      
-  "))
+
+    "))
   ),
   
-  # Panell principal
-  mainPanel(
-    style = "margin-top: -40px; margin-bottom: 100px; margin-right: 0px; margin-left: 0px; width: 100%;",
+  # JavaScript
+  tags$script('
+  $(document).ready(function() {
     
-    # Conjunt de pestanyes
-    tabsetPanel(
+    // Funcions scroll
+    window.js = {
+      scrollToBottom: function() {
+        $("html, body").animate({ scrollTop: $(document).height() }, "smooth");
+      },
+      scrollToTop: function() {
+        $("html, body").animate({ scrollTop: 0 }, "smooth");
+      }
+    };
+
+    // Funcions menú hamburguesa
+    function setMenuHeight() {
+      const menuHeight = $(".navbar-collapse").height();
+      document.documentElement.style.setProperty("--menu-height", menuHeight + "px");
+    }
+    setMenuHeight();
+    $(window).resize(setMenuHeight);
+    $(".navbar-nav .nav-link").on("click", function() {
+      $(".navbar-collapse").collapse("hide");
+    });
+  });
+'),
+  
+  page_navbar(
+    
+    # Idioma català
+    lang = "ca",
+    
+    # Títol a la pestanya del navegador
+    window_title = "Indicadors de Salut Comunitària",
+    
+    # Barra navegació fixa
+    position = 'fixed-top',
+    
+    # Color fons barra navegació
+    bg = "#f8f9fa",
+    
+    # Visualització dispositiu
+    fillable = TRUE,
+    fillable_mobile = TRUE,
+    fluid = TRUE,
+    
+    # Disseny responsiu 
+    collapsible = TRUE,
+    
+    # Títol i logotip
+    title = tags$a(
+      href = "https://aquas.gencat.cat/ca/inici/",
+      target = "_blank",
+      img(
+        src = "https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/imatges/aquas_logotip.png",
+        height = "30px",
+        title = "Pàgina web d'AQuAS"
+      )
+    ),
+    
+    # Pestanya 'Inici'
+    nav_panel(
       
-      # ID per identificar les pestanyes
-      id = "tabs",
+      title = "Inici",
+      icon = icon("home"),
+      value = "tab_inici",
       
-      # Pestanya 'Inici'
-      tabPanel(
+      # Títol aplicació
+      div(
+        style = "height: 60px; margin: 45px -24px 0px -24px; width: calc(100% + 48px); display: flex; align-items: center; justify-content: center;
+                background: linear-gradient(135deg, #E3F2FD, #90CAF9); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);",
+        h1(
+          "Indicadors de Salut Comunitària",
+          style = "color: #1565C0; font-style: bold; font-weight: 600; letter-spacing: 0.5px; margin: 0;"
+        )
+      ),
+      
+      br(),
+      
+      # Card Presentació
+      div(
+        style = "margin-top: -20px",
+        card(
+
+          card_header(
+            div(
+              style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
+              icon("person-chalkboard", 
+                   style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
+              h2("Presentació", 
+                 class = "title-style",
+                 style = "margin: 0; padding: 0;")
+            )
+          ),
+          card_body(
+            div(
+              class = "paragraph-style",
+              p("Per desplegar l'orientació comunitària és essencial comptar amb dades fiables i robustes per àrees petites, que permetin una 
+                primera aproximació al diagnòstic comunitari."),
+              p("En el marc del Pla de Salut de Catalunya, s'han seleccionat i calculat un conjunt d'indicadors de salut comunitària a nivell d'àrees bàsiques de
+                salut (ABS).")
+            )
+          )
+        ),
         
-        # Títol de la pestanya
-        title = tagList(icon("home", style = "font-size: 18px;"), 
-                        span("Inici", 
-                             style = "font-family: 'Helvetica Now Display', sans-serif; font-style: bold; font-size: 18px; color: #5E5E5E;")), 
+        br(),
         
-        # Valor per identificar la pestanya
-        value = "tab_inici",
-        
-        # Contingut
-        div(
-          style = "margin-top: 20px; margin-bottom: 20px; margin-left: 15px; margin-right: 0px;",
+        # Cards Aplicació web i Estructura
+        layout_column_wrap(
+          width = 1/2,
+          style = css(grid_gap = "14px"),
           
-          # Presentació
+          # Card Aplicació web
           card(
             card_header(
-              h1("Presentació", 
-                 class = "header-level1-style")
-            ),
-            card_body(
               div(
-                class = "paragraph-level1-style",
-                p("Per desplegar l'orientació comunitària és essencial comptar amb dades fiables i robustes per àrees petites, que permetin una 
-                  primera aproximació al diagnòstic comunitari."),
-                p("En el marc del Pla de Salut de Catalunya, s’han seleccionat i calculat un conjunt d’indicadors bàsics a nivell d'Àrees Bàsiques de
-                  Salut (ABS), seguint el marc conceptual dels determinants socials de la salut."),
-                p(HTML("Per donar suport a aquest projecte, s'ha desenvolupat l’aplicació web interactiva <b>Indicadors de Salut Comunitària</b>, 
-                  creada mitjançant el paquet <a href='https://shiny.posit.co/' target='_blank' title='Pàgina web de Shiny' style='color: #5E5E5E; text-decoration: underline;'>Shiny</a> de R.
-                  Aquesta eina està pensada per facilitar la consulta, l'anàlisi i l’exportació intuïtiva de les dades disponibles sobre indicadors 
-                  bàsics de salut comunitària per ABS de l’any 2022 a Catalunya.")),
-                p("L’aplicació s’organitza en quatre pestanyes principals per optimitzar-ne l’ús:"),
-                tags$ul(
-                  style = "list-style-type: disc; padding-left: 20px;",
-                  tags$li(HTML("<b>Inici</b>: introducció al projecte i informació clau.")),
-                  tags$li(HTML("<b>Dades</b>: taula interactiva per consultar, filtrar i exportar dades.")),
-                  tags$li(HTML("<b>Anàlisi</b>: eina per crear visualitzacions personalitzades.")),
-                  tags$li(HTML("<b>Fitxes</b>: detall metodològic de cada indicador."))
-                )
+                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
+                icon("desktop", 
+                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
+                h2("Aplicació web", 
+                   class = "title-style",
+                   style = "margin: 0; padding: 0;")
               )
-            )
-          ),
-          
-          # Separador
-          div(
-            style = "border-top: 1px solid #CCCCCC; margin: 30px 0;",
-          ),
-          
-          # Autoria
-          card(
-            card_header(
-              h2("Autoria", 
-                 class = "header-level2-style",
-                 style = "margin-top: 10px;")
             ),
             card_body(
-              p(
-                class = "paragraph-level2-style",
-                "Grup de Treball d'Indicadors de Salut per ABS, format per:"
-              ),
-              tags$ul(
-                class = "paragraph-level2-style",
-                style = "padding-left: 20px;",
-                tags$li("Agència de Salut Pública de Catalunya (ASPCAT)."),
-                tags$li("Observatori del Sistema de Salut de Catalunya (OSSC), Agència de Qualitat i Avaluació sanitàries de Catalunya (AQuAS)."),
-                tags$li("Direcció General de Planificació en Salut, Departament de Salut."),
-                tags$li("Secretaria General, Departament de Salut.")
-              ),
-              p(
-                class = "paragraph-level2-style",
-                "Amb la col·laboració de l'Institut Català de la Salut (ICS) i l'Idescat."
-              )
-            )
-          ),
-          
-          br(),
-          
-          # Edicions
-          card(
-            card_header(
-              h2("Edicions", 
-                 class = "header-level2-style")
-            ),
-            card_body(
-              tags$ul(
-                class = "paragraph-level2-style",
-                style = "padding-left: 20px; margin-bottom: 0px",
-                tags$li("1a edició: Barcelona maig 2018."),
-                tags$li("2a edició: Barcelona abril 2021."),
-                tags$li("3a edició: Barcelona desembre 2024.")
-              )
-            )
-          ),
-          
-          br(),
-          
-          # Assessorament lingüístic
-          card(
-            card_header(
-              h2("Assessorament lingüístic", 
-                 class = "header-level2-style")
-            ),
-            card_body(
-              p(
-                class = "paragraph-level2-style",
-                "Servei de Planificació Lingüística del Departament de Salut."
-              )
-            )
-          ),
-          
-          br(),
-          
-          # URL
-          card(
-            card_header(
-              h2("URL", 
-                 class = "header-level2-style")
-            ),
-            card_body(
-              p(
+              class = "paragraph-style",
+              p("Per donar suport a aquest projecte, s'ha desenvolupat una aplicació web interactiva mitjançant el paquet Shiny de R.",
                 tags$a(
-                  href = "http://observatorisalut.gencat.cat/ca/observatori-desigualtats-salut/indicadors_comunitaria/",
-                  target = "_blank", "http://observatorisalut.gencat.cat/ca/observatori-desigualtats-salut/indicadors_comunitaria/",
-                  class = "paragraph-level2-style",
-                  title = "Pàgina web del projecte Indicadors de Salut Comunitària"
-                )
+                  href = "https://shiny.posit.co/",
+                  style = "margin-left: 5px;",
+                  icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
+                  title = "Pàgina web de Shiny",
+                  target = "_blank"
+                ),
+              ),
+              p("Aquesta aplicació està dissenyada per facilitar la consulta, l'anàlisi i l'exportació intuïtiva de les dades disponibles sobre indicadors 
+                 de salut comunitària per ABS de Catalunya.")
+            )
+          ),
+          
+          # Card Estructura
+          card(
+            card_header(
+              div(
+                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
+                icon("sitemap", 
+                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
+                h2("Estructura", 
+                   class = "title-style",
+                   style = "margin: 0; padding: 0;")
+              )
+            ),
+            card_body(
+              class = "paragraph-style",
+              p("L'aplicació s'estructura en quatre pestanyes principals:"),
+              tags$ul(
+                style = "list-style-type: none; padding-left: 0;",
+                tags$li(style = "margin-bottom: 10px;", icon("home", style = "color: #5E5E5E; margin-right: 10px;"), HTML("<b>Inici:</b> Introducció al projecte i informació clau.")),
+                tags$li(style = "margin-bottom: 10px;", icon("table", style = "color: #5E5E5E; margin-right: 10px;"), HTML("<b>Dades:</b> Taula de dades amb les ABS i els indicadors seleccionats.")),
+                tags$li(style = "margin-bottom: 10px;", icon("chart-column", style = "color: #5E5E5E; margin-right: 10px;"), HTML("<b>Anàlisi:</b> Eina per crear gràfics personalitzats.")),
+                tags$li(style = "margin-bottom: -10px;", icon("file-alt", style = "color: #5E5E5E; margin-right: 10px;"), HTML("<b>Fitxes:</b> Fitxes metodològiques de cada indicador."))
               )
             )
           )
-        )
-      ),
-      
-      # Pestanya 'Dades'
-      tabPanel(
-        # Títol de la pestanya
-        title = tagList(icon("table", style = "font-size: 18px;"), 
-                        span("Dades", 
-                             style = "font-family: 'Helvetica Now Display', sans-serif; font-style: bold; font-size: 18px; color: #5E5E5E;")), 
+        ),
         
-        # Estructura amb fila fluida: text
-        fluidRow(
-          style = "margin-top: 20px; margin-bottom: 20px; margin-left: 0px; margin-right: 0px;",
-          column(
-            width = 12,
-            card(
-              card_header(
-                h1("Taula de dades", 
-                   class = "header-level1-style")
-              ),
-              card_body(
-                p(
-                  class = "paragraph-level1-style",
-                  "En aquesta pestanya, podeu interactuar amb una taula que conté dades sobre diversos indicadors bàsics de salut comunitària per ABS de l'any 2022
-                  a Catalunya. Les dades d'aquesta taula interactiva es poden ordenar, filtrar, cercar i exportar en diferents formats."
-                )
+        br(),
+        
+        # Cards Autoria i Llicència
+        layout_column_wrap(
+          width = 1/2,
+          style = css(grid_gap = "14px"),
+          
+          # Card Autoria
+          card(
+            card_header(
+              div(
+                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
+                icon("users", 
+                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
+                h2("Autoria", 
+                   class = "title-style",
+                   style = "margin: 0; padding: 0;")
               )
-            )
-          )
-        ),
-        
-        # Separador
-        div(
-          style = "border-top: 1px solid #CCCCCC; margin: 30px 0;",
-        ),
-        
-        # Estructura amb fila fluida: filtres
-        fluidRow(
-          style = "margin-top: 20px; margin-bottom: 20px; margin-left: 0px; margin-right: 0px;",
-          column(
-            width = 4,
-            selectInput(
-              inputId = "filtre_abs",
-              label = HTML("<span style='font-family: \"Helvetica Now Display\", sans-serif; font-style: bold; 
-                           font-size: 24px; color: #5EAEFF;'>Àrees bàsiques de salut</span>"),
-              choices = c("Totes", unique(df$ABS)),
-              selected = "Totes",
-              width = "100%"
-            )
-          ),
-          column(
-            width = 4,
-            selectInput(
-              inputId = "filtre_ambits",
-              label = HTML("<span style='font-family: \"Helvetica Now Display\", sans-serif; font-style: bold; 
-                           font-size: 24px; color: #5EAEFF;'>Àmbits</span>"),
-              choices = c("Tots", unique(df$Àmbit)),
-              selected = "Tots",
-              width = "100%"
-            )
-          ),
-          column(
-            width = 4,
-            selectInput(
-              inputId = "filtre_indicadors",
-              label = HTML("<span style='font-family: \"Helvetica Now Display\", sans-serif; font-style: bold; 
-                           font-size: 24px; color: #5EAEFF;'>Indicadors</span>"),
-              choices = c("Tots", unique(df$Indicador)),
-              selected = "Tots",
-              width = "100%"
-            )
-          )
-        ),
-        
-        # Estructura amb fila fluida: taula de dades
-        fluidRow(
-          style = "margin-top: 20px; margin-bottom: 20px; margin-left: 0px; margin-right: 0px;",
-          column(
-            width = 12,
-            dataTableOutput("taula_dades")
-          )
-        )
-      ),
-      
-      # Pestanya 'Anàlisi'
-      tabPanel(
-        # Títol de la pestanya
-        title = tagList(icon("chart-column", style = "font-size: 18px;"), 
-                        span("Anàlisi", 
-                             style = "font-family: 'Helvetica Now Display', sans-serif; font-style: bold; font-size: 18px; color: #5E5E5E;")), 
-        
-        # Estructura amb files fluides: text
-        fluidRow(
-          style = "margin-top: 20px; margin-bottom: 20px; margin-left: 0px; margin-right: 0px;",
-          column(
-            width = 12,
-            card(
-              card_header(
-                h1("Anàlisi exploratòria de dades", 
-                   class = "header-level1-style")
+            ),
+            card_body(
+              class = "paragraph-style",
+              p("Grup de treball d'indicadors de salut per àrees bàsiques de salut, format per:"),
+              tags$ul(
+                style = "list-style-type: none; padding-left: 0;",
+                tags$li(
+                  style = "margin-bottom: 10px;",
+                  style = "display: flex; align-items: flex-start; gap: 10px;",
+                  icon("user-large", style = "color: #5E5E5E; min-width: 16px; margin-top: 4px;"),
+                  "Agència de Salut Pública de Catalunya (ASPCAT)."
+                ),
+                tags$li(
+                  style = "margin-bottom: 10px;",
+                  style = "display: flex; align-items: flex-start; gap: 10px;",
+                  icon("user-large", style = "color: #5E5E5E; min-width: 16px; margin-top: 4px;"),
+                  "Observatori del Sistema de Salut de Catalunya (OSSC), Agència de Qualitat i Avaluació Sanitàries de Catalunya (AQuAS)."
+                ),
+                tags$li(
+                  style = "margin-bottom: 10px;",
+                  style = "display: flex; align-items: flex-start; gap: 10px;",
+                  icon("user-large", style = "color: #5E5E5E; min-width: 16px; margin-top: 4px;"),
+                  "Direcció General de Planificació en Salut, Departament de Salut."
+                ),
+                tags$li(
+                  style = "margin-bottom: 5px;",
+                  style = "display: flex; align-items: flex-start; gap: 10px;",
+                  icon("user-large", style = "color: #5E5E5E; min-width: 16px; margin-top: 4px;"),
+                  "Secretaria General, Departament de Salut."
+                )
               ),
-              card_body(
-                div(
-                  class = "paragraph-level1-style",
-                  p(
-                    HTML("En aquesta pestanya, podeu analitzar de manera interactiva les dades dels indicadors bàsics de salut comunitària per ABS de l'any 2022 a Catalunya utilitzant
-                    <a href='https://github.com/Kanaries/GWalkR' target='_blank' title='GitHub del paquet GWalkR' style='color: #5E5E5E; text-decoration: underline;'>GWalkR</a>. 
-                    Aquest és un paquet de R que facilita l'anàlisi exploratòria de dades (Exploratory Data Analysis, EDA) mitjançant una interfície intuïtiva basada 
-                    en l'arrossegar i deixar anar variables als camps disponibles.")
-                  ),
-                  p(
-                    HTML("A la pestanya <code style='color: #5E5E5E;'>Visualization</code>, podeu filtrar les dades i establir relacions entre variables per generar gràfics personalitzats. 
-                    Per exemple, arrossegueu la variable <code style='color: #5E5E5E;'>Indicador</code> al camp <code style='color: #5E5E5E;'>Filters</code> i seleccioneu només el valor 
-                    <code style='color: #5E5E5E;'>Població assignada de 0-14 anys</code>. A continuació, arrossegueu les variables <code style='color: #5E5E5E;'>ABS</code> i 
-                    <code style='color: #5E5E5E;'>ABS homes</code> als camps <code style='color: #5E5E5E;'>X-Axis</code> i <code style='color: #5E5E5E;'>Y-Axis</code>, respectivament. 
-                    Finalment, feu clic als botons <code style='color: #5E5E5E;'>Aggregation</code> i <code style='color: #5E5E5E;'>Sort in Descending Order</code>, situats a la barra d'eines superior,
-                    per ordenar les ABS de major a menor població assignada d'homes de 0 a 14 anys en el gràfic de barres generat.")
+              p("Amb la col·laboració de l'Institut Català de la Salut (ICS) i l'Idescat.", style = "margin-top: -20px;")
+            )
+          ),
+          
+          # Card Llicència
+          card(
+            card_header(
+              div(
+                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
+                icon("creative-commons", 
+                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
+                h2("Llicència", 
+                   class = "title-style",
+                   style = "margin: 0; padding: 0;")
+              )
+            ),
+            card_body(
+              class = "paragraph-style",
+              p("© 2024, Generalitat de Catalunya. Departament de Salut."),
+              p("Els continguts d'aquesta obra estan subjectes a una llicència de Reconeixement-NoComercial-SenseObraDerivada 4.0 Internacional."),
+              div(
+                style = "text-align: left;",
+                a(
+                  href = "http://creativecommons.org/licenses/by-nc-nd/4.0/deed.ca' target='_blank' title='Informació llicència",
+                  target = "_blank",
+                  img(src = "https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/imatges/llicencia_logotip.png",
+                      height = "45px",
+                      title = "Pàgina web de la llicència Creative Commons"
                   )
                 )
               )
@@ -531,85 +388,656 @@ ui <- fluidPage(
           )
         ),
         
-        # Separador
-        div(
-          style = "border-top: 1px solid #CCCCCC; margin: 30px 0;",
+        br(),
+        
+        # Cards Edicions i Assessorament lingüístic
+        layout_column_wrap(
+          width = 1/2,
+          style = css(grid_gap = "14px"),
+          
+          # Card Edicions
+          card(
+            card_header(
+              div(
+                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
+                icon("book-open", 
+                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
+                h2("Edicions", 
+                   class = "title-style",
+                   style = "margin: 0; padding: 0;")
+              )
+            ),
+            card_body(
+              class = "paragraph-style",
+              tags$ul(
+                style = "list-style-type: none; padding-left: 0;",
+                tags$li(style = "margin-bottom: 10px;", icon("calendar-day", style = "color: #5E5E5E; margin-right: 10px;"), HTML("<b>1a edició:</b> Barcelona maig 2018.")),
+                tags$li(style = "margin-bottom: 10px;", icon("calendar-day", style = "color: #5E5E5E; margin-right: 10px;"), HTML("<b>2a edició:</b> Barcelona abril 2021.")),
+                tags$li(style = "margin-bottom: -10px;", icon("calendar-day", style = "color: #5E5E5E; margin-right: 10px;"), HTML("<b>3a edició:</b> Barcelona desembre 2024."))
+              )
+            )
+          ),
+          
+          # Card Assessorament lingüístic
+          card(
+            card_header(
+              div(
+                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
+                icon("language", 
+                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
+                h2("Assessorament lingüístic", 
+                   class = "title-style",
+                   style = "margin: 0; padding: 0;")
+              )
+            ),
+            card_body(
+              class = "paragraph-style",
+              p("Servei de Planificació Lingüística del Departament de Salut.")
+            )
+          )
         ),
         
-        # Estructura amb files fluides: GWalkR
-        fluidRow(
-          style = "margin-top: 20px; margin-bottom: 20px; margin-left: 0px; margin-right: 0px;",
-          column(
-            width = 12,
-            gwalkrOutput("analisi_exploratoria_dades_eda")
-          )
-        )
-      ),
-      
-      # Pestanya 'Fitxes'
-      tabPanel(
-        # Títol de la pestanya
-        title = tagList(icon("file-alt", style = "font-size: 18px;"), 
-                        span("Fitxes", 
-                             style = "font-family: 'Helvetica Now Display', sans-serif; font-style: bold; font-size: 18px; color: #5E5E5E;")), 
+        br(),
         
-        # Estructura amb fila fluida: text
-        fluidRow(
-          style = "margin-top: 20px; margin-bottom: 20px; margin-left: 0px; margin-right: 0px;",
-          column(
-            width = 12,
-            card(
-              card_header(
-                h1("Fitxes metodològiques", 
-                   class = "header-level1-style")
-              ),
-              card_body(
-                p(
-                  class = "paragraph-level1-style",
-                  "En aquesta pestanya, podeu consultar les fitxes metodològiques dels Indicadors de Salut Comunitària, 
-                  desenvolupades per l'Agència de Qualitat i Avaluació Sanitàries de Catalunya (AQuAS). Cada fitxa proporciona
-                  informació detallada sobre la descripció de l'indicador, la fórmula de càlcul, els criteris d'inclusió 
-                  i exclusió, les dimensions de desagregació, l'origen de les dades i altres comentaris o notes metodològiques 
-                  d'interès. Per accedir al contingut complet d'una fitxa, només cal que la seleccioneu al menú desplegable."
+        # Cards Més informació i Contacte
+        layout_column_wrap(
+          width = 1/2,
+          style = css(grid_gap = "14px"),
+          
+          # Card Més informació
+          card(
+            card_header(
+              div(
+                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
+                icon("circle-info", 
+                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
+                h2("Més informació",
+                   class = "title-style",
+                   style = "margin: 0; padding: 0;")
+              )
+            ),
+            card_body(
+              class = "paragraph-style",
+              span(
+                "Observatori de Desigualtats en Salut > Indicadors de salut comunitària",
+                tags$a(
+                  href = "http://observatorisalut.gencat.cat/ca/observatori-desigualtats-salut/indicadors_comunitaria/",
+                  style = "margin-left: 5px;",
+                  icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
+                  title = "Pàgina web del projecte Indicadors de salut comunitària",
+                  target = "_blank"
+                )
+              )
+            )
+          ),
+          
+          # Card Contacte
+          card(
+            card_header(
+              div(
+                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
+                icon("envelope", 
+                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
+                h2("Contacte", 
+                   class = "title-style",
+                   style = "margin: 0; padding: 0;")
+              )
+            ),
+            card_body(
+              class = "paragraph-style",
+              span(
+                "cdr.aquas@gencat.cat",
+                tags$a(
+                  href = "mailto:cdr.aquas@gencat.cat",
+                  style = "margin-left: 5px;",
+                  icon("paper-plane", style = "font-size: 16px; color: #5E5E5E;"),
+                  title = "Adreça de correu electrònic AQuAS",
+                  target = "_blank"
                 )
               )
             )
           )
         ),
         
-        # Separador
+        br(),
+        
+        # Peu pàgina xarxes socials
         div(
-          style = "border-top: 1px solid #CCCCCC; margin: 30px 0;",
+          style = "background-color: #f8f9fa; padding: 15px 0; width: calc(100% + 48px); border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; margin: 0 -24px;",
+          div(
+            style = "display: flex; justify-content: center; align-items: center; gap: 10px;",
+            span(
+              "Segueix-nos a les xarxes socials AQuAS:",
+              style = "color: #5E5E5E; font-size: 15px; margin-right: 30px;"
+            ),
+            a(
+              href = "https://x.com/AQuAScat",
+              target = "_blank",
+              img(
+                src = "https://aquas.gencat.cat/web/resources/fwkResponsive/fpca_peu_xarxesSocials/img/twitter-c.svg",
+                style = "height: 24px; width: 24px;"
+              ),
+              title = "Twitter",
+              style = "text-decoration: none;"
+            ),
+            a(
+              href = "https://www.linkedin.com/company/aquas-salut/",
+              target = "_blank",
+              img(
+                src = "https://aquas.gencat.cat/web/resources/fwkResponsive/fpca_peu_xarxesSocials/img/linkedin-c.svg",
+                style = "height: 24px; width: 24px;"
+              ),
+              title = "LinkedIn",
+              style = "text-decoration: none;"
+            ),
+            a(
+              href = "https://www.youtube.com/channel/UCLnTGcmpedzhLKkbIR-a0fw",
+              target = "_blank",
+              img(
+                src = "https://aquas.gencat.cat/web/resources/fwkResponsive/fpca_peu_xarxesSocials/img/youtube-c.svg",
+                style = "height: 24px; width: 24px;"
+              ),
+              title = "YouTube",
+              style = "text-decoration: none;"
+            ),
+            a(
+              href = "https://blog.aquas.cat/",
+              target = "_blank",
+              img(
+                src = "https://aquas.gencat.cat/web/resources/fwkResponsive/fpca_peu_xarxesSocials/img/message-c.svg",
+                style = "height: 24px; width: 24px;"
+              ),
+              title = "Blog",
+              style = "text-decoration: none;"
+            )
+          )
         ),
         
-        # Estructura amb fila fluida: filtre
+        # Peu pàgina informació complementària
         div(
-          style = "border: 1px solid #CCCCCC; border-radius: 12px; padding: 20px; background-color: #FFFFFF;",
-          fluidRow(
-            style = "margin-top: 20px; margin-bottom: 20px; margin-left: 0px; margin-right: 0px;",
-            column(
-              width = 4,
-              selectInput(
-                inputId = "filtre_fitxes",
-                label = h2("Indicador", 
-                           class = "header-level2-style"),
-                choices = c(
-                  "Població assignada" = "fitxa_poblacio_assignada",
-                  "Població de 18 anys i més atesa a centres ambulatoris de salut mental" = "fitxa_poblacio_atesa"
+          style = "background-color: #333333; color: #FFFFFF; padding: 5px 0; width: calc(100% + 48px); margin: 0 -24px;",
+          div(
+            style = "display: flex; justify-content: space-between; align-items: center; padding: 0 24px;",
+            div(
+              a(
+                img(
+                  src = "https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/imatges/gencat_logotip.png",
+                  height = "25px"
                 ),
-                selected = "fitxa_poblacio_assignada",
-                width = "100%"
+                href = "https://web.gencat.cat/",
+                target = "_blank",
+                title = "Pàgina web de la Generalitat de Catalunya"
               )
             ),
-            column(
-              width = 8,
-              uiOutput("fitxa_seleccionada")
+            div(
+              style = "text-align: center; font-size: 10px;",
+              "Agència de Qualitat i Avaluació Sanitàries de Catalunya, 2024"
+            ),
+            div(
+              style = "text-align: right; font-size: 10px; display: flex; align-items: center; gap: 8px;",
+              a(
+                "Avís legal",
+                href = "https://web.gencat.cat/ca/ajuda/avis_legal/",
+                target = "_blank",
+                style = "color: #FFFFFF; text-decoration: none;",
+                onmouseover = "this.style.textDecoration='underline'",
+                onmouseout = "this.style.textDecoration='none'",
+                title = "Avís legal de la Generalitat de Catalunya"
+              ),
+              span(
+                "|",
+                style = "color: #FFFFFF;"
+              ),
+              a(
+                "Política de galetes",
+                href = "https://web.gencat.cat/ca/ajuda/politica-de-galetes/",
+                target = "_blank",
+                style = "color: #FFFFFF; text-decoration: none;",
+                onmouseover = "this.style.textDecoration='underline'",
+                onmouseout = "this.style.textDecoration='none'",
+                title = "Política de galetes dels portals de la Generalitat de Catalunya"
+              )
             )
           )
         )
         
       )
+    ),
+    
+    # Pestanya 'Dades'
+    nav_panel(
+      title = "Dades",
+      icon = icon("table"),
+      value = "tab_dades",
+      
+      # Títol aplicació
+      div(
+        style = "height: 60px; margin: 45px -24px 0px -24px; width: calc(100% + 48px); display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, #E3F2FD, #90CAF9); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);",
+        h1(
+          "Indicadors de Salut Comunitària",
+          style = "color: #1565C0; font-style: bold; font-weight: 600; letter-spacing: 0.5px; margin: 0;"
+        )
+      ),
+      
+      br(),
+      
+      # Estructura amb fila fluida: text
+      fluidRow(
+        style = "margin-top: -20px;",
+        column(
+          width = 12,
+          card(
+            card_header(
+              div(
+                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
+                icon("table", 
+                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
+                h2("Taula de dades", 
+                   class = "title-style",
+                   style = "margin: 0; padding: 0;")
+              )
+            ),
+            card_body(
+              div(
+                class = "paragraph-style",
+                p("En aquesta pàgina, es pot visualitzar una taula de dades amb els indicadors de salut comunitària per àrees bàsiques de salut (ABS) de Catalunya."),
+                p("Els selectors permeten mostrar les dades d'interès. És possible fer seleccions múltiples. La taula de dades resultant es pot copiar, imprimir o exportar en diferents formats.")
+              )
+            )
+          )
+        )
+      ),
+      
+      # Estructura amb fila fluida: selectors
+      fluidRow(
+        style = "margin-top: 0px;",
+        column(
+          width = 12,
+          card(
+            class = "overflow-visible",
+            card_header(
+              div(
+                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
+                icon("list-check", 
+                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
+                h2("Selectors", 
+                   class = "title-style",
+                   style = "margin: 0; padding: 0;")
+              )
+            ),
+            card_body(
+              style = "overflow: visible;",
+              fluidRow(
+                style = "margin: 0px;",
+                column(
+                  width = 6,
+                  selectInput(
+                    inputId = "select_rs",
+                    label = div(
+                      class = "paragraph-style",
+                      icon("check", style = "color: #5E5E5E; margin-right: 10px;"), 
+                      HTML("<b>Pas 1:</b> Selecciona les regions sanitàries")
+                    ),
+                    choices = c("Totes", sort(as.character(unique(df$RS)))),
+                    selected = NULL,
+                    multiple = TRUE,
+                    width = "100%"
+                  )
+                ),
+                column(
+                  width = 6,
+                  selectInput(
+                    inputId = "select_abs",
+                    label = div(
+                      class = "paragraph-style",
+                      icon("check", style = "color: #5E5E5E; margin-right: 10px;"), 
+                      HTML("<b>Pas 2:</b> Selecciona les àrees bàsiques de salut")
+                    ),
+                    choices = c("Totes", unique(df$ABS)),
+                    selected = NULL,
+                    multiple = TRUE,
+                    width = "100%"
+                  )
+                ),
+                column(
+                  width = 6,
+                  selectInput(
+                    inputId = "select_ambits",
+                    label = div(
+                      class = "paragraph-style",
+                      icon("check", style = "color: #5E5E5E; margin-right: 10px;"), 
+                      HTML("<b>Pas 3:</b> Selecciona els àmbits")
+                    ),
+                    choices = c("Tots", unique(df$`Àmbit`)),
+                    selected = NULL,
+                    multiple = TRUE,
+                    width = "100%"
+                  )
+                ),
+                column(
+                  width = 6,
+                  selectInput(
+                    inputId = "select_indicadors",
+                    label = div(
+                      class = "paragraph-style",
+                      icon("check", style = "color: #5E5E5E; margin-right: 10px;"), 
+                      HTML("<b>Pas 4:</b> Selecciona els indicadors de salut comunitària")
+                    ),
+                    choices = c("Tots", unique(df$Indicador)),
+                    selected = NULL,
+                    multiple = TRUE,
+                    width = "100%"
+                  )
+                ),
+                column(
+                  width = 12,
+                  style = "text-align: right;",
+                  div(
+                    style = "display: flex; justify-content: flex-end; gap: 10px;",
+                    actionButton(
+                      "apply_selection",
+                      span(
+                        tags$i(class = "fa fa-check", style = "margin-right: 5px;"), 
+                        "Aplica la selecció"
+                      ),
+                      class = "action-button-primary",
+                      title = "Aplica la selecció actual"
+                    ),
+                    actionButton(
+                      "clear_selection",
+                      span(
+                        tags$i(class = "fa fa-eraser", style = "margin-right: 5px;"), 
+                        "Neteja la selecció"
+                      ),
+                      class = "action-button-primary",
+                      title = "Neteja la selecció actual"
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      ),
+      
+      # Estructura amb fila fluida: taula de dades
+      fluidRow(
+        style = "margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;",
+        column(
+          width = 12,
+          uiOutput("taula_container")
+        )
+      )
+    ),
+    
+    # Pestanya 'Anàlisi'
+    nav_panel(
+      title = "Anàlisi",
+      icon = icon("chart-column"),
+      value = "tab_analisi",
+      
+      # Títol aplicació
+      div(
+        style = "height: 60px; margin: 45px -24px 0px -24px; width: calc(100% + 48px); display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, #E3F2FD, #90CAF9); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);",
+        h1(
+          "Indicadors de Salut Comunitària",
+          style = "color: #1565C0; font-style: bold; font-weight: 600; letter-spacing: 0.5px; margin: 0;"
+        )
+      ),
+      
+      br(),
+      
+      # Estructura amb files fluides: text
+      fluidRow(
+        style = "margin-top: -20px;",
+        column(
+          width = 12,
+          # Card Anàlisi exploratòria de dades
+          card(
+            card_header(
+              div(
+                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
+                icon("chart-column", 
+                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
+                h2("Anàlisi exploratòria de dades", 
+                   class = "title-style",
+                   style = "margin: 0; padding: 0;")
+              )
+            ),
+            card_body(
+              div(
+                class = "paragraph-style",
+                p(
+                  "En aquesta pàgina, es poden analitzar de manera interactiva les dades dels indicadors de salut comunitària per àrees bàsiques de salut (ABS) de Catalunya utilitzant GWalkR.",
+                  tags$a(
+                    href = "https://github.com/Kanaries/GWalkR",
+                    style = "margin-left: 5px;",
+                    icon("github", style = "font-size: 16px; color: #5E5E5E;"),
+                    title = "GitHub del paquet GWalkR",
+                    target = "_blank"
+                  ),
+                ),
+                p(
+                  HTML("A la pestanya <code style='color: #5E5E5E;'>Visualization</code>, es pot filtrar les dades i establir relacions entre variables per generar gràfics personalitzats.")
+                )
+              )
+            )
+          )
+        )
+      ),
+      fluidRow(
+        style = "margin-top: 0px;",
+        column(
+          width = 12,
+          # Card Exemple
+          card(
+            card_header(
+              div(
+                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
+                icon("person-chalkboard", 
+                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
+                h2("Exemple", 
+                   class = "title-style",
+                   style = "margin: 0; padding: 0;")
+              )
+            ),
+            card_body(
+              class = "paragraph-style",
+              tags$ul(
+                style = "list-style-type: none; padding-left: 0;",
+                tags$li(
+                  style = "margin-bottom: 10px;",
+                  icon("check", style = "color: #5E5E5E; margin-right: 10px;"),
+                  HTML("<b>Pas 1:</b> Arrossega la variable <code style='color: #5E5E5E;'>Regió sanitària</code> al camp <code style='color: #5E5E5E;'>Filters</code>, 
+                  fes clic al botó <code style='color: #5E5E5E;'>Unselect All</code> i selecciona només el valor 
+                  <code style='color: #5E5E5E;'>Lleida</code>.")
+                ),
+                tags$li(
+                  style = "margin-bottom: 10px;",
+                  icon("check", style = "color: #5E5E5E; margin-right: 10px;"),
+                  HTML("<b>Pas 2:</b> Arrossega la variable <code style='color: #5E5E5E;'>Indicador</code> al camp <code style='color: #5E5E5E;'>Filters</code>, 
+                  fes clic al botó <code style='color: #5E5E5E;'>Unselect All</code> i selecciona només el valor 
+                  <code style='color: #5E5E5E;'>Població assignada de 0-14 anys</code>.")
+                ),
+                tags$li(
+                  style = "margin-bottom: 10px;",
+                  icon("check", style = "color: #5E5E5E; margin-right: 10px;"),
+                  HTML("<b>Pas 3:</b> Arrossega les variables <code style='color: #5E5E5E;'>Àrea bàsica de salut</code> i <code style='color: #5E5E5E;'>ABS homes</code> als camps 
+                  <code style='color: #5E5E5E;'>X-Axis</code> i <code style='color: #5E5E5E;'>Y-Axis</code>, respectivament.")
+                ),
+                tags$li(
+                  style = "margin-bottom: -10px;",
+                  icon("check", style = "color: #5E5E5E; margin-right: 10px;"),
+                  HTML("<b>Pas 4:</b> Fes clic als botons <code style='color: #5E5E5E;'>Aggregation</code>, <code style='color: #5E5E5E;'>Sort in Descending Order</code> 
+                  i <code style='color: #5E5E5E;'>Layout Mode: Container</code>, situats en 3a, 8a i 10a posició a la barra d'eines superior,
+                  per obtenir un gràfic de barres amb les ABS ordenades de major a menor població assignada d'homes de 0 a 14 anys.")
+                )
+              )
+            )
+          )
+        )
+      ),
+      
+      # Estructura amb files fluides: GWalkR
+      fluidRow(
+        style = "margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;",
+        column(
+          width = 12,
+          gwalkrOutput("analisi_exploratoria_dades_eda")
+        )
+      ),
+      
+      tags$div(style = "height: 10px;")
+    ),
+    
+    # Pestanya 'Fitxes'
+    nav_panel(
+      
+      title = "Fitxes",
+      icon = icon("file-alt"),
+      value = "tab_fitxes",
+      
+      # Títol aplicació
+      div(
+        style = "height: 60px; margin: 45px -24px 0px -24px; width: calc(100% + 48px); display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, #E3F2FD, #90CAF9); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);",
+        h1(
+          "Indicadors de Salut Comunitària",
+          style = "color: #1565C0; font-style: bold; font-weight: 600; letter-spacing: 0.5px; margin: 0;"
+        )
+      ),
+      
+      br(),
+      
+      # Card Fitxes metodològiques
+      fluidRow(
+        style = "margin-top: -20px;",
+        column(
+          width = 12,
+          card(
+            card_header(
+              div(
+                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
+                icon("file-alt", 
+                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
+                h2("Fitxes metodològiques", 
+                   class = "title-style",
+                   style = "margin: 0; padding: 0;")
+              )
+            ),
+            card_body(
+              div(
+                class = "paragraph-style",
+                p("En aquesta pàgina, es poden consultar les fitxes metodològiques dels indicadors de salut comunitària, desenvolupades per l'Agència de Qualitat i Avaluació Sanitàries de Catalunya (AQuAS)."),
+                p("Cada fitxa proporciona informació detallada sobre la descripció de l'indicador, la fórmula de càlcul, els criteris tècnics, el període i l'origen de les dades."),
+                p("Per accedir al contingut complet d'una fitxa determinada, només cal seleccionar l'indicador d'interès al menú desplegable o escriure el seu nom directament al menú.")
+              )
+            )
+          )
+        )
+      ),
+      
+      # Card selecció i visualització fitxa
+      fluidRow(
+        style = "margin-top: 0px; margin-bottom: 20px;",
+        column(
+          width = 12,
+          card(
+            class = "overflow-visible",
+            card_body(
+              style = "overflow: visible;",
+              selectInput(
+                inputId = "select_fitxes",
+                label = h2(
+                  icon("book-medical", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                  "Indicador de salut comunitària", class = "title-style", style = "margin-bottom: 5px;"
+                ),
+                choices = c(
+                  "Selecciona o escriu el nom d'un indicador" = "",
+                  "Activitat física saludable de la població de 15-69 anys (brut)" = "fitxa_SCES06",
+                  "Activitat física saludable de la població de 15-69 anys (estandarditzat)" = "fitxa_SCES07",
+                  "Adherència a la dieta mediterrània de la població de 15 anys i més (brut)" = "fitxa_SCES04",
+                  "Adherència a la dieta mediterrània de la població de 15 anys i més (estandarditzat)" = "fitxa_SCES05",
+                  "Cobertura vacunal de la població infantil" = "fitxa_SCPR01",
+                  "Consum de risc d'alcohol de població de 15 anys i més (brut)" = "fitxa_SCES02",
+                  "Consum de risc d'alcohol de població de 15 anys i més (estandarditzat)" = "fitxa_SCES03",
+                  "Esperança de vida en néixer" = "fitxa_SCMR05",
+                  "Gent gran que viu sola" = "fitxa_SCDE03",
+                  "Índex de sobreenvelliment" = "fitxa_SCDE02",
+                  "Índex socioeconòmic territorial" = "fitxa_SCSO03",
+                  "Mitjana de visites de la població assignada i atesa" = "fitxa_SCRE02",
+                  "Nombre de defuncions" = "fitxa_SCMR01",
+                  "Nombre de defuncions per COVID-19" = "fitxa_SCMR07",
+                  "Nombre de defuncions per suïcidi" = "fitxa_SCMR04",
+                  "Població amb autopercepció bona de la seva salut (brut)" = "fitxa_SCMO08",
+                  "Població amb autopercepció bona de la seva salut (estandarditzat)" = "fitxa_SCMO09",
+                  "Població amb autopercepció dolenta de la seva salut (brut)" = "fitxa_SCMO10",
+                  "Població amb autopercepció dolenta de la seva salut (estandarditzat)" = "fitxa_SCMO11",
+                  "Població amb excés de pes" = "fitxa_SCMO05",
+                  "Població amb nacionalitat d'un país en vies de desenvolupament" = "fitxa_SCDE04",
+                  "Població amb nivell d'instrucció insuficient" = "fitxa_SCSO02",
+                  "Població amb obesitat" = "fitxa_SCMO07",
+                  "Població amb sobrepès" = "fitxa_SCMO06",
+                  "Població assignada" = "fitxa_SCDE01",
+                  "Població assignada a l'EAP de 75 anys o més que ha estat atesa al programa ATDOM" = "fitxa_SCRE03",
+                  "Població assignada i atesa" = "fitxa_SCRE01",
+                  "Població atesa a centres ambulatoris de salut mental" = "fitxa_SCRE04",
+                  "Població consumidora de fàrmacs" = "fitxa_SCRE05",
+                  "Població consumidora de psicofàrmacs" = "fitxa_SCRE06",
+                  "Població consumidora de tabac de la població assignada a l'EAP de 15 anys i més" = "fitxa_SCES01",
+                  "Població de 0-14 anys atesa a atenció primària" = "fitxa_SCMO01",
+                  "Població de 15 anys i més amb dependència (brut)" = "fitxa_SCMO12",
+                  "Població de 15 anys i més amb dependència (estandarditzat)" = "fitxa_SCMO13",
+                  "Població de 15 anys i més amb diversitat funcional (brut)" = "fitxa_SCMO14",
+                  "Població de 15 anys i més amb diversitat funcional (estandarditzat)" = "fitxa_SCMO15",
+                  "Població de 15 anys i més atesa a atenció primària" = "fitxa_SCMO02",
+                  "Població de 18 anys i més atesa a centres ambulatoris de salut mental" = "fitxa_SCMO03",
+                  "Població exempta de copagament de farmàcia" = "fitxa_SCSO01",
+                  "Població menor de 18 anys atesa a centres ambulatoris de salut mental" = "fitxa_SCMO04",
+                  "Població polimedicada amb 10 ATC o més" = "fitxa_SCRE07",
+                  "Taxa bruta de mortalitat" = "fitxa_SCMR02",
+                  "Taxa de mortalitat ajustada" = "fitxa_SCMR06"
+                ),
+                selected = "",
+                width = "100%"
+              ), 
+              uiOutput("fitxa_seleccionada")
+            )
+          )
+        )
+      ),
+      
+      tags$div(style = "height: 10px;")
+      
+    ),
+    
+    # Icones dreta barra navegació
+    nav_spacer(),
+    nav_item(
+      tags$div(
+        style = "display: flex; flex-direction: column; margin-right: 10px;",
+        tags$div(
+          style = "margin-bottom: -5px;",
+          actionLink(
+            "anar_dalt",
+            icon("angle-up"),
+            style = "font-size: 20px; color: #5E5E5E; padding: 0px;",
+            title = "Anar a dalt"
+          )
+        ),
+        tags$div(
+          actionLink(
+            "anar_baix",
+            icon("angle-down"),
+            style = "font-size: 20px; color: #5E5E5E; padding: 0px;",
+            title = "Anar a baix"
+          )
+        )
+      )
     )
+    
   )
 )
 
@@ -618,135 +1046,370 @@ ui <- fluidPage(
 # Servidor de la Shiny app
 server <- function(input, output, session) {
   
-  # Funció 'Anar a l'inici' de la capçalera superior
-  observeEvent(input$anar_pestanya_inici, { 
-    updateTabsetPanel(session, "tabs", selected = "tab_inici") 
-  })
+  # Activar/desactivar mode depuració
+  debug_mode <- FALSE
   
-  # Funció 'Anar a baix' de la capçalera superior
+  # Funcions de scroll
   observeEvent(input$anar_baix, {
     shinyjs::runjs('js.scrollToBottom()')
   }, ignoreInit = TRUE)
   
-  #Funció 'Anar a dalt' de la capçalera superior
   observeEvent(input$anar_dalt, {
     shinyjs::runjs('js.scrollToTop()')
   }, ignoreInit = TRUE)
   
-  # Generar i mostrar la taula de dades interactiva
+  # Funció mostrar missatges modals
+  show_message <- function(title, message) {
+    showModal(modalDialog(
+      title = title,
+      message,
+      easyClose = TRUE,
+      footer = tags$button(
+        "D'acord",
+        class = "action-button-primary",
+        type = "button",
+        onclick = "Shiny.setInputValue('close_modal', Math.random());"
+      )
+    ))
+  }
+  observeEvent(input$close_modal, {
+    removeModal()
+  })
+  
+  # Observar canvis selecció RS
+  observeEvent(input$select_rs, {
+    if (debug_mode) {
+      print(paste("select_rs:", input$select_rs))
+    }
+    if (is.null(input$select_rs) || length(input$select_rs) == 0) {
+      print("Selector RS buit. Resetejar ABS")
+      updateSelectInput(session, "select_abs",
+                        choices = c("Totes", sort(as.character(unique(df$ABS)))),
+                        selected = NULL)
+      return()
+    }
+    if ("Totes" %in% input$select_rs && length(input$select_rs) > 1) {
+      prev_selection <- head(input$select_rs, -1)
+      show_message(
+        "Selecció no permesa",
+        "No es pot seleccionar 'Totes' juntament amb altres regions sanitàries. Es mantindrà la selecció prèvia."
+      )
+      updateSelectInput(session, "select_rs", selected = prev_selection)
+      return()
+    }
+    if ("Totes" %in% input$select_rs) {
+      print("Seleccionat 'Totes'. Mostra totes les ABS")
+      updateSelectInput(session, "select_abs",
+                        choices = c("Totes", sort(as.character(unique(df$ABS)))),
+                        selected = NULL)
+      return()
+    }
+    selected_abs <- sort(as.character(unique(df$ABS[df$RS %in% input$select_rs])))
+    print(paste("ABS vàlids:", selected_abs))
+    current_abs <- input$select_abs
+    valid_abs <- current_abs[current_abs %in% selected_abs]
+    updateSelectInput(session, "select_abs",
+                      choices = c("Totes", selected_abs),
+                      selected = valid_abs)
+  }, ignoreInit = TRUE)
+  
+  # Detecció selector RS buit
+  observe({
+    if (is.null(input$select_rs) || length(input$select_rs) == 0) {
+      print("Selector RS buit")
+      updateSelectInput(session, "select_abs",
+                        choices = c("Totes", sort(as.character(unique(df$ABS)))),
+                        selected = NULL)
+    }
+  })
+  
+  # Observar canvis selecció ABS
+  observeEvent(input$select_abs, {
+    print(paste("select_abs:", input$select_abs))
+    if (is.null(input$select_rs) || length(input$select_rs) == 0) {
+      print("No hi ha RS. Resetejar ABS")
+      show_message(
+        "Selecció no permesa",
+        "Cal seleccionar primer una o més regions sanitàries abans de seleccionar àrees bàsiques de salut."
+      )
+      updateSelectInput(session, "select_abs",
+                        choices = c("Totes", sort(as.character(unique(df$ABS)))),
+                        selected = NULL)
+      return()
+    }
+    if (!is.null(input$select_abs) && "Totes" %in% input$select_abs && length(input$select_abs) > 1) {
+      prev_selection <- head(input$select_abs, -1)
+      show_message(
+        "Selecció no permesa",
+        "No es pot seleccionar 'Totes' juntament amb altres àrees. Es mantindrà la selecció prèvia."
+      )
+      updateSelectInput(session, "select_abs", selected = prev_selection)
+      return() 
+    }
+  }, ignoreInit = TRUE)
+  
+  # Observar canvis selecció àmbits
+  observeEvent(input$select_ambits, {
+    if (debug_mode) {
+      print(paste("select_ambits:", input$select_ambits))
+    }
+    if (is.null(input$select_ambits) || length(input$select_ambits) == 0) {
+      print("Selector àmbits buit. Resetejar indicadors")
+      updateSelectInput(session, "select_indicadors",
+                        choices = c("Tots", sort(as.character(unique(df$Indicador)))),
+                        selected = NULL)
+      return()
+    }
+    if ("Tots" %in% input$select_ambits && length(input$select_ambits) > 1) {
+      prev_selection <- head(input$select_ambits, -1)
+      show_message(
+        "Selecció no permesa",
+        "No es pot seleccionar 'Tots' juntament amb altres àmbits. Es mantindrà la selecció prèvia."
+      )
+      updateSelectInput(session, "select_ambits", selected = prev_selection)
+      return()
+    }
+    if ("Tots" %in% input$select_ambits) {
+      print("Seleccionat 'Tots'. Mostra tots els indicadors")
+      updateSelectInput(session, "select_indicadors",
+                        choices = c("Tots", sort(as.character(unique(df$Indicador)))),
+                        selected = NULL)
+      return()
+    }
+    selected_indicadors <- sort(as.character(unique(df$Indicador[df$`Àmbit` %in% input$select_ambits])))
+    print(paste("Indicadors vàlids:", selected_indicadors))
+    current_indicadors <- input$select_indicadors
+    valid_indicadors <- current_indicadors[current_indicadors %in% selected_indicadors]
+    updateSelectInput(session, "select_indicadors",
+                      choices = c("Tots", selected_indicadors),
+                      selected = valid_indicadors)
+  }, ignoreInit = TRUE)
+  
+  # Detecció selector àmbits buit
+  observe({
+    if (is.null(input$select_ambits) || length(input$select_ambits) == 0) {
+      print("Selector àmbits buit")
+      updateSelectInput(session, "select_indicadors",
+                        choices = c("Tots", sort(as.character(unique(df$Indicador)))),
+                        selected = NULL)
+    }
+  })
+  
+  # Observar canvis selecció Indicador
+  observeEvent(input$select_indicadors, {
+    print(paste("select_indicadors:", input$select_indicadors))
+    if (is.null(input$select_ambits) || length(input$select_ambits) == 0) {
+      print("No hi ha àmbits. Resetejar indicadors")
+      show_message(
+        "Selecció no permesa",
+        "Cal seleccionar primer un o més àmbits abans de seleccionar indicadors de salut comunitària."
+      )
+      updateSelectInput(session, "select_indicadors",
+                        choices = c("Tots", sort(as.character(unique(df$Indicador)))),
+                        selected = NULL)
+      return()
+    }
+    if (!is.null(input$select_indicadors) && "Tots" %in% input$select_indicadors && length(input$select_indicadors) > 1) {
+      prev_selection <- head(input$select_indicadors, -1)
+      show_message(
+        "Selecció no permesa",
+        "No es pot seleccionar 'Tots' juntament amb altres indicadors. Es mantindrà la selecció prèvia."
+      )
+      updateSelectInput(session, "select_indicadors", selected = prev_selection)
+      return() 
+    }
+  }, ignoreInit = TRUE)
+  
+  # Crear variable reactiva per controlar la visibilitat de la taula
+  selection_applied <- reactiveVal(FALSE)
+  
+  # Observar botó aplica la selecció
+  observeEvent(input$apply_selection, {
+    showModal(modalDialog(
+      title = "Confirmar selecció",
+      "Segur que vols aplicar la selecció actual?",
+      easyClose = TRUE,
+      footer = tagList(
+        tags$button(
+          "Confirmar",
+          class = "action-button-primary",
+          type = "button",
+          onclick = "Shiny.setInputValue('confirm_apply', Math.random());"
+        ),
+        tags$button(
+          "Cancel·lar",
+          class = "action-button-primary",
+          type = "button",
+          onclick = "Shiny.setInputValue('cancel_apply', Math.random());"
+        )
+      )
+    ))
+  })
+  
+  # Observar cancel·lació selecció
+  observeEvent(input$cancel_apply, {
+    removeModal()
+  })
+  
+  # Observar confirmació selecció
+  observeEvent(input$confirm_apply, {
+    selection_applied(TRUE)
+    removeModal()
+  })
+  
+  # Observar botó netejar selecció
+  observeEvent(input$clear_selection, {
+    if (is.null(input$select_rs) && is.null(input$select_abs) && 
+        is.null(input$select_ambits) && is.null(input$select_indicadors)) {
+       show_message(
+        "Cap selecció activa",
+        "No hi ha cap selecció per netejar."
+      )
+    } else {
+      showModal(modalDialog(
+        title = "Confirmar neteja",
+        "Segur que vols netejar la selecció actual?",
+        easyClose = TRUE,
+        footer = tagList(
+          tags$button(
+            "Confirmar",
+            class = "action-button-primary",
+            type = "button",
+            onclick = "Shiny.setInputValue('confirm_clear', Math.random());"
+          ),
+          tags$button(
+            "Cancel·lar",
+            class = "action-button-primary",
+            type = "button",
+            onclick = "Shiny.setInputValue('cancel_clear', Math.random());"
+          )
+        )
+      ))
+    }
+  })
+  
+  # Observar cancel·lació neteja
+  observeEvent(input$cancel_clear, {
+    removeModal()
+  })
+  
+  # Observar confirmació neteja
+  observeEvent(input$confirm_clear, {
+    updateSelectInput(session, "select_rs", 
+                      choices = c("Totes", sort(as.character(unique(df$RS)))),
+                      selected = NULL)
+    updateSelectInput(session, "select_abs",
+                      choices = c("Totes", unique(df$ABS)),
+                      selected = NULL)
+    updateSelectInput(session, "select_ambits",
+                      choices = c("Tots", unique(df$`Àmbit`)),
+                      selected = NULL)
+    updateSelectInput(session, "select_indicadors",
+                      choices = c("Tots", unique(df$Indicador)),
+                      selected = NULL)
+    selection_applied(FALSE)
+    removeModal()
+  })
+  
+    # Gestionar la visualització condicional de la taula de dades
+  output$taula_container <- renderUI({
+    if (selection_applied()) {
+      dataTableOutput("taula_dades")
+    } else {
+      div(
+        style = "text-align: center; 
+               padding: 30px; 
+               color: #1565C0;
+               background: linear-gradient(135deg, #E3F2FD, #90CAF9);
+               border-radius: 10px;
+               box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+               margin-top: 0px;",
+        div(
+          style = "font-size: 16px; line-height: 1.5;",
+          HTML("
+          <i class='fas fa-info-circle' style='font-size: 24px; margin-bottom: 15px; color: #1565C0;'></i><br>
+          <span style='font-size: 16px; font-weight: 600;'>Seguint els passos, selecciona les regions, àrees, àmbits i indicadors d'interès, fes clic al botó <code style='color: #1565C0;'>Aplica la selecció</code> i confirma la selecció.</span><br>
+          <span style='font-size: 14px; color: #1976D2;'>Si no selecciones cap elements i confirmes, es mostrarà una taula amb totes les dades disponibles.</span><br>
+          <span style='font-size: 14px; color: #1976D2;'>Un cop es mostri la taula, podràs modificar les seleccions en temps real sense necessitat de confirmar.</span>
+        ")
+        )
+      )
+    }
+  })
+  
+  # Renderitzar la taula de dades amb les seleccions aplicades
   output$taula_dades <- renderDataTable({
     
-    # Filtrar el dataframe per ABS, àmbits i indicadors
-    df_filtrat <- df
-    
-    if (input$filtre_abs != "Totes") {
-      df_filtrat <- subset(df_filtrat, ABS == input$filtre_abs)
+    req(selection_applied())
+    dades_seleccionades <- df
+    if (!is.null(input$select_rs) && !("Totes" %in% input$select_rs)) {
+      dades_seleccionades <- subset(dades_seleccionades, RS %in% input$select_rs)
     }
-    
-    if (input$filtre_ambits != "Tots") {
-      df_filtrat <- subset(df_filtrat, Àmbit == input$filtre_ambits)
+    if (!is.null(input$select_abs) && !("Totes" %in% input$select_abs)) {
+      dades_seleccionades <- subset(dades_seleccionades, ABS %in% input$select_abs)
     }
-    
-    if (input$filtre_indicadors != "Tots") {
-      df_filtrat <- subset(df_filtrat, Indicador == input$filtre_indicadors)
+    if (!is.null(input$select_ambits) && !("Tots" %in% input$select_ambits)) {
+      dades_seleccionades <- subset(dades_seleccionades, `Àmbit` %in% input$select_ambits)
     }
-    
-    # Crear nom base per als arxius d'exportació
-    nom_arxiu <- paste0("indicadors_salut_abs_", 
-                        ifelse(input$filtre_abs == "Totes", 
-                               "totes", 
-                               tolower(gsub(" ", "_", 
-                                            gsub("-", "", 
-                                                 gsub(" - ", " ",
-                                                      iconv(input$filtre_abs, 
-                                                            to = "ASCII//TRANSLIT")))))))
+    if (!is.null(input$select_indicadors) && !("Tots" %in% input$select_indicadors)) {
+      dades_seleccionades <- subset(dades_seleccionades, Indicador %in% input$select_indicadors)
+    }
     
     # Definir les opcions de la taula
     datatable(
-      df_filtrat,
+      dades_seleccionades,
+      style = "default",
       extensions = 'Buttons',
       rownames = FALSE,
+      colnames = c("Regió sanitària", "Àrea bàsica de salut", names(dades_seleccionades)[3:ncol(dades_seleccionades)]), 
       options = list(
         autoWidth = FALSE,
-        pageLength = nrow(df_filtrat),
-        lengthMenu = list(
-          c(10, 25, 50, 100, 500, 1000, -1), 
-          c(10, 25, 50, 100, 500, 1000, "Tots")
-        ),
-        dom = 'Bflrtip',
+        pageLength = nrow(dades_seleccionades),
+        dom = 'Bfrti',
         initComplete = JS("function(settings, json) {
           // Estil 1a fila taula
           $(this.api().table().header()).css({
             'background-color': '#5EAEFF',
-            'color': 'white'
+            'color': '#FFFFFF'
           });
       
           // Espai vertical elements
-          $('.dt-buttons').css('margin-bottom', '25px');
-          $('.dataTables_length').css('margin-bottom', '25px');
-          $('.dataTables_filter').css('margin-bottom', '25px');
+          $('.dt-buttons').css('margin-bottom', '10px');
+          $('.dataTables_filter').css('margin-bottom', '10px');
+          $('.dataTables_info').css({'margin-top': '-10px', 'margin-bottom': '50px'}); 
       
-          // Posició selector longitud i barra cerca
-          $('.dt-buttons').css('float', 'left');
-          $('.dataTables_filter').css({
-            'float': 'right',
-            'margin-left': '40px'
-          });
-          $('.dataTables_length').css({
-            'float': 'right',
-            'margin-left': '20px'
-          });
-      
-          // Amplada selector longitud
-          $('.dataTables_length select').css({
-            'width': '60px',
-            'font-size': '14px'
-          });
-          
-          // Aplicar font-family elements
-          $('.dataTables_wrapper').css('font-family', '\"Helvetica Now Display\", sans-serif');
-          
-          // Color botons exportació i paginació
+          // Estil botons exportació
+          $('.dt-button').addClass('action-button-primary');
           $('<style>')
           .prop('type', 'text/css')
           .html(`
-                /* Estil per als botons de paginació no actius quan es passa el cursor */
-                .paginate_button:hover:not(.disabled):not(.current) {
-                  background: #5EAEFF !important;
-                  border-color: #949292 !important;
-                  color: white !important;
-                }
-    
-                /* Estil per al botó de paginació actiu sense passar el cursor */
-                .paginate_button.current {
-                  background: white !important;
-                  border-color: #949292 !important;
-                  color: #333333 !important;
-                }
-    
-                /* Estil per al botó de paginació actiu quan es passa el cursor */
-                .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover,
-                .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover span {
-                  background: #5EAEFF !important;
-                  border-color: #949292 !important;
-                  color: white !important;
-                }
-    
-                /* Forçar el color blanc al text del botó actiu quan es passa el cursor */
-                .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-                  background: #5EAEFF !important;
-                  background-color: #5EAEFF !important;
-                  color: white !important;
-                }
-                
-                /* Estil per als botons d'exportació */
-                .dt-button:hover {
-                  background: #5EAEFF !important;
-                  border-color: #949292 !important;
-                  color: white !important;
-                }
+            .dt-button.action-button-primary {
+              margin-top: 0px;
+              color: white !important;
+              background-color: #5EAEFF !important;
+              border: none !important;
+              border-radius: 20px !important;
+              padding: 8px 16px !important;
+              transition: background-color 0.3s !important;
+            }
+            .dt-button.action-button-primary:hover {
+              background-color: #1565C0 !important;
+              color: white !important;
+            }
           `)
           .appendTo('head');
+          
+          // Estil barra cerca
+          $('<style>')
+          .prop('type', 'text/css')
+          .html(`
+            .dataTables_filter input {
+              border: none;
+              outline: none;
+            }
+          `)
+          .appendTo('head');
+          
         }"),
         headerCallback = JS("function(thead, data, start, end, display) {
           // Línia capçalera
@@ -755,8 +1418,8 @@ server <- function(input, output, session) {
         buttons = list(
           list(
             extend = "copy", 
-            text = "Còpia",
-            titleAttr = "Copiar la taula de dades al portapapers",
+            text = '<i class="fa fa-copy"></i> Còpia',
+            titleAttr = "Copia la taula de dades al porta-retalls",
             title = NULL,
             exportOptions = list(
               orthogonal = 'export'
@@ -764,48 +1427,48 @@ server <- function(input, output, session) {
           ),
           list(
             extend = "csv", 
-            text = "CSV",
-            titleAttr = "Exportar la taula de dades en format CSV",
-            filename = nom_arxiu,
+            text = '<i class="fa fa-file-csv"></i> CSV',
+            titleAttr = "Exporta la taula de dades en format CSV",
+            filename = "dades_indicadors_salut_comunitaria",
             title = NULL,
             exportOptions = list(
               charset = "UTF-8",
               orthogonal = 'export'
             ),
             customize = JS("function(csv) {
-              return '\ufeff' + csv;
+              var header = 'regio_sanitaria,area_basica_salut,ambit,indicador,mesura,abs_homes,abs_dones,abs_total,catalunya_homes,catalunya_dones,catalunya_total\\n';
+              return '\ufeff' + header + csv.split('\\n').slice(1).join('\\n');
             }")
           ),
           list(
             extend = "excel", 
-            text = "XLSX",
-            titleAttr = "Exportar la taula de dades en format XLSX (Excel)",
-            filename = nom_arxiu,
+            text = '<i class="fa fa-file-excel"></i> XLSX',
+            titleAttr = "Exporta la taula de dades en format XLSX (Excel)",
+            filename = "dades_indicadors_salut_comunitaria",
             title = NULL,
             exportOptions = list(
               orthogonal = 'export'
-            )
+            ),
+            customize = JS("function(xlsx) {
+              var sheet = xlsx.xl.worksheets['sheet1.xml'];
+              var headers = ['regio_sanitaria', 'area_basica_salut', 'ambit', 'indicador', 'mesura', 'abs_homes', 'abs_dones', 'abs_total', 'catalunya_homes', 'catalunya_dones', 'catalunya_total'];
+              $('row:first c', sheet).each(function(i) {
+                $(this).find('t').text(headers[i]);
+              });
+            }")
           ),
           list(
             extend = "pdf", 
-            text = "PDF vertical",
-            titleAttr = "Exportar la taula de dades en format PDF amb orientació vertical",
-            filename = nom_arxiu,
-            title = NULL,
-            orientation = "portrait"
-          ),
-          list(
-            extend = "pdf", 
-            text = "PDF horitzontal",
-            titleAttr = "Exportar la taula de dades en format PDF amb orientació horitzontal",
-            filename = nom_arxiu,
+            text = '<i class="fa fa-file-pdf"></i> PDF',
+            titleAttr = "Exporta la taula de dades en format PDF",
+            filename = "dades_indicadors_salut_comunitaria",
             title = NULL,
             orientation = "landscape"
           ),
           list(
             extend = "print", 
-            text = "Imprimeix",
-            titleAttr = "Imprimir la taula de dades",
+            text = '<i class="fa fa-print"></i> Imprimeix',
+            titleAttr = "Imprimeix la taula de dades",
             title = "",
             messageTop = NULL,
             messageBottom = NULL
@@ -813,17 +1476,9 @@ server <- function(input, output, session) {
         ),
         language = list(
           search = "<i class='glyphicon glyphicon-search'></i>",
-          lengthMenu = "Mostrar _MENU_ registres",
-          info = "Regitres _START_ a _END_ de _TOTAL_ disponibles",
+          info = "Registres seleccionats: _TOTAL_",
           infoEmpty = "No hi ha registres disponibles",
           thousands = ".",
-          infoFiltered = "(filtrat de _MAX_ registres en total)",
-          paginate = list(
-            first = "Primer",
-            last = "Últim",
-            `next` = "Següent",
-            previous = "Anterior"
-          ),
           zeroRecords = "No s'han trobat registres coincidents",
           emptyTable = "No hi ha dades disponibles a la taula",
           buttons = list(
@@ -835,10 +1490,11 @@ server <- function(input, output, session) {
           )
         ),
         columnDefs = list(
-          list(className = 'dt-left', targets = 0:2), 
-          list(className = 'dt-center', targets = 3:8),
+          list(visible = FALSE, targets = 0),
+          list(className = 'dt-left', targets = 1:4), 
+          list(className = 'dt-center', targets = 5:10),
           list(
-            targets = 3:8,
+            targets = 5:10,
             render = JS("function(data, type, row) {
               if (type === 'export') {
                 return data;
@@ -859,65 +1515,1731 @@ server <- function(input, output, session) {
   })
   
   # Mostrar GWalkR
-  output$analisi_exploratoria_dades_eda = renderGwalkr(
-    gwalkr(df)
-  )
+  output$analisi_exploratoria_dades_eda = renderGwalkr({
+    df_renamed <- df %>%
+      rename(
+        "Regió sanitària" = RS,
+        "Àrea bàsica de salut" = ABS
+      )
+    gwalkr(df_renamed)
+  })
   
   # Mostrar fitxa seleccionada
   output$fitxa_seleccionada <- renderUI({
-    switch(input$filtre_fitxes,
+    
+    if (input$select_fitxes == "") {
+      return(NULL)
+    }
+    
+    switch(input$select_fitxes,
            
-           "fitxa_poblacio_assignada" = card(
-             card_body(
-               div(
-                 class = "paragraph-level2-style",
-                 h2("Descripció", class = "header-level2-style"),
-                 p("Població assignada a un equip d'atenció primària (EAP) que ha estat assignada per aquest equip en l'any d'estudi."),
-                 
-                 h2("Fórmula", class = "header-level2-style"),
-                 p("Població assignada a l'EAP."),
-                 
-                 h2("Origen de les dades", class = "header-level2-style"),
-                 p("Registre central de persones assegurades (RCA). Servei Català de la Salut.")
-               )
-             )
+           "fitxa_SCDE01" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Població assignada a un equip d’atenció primària (EAP) que ha estat assignada per aquest equip en l’any d’estudi.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             p("Població assignada a l'EAP.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS. El nivell socioeconòmic individual es calcula tenint en compte el nivell de renda individual, 
+               la situació laboral actual (relació amb la Seguretat Social) i el copagament farmacèutic.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Registre Central d’Assegurats (RCA), Servei Català de la Salut (CatSalut).",
+               style = "margin-bottom: 0px; text-align: justify;")
            ),
            
-           "fitxa_poblacio_atesa" = card(
-             card_body(
+           "fitxa_SCDE02" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Indicador demogràfic que mesura el grau de sobreenvelliment d'una població d'edat avançada. Aquest índex ajuda a identificar 
+               les necessitats específiques dels grups de població molt longeva, que sovint requereixen més atenció sanitària i serveis socials.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
                div(
-                 class = "paragraph-level2-style",
-                 h2("Descripció", class = "header-level2-style"),
-                 p("Percentatge de la població de 18 anys o més que ha estat atesa per un centre de salut mental d'adults (CSMA)."),
-                 
-                 h2("Fórmula", class = "header-level2-style"),
+                 class = "fraction",
                  div(
-                   class = "formula-container",
-                   div(
-                     class = "fraction",
-                     div(
-                       class = "fraction-top",
-                       "Nombre de persones de 18 anys o més amb el diagnòstic seleccionat ateses per un CSMA"
-                     ),
-                     div(
-                       class = "fraction-bottom",
-                       "Població de 18 anys o més"
-                     )
-                   ),
-                   "× 100"
+                   class = "fraction-top",
+                   "Població assegurada de 85 anys i més "
                  ),
-                 
-                 h2("Comentaris", class = "header-level2-style"),
-                 p("L'indicador es calcula per territori de residència del pacient (àrea bàsica de salut i agrupacions superiors) i per CSMA. L'indicador per territori de residència del pacient té en compte l'activitat realitzada pels pacients a qualsevol centre, no únicament el seu centre de referència. L'indicador per CSMA només té en compte l'activitat que ha realitzat aquell centre amb la seva població de referència. La població de referència d'un CSMA és la població assignada als equips d'atenció primària que poden derivar pacients a aquest centre."),
-                 
-                 h2("Dimensions de desagregació", class = "header-level2-style"),
-                 p("Per centre; per diagnòstics seleccionats (trastorn per esquizofrènia, trastorn depressiu, trastorn bipolar, altres trastorns de l'estat d'ànim, ansietat i trastorns de la por, trastorn obsessivocompulsiu, trastorns per traumes i estrès, trastorns de conducta, trastorns de la personalitat, trastorns de la conducta alimentària, trastorns somàtics, idees suïcides, trastorns de comportament, trastorns del neurodesenvolupament); per sexe; per grup d'edat."),
-                 
-                 h2("Origen de les dades", class = "header-level2-style"),
-                 p("Registre del conjunt mínim bàsic de dades de salut mental (CMBD SM) i Registre Central d'Assegurats (RCA). Servei Català de la Salut (CatSalut).")
+                 div(
+                   class = "fraction-bottom",
+                   "Població assegurada de 65 anys i més"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Registre Central d’Assegurats (RCA), Servei Català de la Salut (CatSalut).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCDE03" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Indicador demogràfic que proporciona informació sobre les condicions de vida de la població gran i pot ser interpretat com una mesura d'autonomia
+               i vulnerabilitat, ja que pot reflectir una situació de risc, viure sol pot augmentar la probabilitat d'aïllament social, dificultats per accedir a 
+               recursos o falta d'assistència en cas de necessitats mèdiques o urgents.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població de 75 anys i més que viu sola"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població de totes les edats"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe, grup d'edat (65-74 anys, 75-84 anys, 85 anys i més) i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Institut d'Estadística de Catalunya (Idescat).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCDE04" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Indicador demogràfic que permet identificar necessitats específiques i planificar recursos i serveis sanitaris adequats per a aquesta població.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població del grup d'edat determinat amb nacionalitat d'un país en via de desenvolupament"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població del mateix grup d'edat"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe, grup d'edat (0-14 anys, 15-44 anys, 45-64 anys i 65 anys i més) i ABS. Es consideren països en via de desenvolupament: 
+               Afganistan, Algèria, Angola, Anguilla, Antigua i Barbuda, Antilles Neerlandeses, Aràbia Saudita, Argentina, Armènia, Aruba, Azerbaidjan, 
+               Bahames, Bahrain, Bangladesh, Barbados, Belize, Benín, Bhutan, Bolívia, Botswana, Brasil, Brunei, Burkina Faso, Burundi, Cambodja, Camerun, 
+               Cap Verd, Colòmbia, Comores, Congo, Corea del Nord, Corea del Sud, Costa d'Ivori, Costa Rica, Cuba, Djibouti, Dominica, Egipte, El Salvador, 
+               Emirats Àrabs Units, Equador, Eritrea, Etiòpia, Fiji, Filipines, Gabon, Gàmbia, Geòrgia, Ghana, Grenada, Guadalupe, Guaiana Francesa, Guam, 
+               Guatemala, Guinea, Guinea Equatorial, Guinea Bissau, Guyana, Haití, Hondures, Hong Kong, Xina, Iemen, Illes Caiman, Illes Cook, Illes Falkland (Malvines), 
+               Illes Mariannes del Nord, Illes Marshall, Illes Salomó, Illes Turks i Caicos, Illes Verges Britàniques, Illes Verges dels Estats Units, Índia, 
+               Indonèsia, Iran, Iraq, Israel, Jamaica, Jordània, Kazakhstan, Kenya, Kirguizistan, Kiribati, Kuwait, Laos, Lesotho, Líban, Libèria, Líbia, 
+               Macau, Xina, Madagascar, Malàisia, Malawi, Maldives, Mali, Marroc, Martinica, Maurici, Mauritània, Mayotte, Mèxic, Micronèsia, Moçambic, 
+               Mongòlia, Montserrat, Myanmar, Namíbia, Nauru, Nepal, Nicaragua, Níger, Nigèria, Niue, Nova Caledònia, Oman, Pakistan, Palau, Panamà, 
+               Papua Nova Guinea, Paraguai, Perú, Pitcairn, Polinèsia Francesa, Puerto Rico, Qatar, República Centreafricana, República Democràtica del Congo, 
+               República Dominicana, Reunió, Ruanda, Sàhara Occidental, Saint Helena, Ascensió i Tristan da Cunha, Saint Christopher i Nevis, Saint Lucia, 
+               Saint Vincent i les Grenadines, Saint Barthélemy, Saint-Martin, Samoa, Samoa Nord-americana, São Tomé i Príncipe, Senegal, Seychelles, Sierra Leone, 
+               Singapur, Síria, Somàlia, Sri Lanka, Sud-àfrica, Sudan del Sud, Sudan, Surinam, Swazilàndia, Tadjikistan, Tailàndia, Taiwan, Tanzània, 
+               Territoris Palestins o Palestina, Timor Oriental, Togo, Tokelau, Tonga, Trinitat i Tobago, Tunísia, Turkmenistan, Turquia, Tuvalu, Txad, Uganda, 
+               Uruguai, Uzbekistan, Vanuatu, Veneçuela, Vietnam, Wallis i Futuna, Xile, Xina, Zàmbia i Zimbàbue.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Institut d'Estadística de Catalunya (Idescat).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCSO01" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Aquest indicador ens informa de les persones que degut a la seva situació econòmica vulnerable estan exemptes de copagament farmacèutic. 
+               Són persones que principalment es troben en alguna situació següent: perceptores de rendes de d'integració social, perceptores de pensió 
+               no contributiva, en atur i que han perdut el dret a percebre el subsidi d'atur o beneficiaries de l'ingrés mínim vital.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població exempta de copagament de farmàcia"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població assegurada"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Registre Central d'Assegurats (RCA).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCSO02" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Es considera nivell d'instrucció insuficient si l'individu no sap llegir o escriure, o té estudis primaris (nivells 0 i 1 de la classificació CCED-2014 (A).",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població del grup d'edat determinat amb nivell d'instrucció insuficient"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població del mateix grup d'edat"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe, grup d'edat (16-44, 45-64, 65-74 i 75 anys i més) i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Institut d'Estadística de Catalunya (Idescat).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCSO03" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("L'índex socioeconòmic territorial (IST) és un índex sintètic que es defineix com una ponderació de sis indicadors de situació laboral, nivell d'estudis, immigració i renda:",
+               style = "margin-bottom: 10px; text-align: justify;"),
+             
+             tags$ul(
+               tags$li("Població ocupada."),
+               tags$li("Treballadors de baixa qualificació."),
+               tags$li("Població amb estudis baixos."),
+               tags$li("Població jove sense estudis postobligatoris."),
+               tags$li("Estrangers de països de renda baixa o mitjana."),
+               tags$li("Renda mitjana per persona."),
+               style = "margin-bottom: 10px;"
+             ),
+             
+             p("La metodologia utilitzada per al càlcul de l'IST ha estat l'anàlisi de components principals a partir de les seccions censals.",
+               style = "margin-bottom: 10px; text-align: justify;"),
+             
+             p("L'IST és un índex sintètic per petites àrees que resumeix en un únic valor diverses característiques socioeconòmiques de la població resident en un territori
+               i quantifica les diferències dins de Catalunya. El valor mitjà del conjunt de Catalunya és 100; per tant, quan un valor de l'IST és inferior a 100 equival a un nivell 
+               socioeconòmic inferior a la mitjana catalana, i com més baix sigui el valor de l'IST més baix és el nivell socioeconòmic del territori que representa. 
+               Per a l'anàlisi de resultats s'han definit 6 categories de nivell socioeconòmic segons el valor de l'IST: molt baix (menor de 75), baix (de 75 a 90), 
+               mitjà baix (de 90 a 100), mitjà alt (de 100 a 110), alt (de 110 a 125) i molt alt (major de 125).",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             p("—",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2020",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("—",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMO01" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Població de 0 a 14 anys assignada i atesa per alguna de les següents patologies: altres hèrnies abdominals, trastorns de refracció,
+               deformitats adquirides columna, deformitats adquirides extremitats, migranya, síndrome del túnel carpià, trastorn ansietat i angoixa, 
+               ceguesa, fòbia o trastorn compulsiu, hipertròfia amígdales/adenoides, asma, rinitis al·lèrgica, síndrome apnea del son, obesitat, 
+               hipotiroïdisme/mixedema, alteracions del metabolisme lipídic, criptorquídia, trastorns hipercinètics o osteocondrosi.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població de 0 a 14 anys atesa a atenció primària segons diagnòstics seleccionats"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població de 0 a 14 anys assignada a l'equip d'atenció primària"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Estació Clínica d'Atenció Primària (ECAP).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMO02" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Població de 15 anys i més assignada i atesa per alguna de les següents patologies: alteracions del metabolisme lipídic, diabetis no 
+               insulinodependent, depressió, altres malalties del cor, altres artrosis, hipertròfia prostàtica benigna, hipotiroïdisme/mixedema, 
+               hipertensió arterial no complicada, trastorn ansietat/angoixa/estat ansiós, osteoporosis, rinitis al·lèrgica, varius a les cames, obesitat.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població de 15 anys i més atesa a atenció primària segons diagnòstics seleccionats"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població de 15 anys i més assignada a l'equip d'atenció primària"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Estació Clínica d'Atenció Primària (ECAP).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMO03" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Població de 18 anys i més assignada i atesa per alguna de les següents patologies: depressió, ansietat, esquizofrènia, 
+               altres psicosis, trastorn bipolar, demència.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població de 18 anys i més atesa a CSM segons diagnòstics seleccionats"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població de 18 anys i més atesa a CSM"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Estació Clínica d'Atenció Primària (ECAP).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMO04" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Trastorn de conducta alimentària, trastorn de conducta, trastorn de l'espectre autista, dèficit d'atenció i/o hiperactivitat, trastorn adaptatiu.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població de menys de 18 anys atesa a CSM segons diagnòstics seleccionats"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població de menys de 18 anys atesa a CSM"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Estació Clínica d'Atenció Primària (ECAP).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMO05" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Població assignada amb sobrepès o obesitat.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població amb sobrepès o obesitat"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població assignada a l'equip d'atenció primària"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe, grup d'edat (6-12 anys i 18-74 anys) i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Estació Clínica d'Atenció Primària (ECAP).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMO06" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("L'indicador es calcula de manera diferent depenent del grup d'edat.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població amb sobrepès"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població assignada a l'equip d'atenció primària"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe, grup d'edat (6-12 anys i 18-74 anys) i ABS. Pel grup d'edat de 18 a 74 anys es calcula com la població assignada i atesa amb 
+               un Índex de massa corporal (IMC) > 25 i ≤ 30 o un codi diagnòstic d'augment anormal de pes. Pels infants de 6 a 12 anys es calcula com la població 
+               assignada i atesa amb un pes entre el percentil 90 i 95 o un codi diagnòstic d'augment anormal de pes.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Estació Clínica d'Atenció Primària (ECAP).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMO07" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("L'indicador es calcula de manera diferent depenent del grup d'edat.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població de 18-74 anys amb un IMC > 30 o un codi diagnòstic d'obesitat"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població de 18-74 anys assignada a l'equip d'atenció primària"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe, grup d'edat (6-12 anys i 18-74 anys) i ABS. Pel grup d'edat de 18 a 74 anys es calcula com la població assignada i atesa amb 
+               un Índex de massa corporal (IMC) > 25 i ≤ 30 o un codi diagnòstic d'augment anormal de pes. Pels infants de 6 a 12 anys es calcula com la població 
+               assignada i atesa amb un pes per sobre el percentil 95 o un codi diagnòstic d'obesitat.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Estació Clínica d'Atenció Primària (ECAP).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMO08" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("La dada s'obté de preguntar: «Com diria vostè que és la seva salut en general?». Es considera percepció positiva de la salut quan s'ha contestat 
+               «excel·lent», «molt bona» o «bona», i percepció negativa quan es respon «regular» o «dolenta».",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població amb autopercepció bona de la salut"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població total"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2019-2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Enquesta de Salut de Catalunya (ESCA).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMO09" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("La dada s'obté de preguntar: «Com diria vostè que és la seva salut en general?». Es considera percepció positiva de la salut quan s'ha contestat 
+               «excel·lent», «molt bona» o «bona», i percepció negativa quan es respon «regular» o «dolenta».",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població amb autopercepció bona de la salut"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població total"
+                 )
+               ),
+               "× 100 + Interval de confiança al 95%"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2019-2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Enquesta de Salut de Catalunya (ESCA).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMO10" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("La dada s'obté de preguntar: «Com diria vostè que és la seva salut en general?». Es considera percepció positiva de la salut quan s'ha contestat 
+               «excel·lent», «molt bona» o «bona», i percepció negativa quan es respon «regular» o «dolenta».",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població amb autopercepció dolenta de la salut"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població total"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2019-2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Enquesta de Salut de Catalunya (ESCA).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMO11" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("La dada s'obté de preguntar: «Com diria vostè que és la seva salut en general?». Es considera percepció positiva de la salut quan s'ha contestat 
+               «excel·lent», «molt bona» o «bona», i percepció negativa quan es respon «regular» o «dolenta».",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població amb autopercepció dolenta de la salut"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població total"
+                 )
+               ),
+               "× 100 + Interval de confiança al 95%"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2019-2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Enquesta de Salut de Catalunya (ESCA).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMO12" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("S'obté mitjançant una pregunta sobre la necessitat d'ajuda o de companyia per realitzar activitats habituals de la vida quotidiana a causa d'un problema de salut.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població amb dependència"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població total"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2019-2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Enquesta de Salut de Catalunya (ESCA).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMO13" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("S'obté mitjançant una pregunta sobre la necessitat d'ajuda o de companyia per realitzar activitats habituals de la vida quotidiana a causa d'un problema de salut.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població amb dependència"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població total"
+                 )
+               ),
+               "× 100 + Interval de confiança al 95%"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2019-2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Enquesta de Salut de Catalunya (ESCA).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMO14" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("S'estima a partir d'una llista amb onze tipus diferents de limitacions greus que afecten de manera permanent la capacitat per desenvolupar activitats quotidianes.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població amb diversitat funcional"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població total"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2019-2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Enquesta de Salut de Catalunya (ESCA).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMO15" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("S'estima a partir d'una llista amb onze tipus diferents de limitacions greus que afecten de manera permanent la capacitat per desenvolupar activitats quotidianes.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població amb diversitat funcional"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població total"
+                 )
+               ),
+               "× 100 + Interval de confiança al 95%"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2019-2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Enquesta de Salut de Catalunya (ESCA).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMR01" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que hem fet servir en els càlculs dels 
+               indicadors prové del Registre Central d'Assegurats.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             p("Nombre de defuncions en el període d'estudi.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS. Per tal de mantenir el secret estadístic el nombre de defuncions per suïcidi i COVID-19 segons la seva ABS amb menys 
+               de 9 casos apareixerà com < 10 excepte en el període (2015-2019).",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2015-2019, 2020, 2021",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Registre de Mortalitat de Catalunya (RMC).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMR02" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que hem fet servir en els càlculs dels 
+               indicadors prové del Registre Central d'Assegurats.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Nombre de defuncions en el període n"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població assegurada període n"
+                 )
+               ),
+               "× 1.000"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p(paste("Disponible per sexe i ABS. Es calcula per les següents causes de defunció: certes malalties infeccioses i parasitàries, tumors, malalties 
+                     endocrines, nutricionals i metabòliques, trastorns mentals i del comportament, malalties del sistema nerviós, malalties de l'aparell circulatori, 
+                     malalties de l'aparell respiratori, malalties de l'aparell digestiu, malalties del sistema osteomuscular i teixit conjuntiu, malalties de l'aparell 
+                     genitourinari, símptomes i signes mal definits, causes externes de morbiditat i mortalitat."),
+               tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
+                      style = "margin-left: 5px;",
+                      icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
+                      title = "Més informació sobre la metodologia de l’anàlisi de la mortalitat a Catalunya",
+                      target = "_blank"),
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2015-2019, 2020, 2021",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Registre de Mortalitat de Catalunya (RMC).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMR04" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que hem fet servir en els càlculs dels 
+               indicadors prové del Registre Central d'Assegurats.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             p("Nombre de defuncions per suïcidi en el període d'estudi.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p(paste("Disponible per sexe i ABS. Per tal de mantenir el secret estadístic el nombre de defuncions per suïcidi i COVID-19 segons la seva ABS amb menys de 9 casos apareixerà com < 10 excepte en el període (2015-2019)."),
+               tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
+                      style = "margin-left: 5px;",
+                      icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
+                      title = "Més informació sobre la metodologia de l'anàlisi de la mortalitat a Catalunya",
+                      target = "_blank"),
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2015-2019, 2020, 2021",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Registre de Mortalitat de Catalunya (RMC).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMR05" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que hem fet servir en els càlculs dels 
+               indicadors prové del Registre Central d'Assegurats.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             p(HTML("La metodologia emprada per al càlcul de la taula de vida es pot consultar al web del Departament en el document <i>Metodologia de l'anàlisi de la mortalitat a Catalunya</i>."),
+               tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
+                      style = "margin-left: 5px;",
+                      icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
+                      title = "Enllaç extern",
+                      target = "_blank"),
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS. Per tal de mantenir el secret estadístic el nombre de defuncions per suïcidi i COVID-19 segons la seva ABS amb menys de 9 casos apareixerà com < 10 excepte en el període (2015-2019).",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2015-2019, 2020, 2021",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Registre de Mortalitat de Catalunya (RMC).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMR06" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que hem fet servir en els càlculs dels 
+                indicadors prové del Registre Central d'Assegurats.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Sumatori de la taxa específica de mortalitat de cada tram d'edat del període n × la població tipus de cada tram d'edat"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Sumatori de la població tipus en tots els trams d'edat"
+                 )
                )
-             )
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p(paste("Disponible per sexe i ABS. Es calcula per les següents causes de defunció: certes malalties infeccioses i parasitàries, tumors, malalties 
+                     endocrines, nutricionals i metabòliques, trastorns mentals i del comportament, malalties del sistema nerviós, malalties de l'aparell circulatori, 
+                     malalties de l'aparell respiratori, malalties de l'aparell digestiu, malalties del sistema osteomuscular i teixit conjuntiu, malalties de l'aparell 
+                     genitourinari, símptomes i signes mal definits, causes externes de morbiditat i mortalitat."),
+               tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
+                      style = "margin-left: 5px;",
+                      icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
+                      title = "Més informació sobre la metodologia de l'anàlisi de la mortalitat a Catalunya",
+                      target = "_blank"),
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2015-2019, 2020, 2021",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Registre de Mortalitat de Catalunya (RMC).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMR07" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que hem fet servir en els càlculs dels 
+                indicadors prové del Registre Central d'Assegurats.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             p("Nombre de defuncions per COVID-19 en el període d'estudi.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS.",
+               tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
+                      style = "margin-left: 5px;",
+                      icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
+                      title = "Més informació sobre la metodologia de l'anàlisi de la mortalitat a Catalunya",
+                      target = "_blank"),
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2020, 2021",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Registre de Mortalitat de Catalunya (RMC).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCES01" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Permet mesurar la prevalença del consum de tabac en la població assignada a l'EAP, una dada essencial per comprendre l'abast d'aquest hàbit en una comunitat específica.
+                Serveix com a indicador del risc associat a malalties relacionades amb el consum de tabac, com malalties respiratòries cròniques, càncer de pulmó, malalties cardiovasculars
+               i altres patologies.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Consum de tabac de la població assignada a l'EAP de 15 anys i més"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població assignada a l'EAP de 15 anys i més"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Estació Clínica d'Atenció Primària (ECAP).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCES02" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Aquest indicador és clau en salut pública per avaluar l'impacte de l'alcohol en la salut de la comunitat. Aquest indicador permet identificar
+               el percentatge de persones que tenen un consum d'alcohol considerat de risc, és a dir, aquells patrons de consum que poden provocar problemes físics, psíquics o social.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             p("—",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS. Es calcula usant la informació sobre la freqüència del consum d'alcohol, el tipus de beguda consumida, la quantitat i la distribució del consum al llarg de la setmana. 
+               Es categoritza la població per unitat de consum diari d'alcohol, estimada a partir de l'estandardització del tipus de beguda alcohòlica consumida (unitat de beguda estàndard, UBE). 
+               Es classifiquen com a consum de risc: en els homes, aquells que prenen 28 o més unitats/setmana; en les dones, les que prenen 16 unitats/setmana. 
+               També es considera consum de risc quan les persones consumeixen 5 o més consumicions seguides almenys un cop al mes.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2019-2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Enquesta de Salut de Catalunya (ESCA).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCES03" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Aquest indicador és clau en salut pública per avaluar l'impacte de l'alcohol en la salut de la comunitat. Aquest indicador permet identificar 
+               el percentatge de persones que tenen un consum d'alcohol considerat de risc, és a dir, aquells patrons de consum que poden provocar problemes físics, psíquics o social.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             p("—",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS. Es calcula usant la informació sobre la freqüència del consum d'alcohol, el tipus de beguda consumida, la quantitat i la distribució del consum al llarg de la setmana. 
+               Es categoritza la població per unitat de consum diari d'alcohol, estimada a partir de l'estandardització del tipus de beguda alcohòlica consumida (unitat de beguda estàndard, UBE). 
+               Es classifiquen com a consum de risc: en els homes, aquells que prenen 28 o més unitats/setmana; en les dones, les que prenen 16 unitats/setmana. També es considera consum de risc quan les persones
+               consumeixen 5 o més consumicions seguides almenys un cop al mes.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2019-2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Enquesta de Salut de Catalunya (ESCA).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCES04" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Aquest indicador és clau per avaluar la qualitat de l'alimentació d'una població en relació amb el patró dietètic mediterrani, reconegut com un model alimentari saludable.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             p("—",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS. Es recull amb l'instrument MEDAS (Mediterranean Diet Adherence Screener), que consta de 14 preguntes sobre els diferents elements de la dieta mediterrània. 
+               S'hi estableixen tres categories: compliment baix (≤ 5 punts), compliment mitjà (entre 6 i 9 punts) i compliment alt (≥ 10 punts). Es considera com a seguiment adequat de les recomanacions
+               d'alimentació mediterrània els nivells de compliment mitjà i alt.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2019-2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Enquesta de Salut de Catalunya (ESCA).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCES04" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Aquest indicador és clau per avaluar la qualitat de l'alimentació d'una població en relació amb el patró dietètic mediterrani, reconegut com un model alimentari saludable.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             p("—",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS. Es recull amb l'instrument MEDAS (Mediterranean Diet Adherence Screener), que consta de 14 preguntes sobre els diferents elements de la dieta mediterrània. 
+               S'hi estableixen tres categories: compliment baix (≤ 5 punts), compliment mitjà (entre 6 i 9 punts) i compliment alt (≥ 10 punts). Es considera com a seguiment adequat de les recomanacions 
+               d'alimentació mediterrània els nivells de compliment mitjà i alt.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2019-2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Enquesta de Salut de Catalunya (ESCA).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCES05" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Aquest indicador és clau per avaluar la qualitat de l'alimentació d'una població en relació amb el patró dietètic mediterrani, reconegut com un model alimentari saludable.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             p("—",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS. Es recull amb l'instrument MEDAS (Mediterranean Diet Adherence Screener), que consta de 14 preguntes sobre els diferents elements de la dieta mediterrània. 
+               S'hi estableixen tres categories: compliment baix (≤ 5 punts), compliment mitjà (entre 6 i 9 punts) i compliment alt (≥ 10 punts). Es considera com a seguiment adequat de les recomanacions 
+               d'alimentació mediterrània els nivells de compliment mitjà i alt.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2019-2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Enquesta de Salut de Catalunya (ESCA).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCES06" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Aquest indicador mesura el grau en què les persones d'aquest rang d'edat compleixen les recomanacions d'activitat física per mantenir un estil de vida saludable, segons les directrius de l'Organització Mundial de la Salut (OMS). 
+               Aquestes recomanacions inclouen almenys 150-300 minuts setmanals d'activitat física aeròbica moderada o 75-150 minuts d'activitat vigorosa, combinades amb exercicis de força.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             p("—",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS. Es mesura a partir de l'instrument IPAQ, que classifica la població en tres categories: baixa, moderada i alta. Es considera activitat física saludable la suma de l'activitat moderada i l'alta.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2019-2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Enquesta de Salut de Catalunya (ESCA).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCES07" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Aquest indicador mesura el grau en què les persones d'aquest rang d'edat compleixen les recomanacions d'activitat física per mantenir un estil de vida saludable, segons les directrius de l'Organització Mundial de la Salut (OMS). 
+               Aquestes recomanacions inclouen almenys 150-300 minuts setmanals d'activitat física aeròbica moderada o 75-150 minuts d'activitat vigorosa, combinades amb exercicis de força.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             p("—",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS. Es mesura a partir de l'instrument IPAQ, que classifica la població en tres categories: baixa, moderada i alta. Es considera activitat física saludable la suma de l'activitat moderada i l'alta.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2019-2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Enquesta de Salut de Catalunya (ESCA).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCPR01" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Percentatge de població entre 0 i 14 anys que està correctament vacunada de: diftèria, tètanus, pertussis, poliomielitis, Hib (Haemophilus), TV (triple vírica: xarampió, rubèola, parotiditis) MCC (antimeningocòccica C), 
+               VHB (hepatitis B), meningococ B, antipneumocòccica conjugada, papil·loma humà, hepatitis A, varicel·la, antimeningocòccica ACWY segons el calendari sistemàtic vacunal vigent.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població atesa assignada amb edat compresa entre 0-14 anys que té administrades el nombre mínim de dosis de cadascuna de les vacunes seleccionades segons l'edat actual, o bé que no s'hagi superat el temps màxim establert des de la darrera dosi administrada"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població atesa assignada amb edat compresa entre 0-14 anys"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe, grup d'edat (0-1 anys, 2-4 anys, 5-9 anys, 10-14 anys) i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Estació Clínica d'Atenció Primària (ECAP).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCRE01" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Percentatge de persones ateses per un equip d'atenció primària respecte a les persones assegurades (població assegurada). 
+               S'entén com a persona atesa aquella que s'ha visitat almenys un cop durant l'any seleccionat en qualsevol equip d'atenció primària.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Persones ateses en EAP amb almenys una visita durant el període"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població atesa assignada"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe, grup d'edat (0-14, 15-54, 55-64, 65 i més anys) i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Conjunt mínim bàsic de dades (CMBD), Registre Central d'Assegurats (RCA).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCRE02" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Nombre de visites de població assignada a l'atenció primària ateses (per medicina de família, infermeria, pediatria, odontologia i treball social).",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Nombre de visites de població assignada a l'atenció primària ateses per medicina de família, infermeria, pediatria, odontologia i treball social"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població assignada"
+                 )
+               )
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe, tipologia de visita i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Conjunt mínim bàsic de dades (CMBD).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCRE03" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Percentatge de població major de 14 anys, incloses a l'ATDOM en què s'ha valorat la dependència, l'estat cognitiu (test Pfeiffer o qualsevol altre test que avaluï l'estat cognitiu)
+               i el risc social, o bé que s'hagi avaluat la complexitat, com a mínim una vegada durant el període d'avaluació.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població major de 74 anys, inclosa a l'ATDOM en què s'ha valorat la dependència, l'estat cognitiu (test Pfeiffer o qualsevol altre test que avaluï l'estat cognitiu)
+                   i el risc social, o bé que s'hagi avaluat la complexitat, com a mínim una vegada durant el període d'avaluació"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població atesa assignada activa major de 14 anys incloses al programa ATDOM (inclou PCC, MACA majors de 90 anys i en cures pal·liatives)"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Estació Clínica d'Atenció Primària (ECAP).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCRE04" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Percentatge de la població que ha estat atesa per un centre de salut mental infantil i juvenil (CSMIJ) i d'adults (CSMA). 
+               S'entén com a persona atesa aquella que s'ha visitat almenys un cop durant l'any seleccionat en qualsevol centre de salut mental (CSMA/CSMIJ).",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Nombre de persones que han estat ateses en un CSMIJ/CSMA"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població assignada"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe, grup d'edat (0-17 anys i 18 anys i més) i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Conjunt mínim bàsic de dades (CMBD).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCRE05" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Percentatge de població atesa que se'ls ha prescrit tractament amb el fàrmac seleccionat durant l'any seleccionat. Els fàrmacs seleccionats inclouen: antidiabètics orals, 
+               hipocolesterolemiants, antipsicòtics, antidepressius i antibiòtics. Cada grup de fàrmacs està destinat a tractar condicions específiques: els antidiabètics orals per a la diabetis, 
+               els hipocolesterolemiants per al colesterol alt, els antipsicòtics per a trastorns mentals greus, els antidepressius per a la depressió, i els antibiòtics per a infeccions bacterianes.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població consumidora que se'ls ha prescrit tractament amb el fàrmac seleccionat"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població assignada i atesa"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Facturació, Registre Central d'Assegurats (RCA).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCRE06" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Percentatge de població atesa que se'ls ha prescrit tractament amb el psicofàrmac seleccionat durant l'any seleccionat.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població consumidora que se'ls ha prescrit tractament amb el psicofàrmac seleccionat"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població assignada i atesa"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("SIRE, Registre Central d'Assegurats (RCA).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCRE07" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("Percentatge de població assignada a un equip d'atenció primària (EAP) que tenen 10 o més medicaments (ATC) diferents prescrits amb una vigència igual o superior a 3 mesos.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Població assignada amb 10 o més medicaments (ATC) diferents prescrits amb una vigència igual o superior a 3 mesos"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població assignada"
+                 )
+               ),
+               "× 100"
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2022",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("SIRE, Registre Central d'Assegurats (RCA).",
+               style = "margin-bottom: 0px; text-align: justify;")
            )
+           
     )
   })
   
