@@ -1975,23 +1975,35 @@
     }
   },
   "files": {
-    ".RData": {
-      "checksum": "513a832e19a5e57f95b08d8a74a4573f"
-    },
     "app.R": {
-      "checksum": "7095031536b693ac2c1300b24a435a3e"
+      "checksum": "dbfaa3530dfa09f0b350f535650ca47d"
     },
-    "app_old.R": {
+    "borradors/app_v1.R": {
       "checksum": "b5b777ad3e1679b1dac50e9d5c3b3d81"
     },
+    "borradors/app_v2.R": {
+      "checksum": "7095031536b693ac2c1300b24a435a3e"
+    },
+    "borradors/Indicadors_ABS.csv": {
+      "checksum": "61afd029b061a12fad49b7619be05af4"
+    },
+    "borradors/Indicadors_ABS_v1.csv": {
+      "checksum": "9cdfe61febd9622e815484f9403b89dc"
+    },
+    "dades_indicadors_salut_comunitaria.csv": {
+      "checksum": "2cc77f8876dd8acf6de595e732ccc246"
+    },
     "imatges/aquas_logotip.png": {
-      "checksum": "033a600d7d22efabc67545cea0ae44d6"
+      "checksum": "e24a80e3fdd761ad94eae70fe654d54e"
     },
     "imatges/aquas_logotip_no_transparent.jpg": {
       "checksum": "c222a3e48138a3b2649b1877ca27433c"
     },
-    "imatges/aquas_logotip_transparent.jpg": {
+    "imatges/aquas_logotip_no_transparent.png": {
       "checksum": "c222a3e48138a3b2649b1877ca27433c"
+    },
+    "imatges/aquas_logotip_transparent_alternatiu.png": {
+      "checksum": "033a600d7d22efabc67545cea0ae44d6"
     },
     "imatges/datexbio_logotip.png": {
       "checksum": "79e1906e9f4531768c093b1137d661af"
@@ -2028,12 +2040,6 @@
     },
     "imatges/SCRE08_fitxa_pacients_polimedicats.png": {
       "checksum": "bdc8c3473537d9a9e42582ce36c83f8b"
-    },
-    "Indicadors_ABS.csv": {
-      "checksum": "61afd029b061a12fad49b7619be05af4"
-    },
-    "Indicadors_ABS_v1.csv": {
-      "checksum": "9cdfe61febd9622e815484f9403b89dc"
     },
     "URL.txt": {
       "checksum": "dd1635308a850d9769dfd4efaa5e781b"

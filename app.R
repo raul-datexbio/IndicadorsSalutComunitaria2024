@@ -9,7 +9,7 @@ library(shinyjs)
 library(shinythemes)
 
 # Carregar CSV
-df <- read.csv('https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/Indicadors_ABS.csv',
+df <- read.csv('https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/dades_indicadors_salut_comunitaria.csv',
                sep = ",", encoding = "latin1", check.names = FALSE)
 
 ################################################################################
@@ -38,7 +38,7 @@ ui <- tagList(
       
       /* Separar logotip de pestanyes */
       .navbar-brand {
-        margin-right: 20px;
+        margin-right: 40px;
         margin-left: 10px; 
       }
       
@@ -47,7 +47,7 @@ ui <- tagList(
         color: #5E5E5E;
         font-size: 14px;
         padding: 10px 15px 10px 25px;
-
+        margin-top: -7px; 
       }
       .navbar-nav .nav-link.active {
         color: #000000;
@@ -142,16 +142,6 @@ ui <- tagList(
   tags$script('
   $(document).ready(function() {
     
-    // Funcions scroll
-    window.js = {
-      scrollToBottom: function() {
-        $("html, body").animate({ scrollTop: $(document).height() }, "smooth");
-      },
-      scrollToTop: function() {
-        $("html, body").animate({ scrollTop: 0 }, "smooth");
-      }
-    };
-
     // Funcions menú hamburguesa
     function setMenuHeight() {
       const menuHeight = $(".navbar-collapse").height();
@@ -642,7 +632,7 @@ ui <- tagList(
               div(
                 class = "paragraph-style",
                 p("En aquesta pàgina, es pot visualitzar una taula de dades amb els indicadors de salut comunitària per àrees bàsiques de salut (ABS) de Catalunya."),
-                p("Els selectors permeten mostrar les dades d'interès. És possible fer seleccions múltiples. La taula de dades resultant es pot copiar, imprimir o exportar en diferents formats.")
+                p("Els selectors permeten mostrar les dades d'interès. És possible fer seleccions múltiples. La taula de dades resultant es pot exportar en diferents formats.")
               )
             )
           )
@@ -679,7 +669,7 @@ ui <- tagList(
                       icon("check", style = "color: #5E5E5E; margin-right: 10px;"), 
                       HTML("<b>Pas 1:</b> Selecciona les regions sanitàries")
                     ),
-                    choices = c("Totes", sort(as.character(unique(df$RS)))),
+                    choices = c("Totes", sort(as.character(unique(df$`Regió sanitària`)))),
                     selected = NULL,
                     multiple = TRUE,
                     width = "100%"
@@ -694,7 +684,7 @@ ui <- tagList(
                       icon("check", style = "color: #5E5E5E; margin-right: 10px;"), 
                       HTML("<b>Pas 2:</b> Selecciona les àrees bàsiques de salut")
                     ),
-                    choices = c("Totes", unique(df$ABS)),
+                    choices = c("Totes", unique(df$`Àrea bàsica de salut`)),
                     selected = NULL,
                     multiple = TRUE,
                     width = "100%"
@@ -892,10 +882,10 @@ ui <- tagList(
       tags$div(style = "height: 10px;")
     ),
     
-    # Pestanya 'Fitxes'
+    # Pestanya 'Fitxes metodològiques'
     nav_panel(
       
-      title = "Fitxes",
+      title = "Fitxes metodològiques",
       icon = icon("file-alt"),
       value = "tab_fitxes",
       
@@ -1011,31 +1001,6 @@ ui <- tagList(
       
       tags$div(style = "height: 10px;")
       
-    ),
-    
-    # Icones dreta barra navegació
-    nav_spacer(),
-    nav_item(
-      tags$div(
-        style = "display: flex; flex-direction: column; margin-right: 10px;",
-        tags$div(
-          style = "margin-bottom: -5px;",
-          actionLink(
-            "anar_dalt",
-            icon("angle-up"),
-            style = "font-size: 20px; color: #5E5E5E; padding: 0px;",
-            title = "Anar a dalt"
-          )
-        ),
-        tags$div(
-          actionLink(
-            "anar_baix",
-            icon("angle-down"),
-            style = "font-size: 20px; color: #5E5E5E; padding: 0px;",
-            title = "Anar a baix"
-          )
-        )
-      )
     )
     
   )
@@ -1048,15 +1013,6 @@ server <- function(input, output, session) {
   
   # Activar/desactivar mode depuració
   debug_mode <- FALSE
-  
-  # Funcions de scroll
-  observeEvent(input$anar_baix, {
-    shinyjs::runjs('js.scrollToBottom()')
-  }, ignoreInit = TRUE)
-  
-  observeEvent(input$anar_dalt, {
-    shinyjs::runjs('js.scrollToTop()')
-  }, ignoreInit = TRUE)
   
   # Funció mostrar missatges modals
   show_message <- function(title, message) {
@@ -1084,7 +1040,7 @@ server <- function(input, output, session) {
     if (is.null(input$select_rs) || length(input$select_rs) == 0) {
       print("Selector RS buit. Resetejar ABS")
       updateSelectInput(session, "select_abs",
-                        choices = c("Totes", sort(as.character(unique(df$ABS)))),
+                        choices = c("Totes", sort(as.character(unique(df$`Àrea bàsica de salut`)))),
                         selected = NULL)
       return()
     }
@@ -1100,11 +1056,11 @@ server <- function(input, output, session) {
     if ("Totes" %in% input$select_rs) {
       print("Seleccionat 'Totes'. Mostra totes les ABS")
       updateSelectInput(session, "select_abs",
-                        choices = c("Totes", sort(as.character(unique(df$ABS)))),
+                        choices = c("Totes", sort(as.character(unique(df$`Àrea bàsica de salut`)))),
                         selected = NULL)
       return()
     }
-    selected_abs <- sort(as.character(unique(df$ABS[df$RS %in% input$select_rs])))
+    selected_abs <- sort(as.character(unique(df$`Àrea bàsica de salut`[df$`Regió sanitària` %in% input$select_rs])))
     print(paste("ABS vàlids:", selected_abs))
     current_abs <- input$select_abs
     valid_abs <- current_abs[current_abs %in% selected_abs]
@@ -1118,7 +1074,7 @@ server <- function(input, output, session) {
     if (is.null(input$select_rs) || length(input$select_rs) == 0) {
       print("Selector RS buit")
       updateSelectInput(session, "select_abs",
-                        choices = c("Totes", sort(as.character(unique(df$ABS)))),
+                        choices = c("Totes", sort(as.character(unique(df$`Àrea bàsica de salut`)))),
                         selected = NULL)
     }
   })
@@ -1133,7 +1089,7 @@ server <- function(input, output, session) {
         "Cal seleccionar primer una o més regions sanitàries abans de seleccionar àrees bàsiques de salut."
       )
       updateSelectInput(session, "select_abs",
-                        choices = c("Totes", sort(as.character(unique(df$ABS)))),
+                        choices = c("Totes", sort(as.character(unique(df$`Àrea bàsica de salut`)))),
                         selected = NULL)
       return()
     }
@@ -1296,10 +1252,10 @@ server <- function(input, output, session) {
   # Observar confirmació neteja
   observeEvent(input$confirm_clear, {
     updateSelectInput(session, "select_rs", 
-                      choices = c("Totes", sort(as.character(unique(df$RS)))),
+                      choices = c("Totes", sort(as.character(unique(df$`Regió sanitària`)))),
                       selected = NULL)
     updateSelectInput(session, "select_abs",
-                      choices = c("Totes", unique(df$ABS)),
+                      choices = c("Totes", unique(df$`Àrea bàsica de salut`)),
                       selected = NULL)
     updateSelectInput(session, "select_ambits",
                       choices = c("Tots", unique(df$`Àmbit`)),
@@ -1311,7 +1267,7 @@ server <- function(input, output, session) {
     removeModal()
   })
   
-    # Gestionar la visualització condicional de la taula de dades
+  # Gestionar la visualització condicional de la taula de dades
   output$taula_container <- renderUI({
     if (selection_applied()) {
       dataTableOutput("taula_dades")
@@ -1343,10 +1299,10 @@ server <- function(input, output, session) {
     req(selection_applied())
     dades_seleccionades <- df
     if (!is.null(input$select_rs) && !("Totes" %in% input$select_rs)) {
-      dades_seleccionades <- subset(dades_seleccionades, RS %in% input$select_rs)
+      dades_seleccionades <- subset(dades_seleccionades, `Regió sanitària` %in% input$select_rs)
     }
     if (!is.null(input$select_abs) && !("Totes" %in% input$select_abs)) {
-      dades_seleccionades <- subset(dades_seleccionades, ABS %in% input$select_abs)
+      dades_seleccionades <- subset(dades_seleccionades, `Àrea bàsica de salut` %in% input$select_abs)
     }
     if (!is.null(input$select_ambits) && !("Tots" %in% input$select_ambits)) {
       dades_seleccionades <- subset(dades_seleccionades, `Àmbit` %in% input$select_ambits)
@@ -1361,7 +1317,6 @@ server <- function(input, output, session) {
       style = "default",
       extensions = 'Buttons',
       rownames = FALSE,
-      colnames = c("Regió sanitària", "Àrea bàsica de salut", names(dades_seleccionades)[3:ncol(dades_seleccionades)]), 
       options = list(
         autoWidth = FALSE,
         pageLength = nrow(dades_seleccionades),
@@ -1417,17 +1372,8 @@ server <- function(input, output, session) {
         }"),
         buttons = list(
           list(
-            extend = "copy", 
-            text = '<i class="fa fa-copy"></i> Còpia',
-            titleAttr = "Copia la taula de dades al porta-retalls",
-            title = NULL,
-            exportOptions = list(
-              orthogonal = 'export'
-            )
-          ),
-          list(
             extend = "csv", 
-            text = '<i class="fa fa-file-csv"></i> CSV',
+            text = '<i class="fa fa-file-csv" style="margin-right: 5px;"></i> CSV',
             titleAttr = "Exporta la taula de dades en format CSV",
             filename = "dades_indicadors_salut_comunitaria",
             title = NULL,
@@ -1436,13 +1382,13 @@ server <- function(input, output, session) {
               orthogonal = 'export'
             ),
             customize = JS("function(csv) {
-              var header = 'regio_sanitaria,area_basica_salut,ambit,indicador,mesura,abs_homes,abs_dones,abs_total,catalunya_homes,catalunya_dones,catalunya_total\\n';
+              var header = 'regio_sanitaria, area_basica_salut, ambit,indicador, mesura, periode, abs_homes, abs_dones, abs_total, catalunya_homes, catalunya_dones, catalunya_total\\n';
               return '\ufeff' + header + csv.split('\\n').slice(1).join('\\n');
             }")
           ),
           list(
             extend = "excel", 
-            text = '<i class="fa fa-file-excel"></i> XLSX',
+            text = '<i class="fa fa-file-excel" style="margin-right: 5px;"></i> XLSX',
             titleAttr = "Exporta la taula de dades en format XLSX (Excel)",
             filename = "dades_indicadors_salut_comunitaria",
             title = NULL,
@@ -1451,7 +1397,7 @@ server <- function(input, output, session) {
             ),
             customize = JS("function(xlsx) {
               var sheet = xlsx.xl.worksheets['sheet1.xml'];
-              var headers = ['regio_sanitaria', 'area_basica_salut', 'ambit', 'indicador', 'mesura', 'abs_homes', 'abs_dones', 'abs_total', 'catalunya_homes', 'catalunya_dones', 'catalunya_total'];
+              var headers = ['regio_sanitaria', 'area_basica_salut', 'ambit', 'indicador', 'mesura', 'periode', 'abs_homes', 'abs_dones', 'abs_total', 'catalunya_homes', 'catalunya_dones', 'catalunya_total'];
               $('row:first c', sheet).each(function(i) {
                 $(this).find('t').text(headers[i]);
               });
@@ -1459,19 +1405,11 @@ server <- function(input, output, session) {
           ),
           list(
             extend = "pdf", 
-            text = '<i class="fa fa-file-pdf"></i> PDF',
+            text = '<i class="fa fa-file-pdf" style="margin-right: 5px;"></i> PDF',
             titleAttr = "Exporta la taula de dades en format PDF",
             filename = "dades_indicadors_salut_comunitaria",
             title = NULL,
             orientation = "landscape"
-          ),
-          list(
-            extend = "print", 
-            text = '<i class="fa fa-print"></i> Imprimeix',
-            titleAttr = "Imprimeix la taula de dades",
-            title = "",
-            messageTop = NULL,
-            messageBottom = NULL
           )
         ),
         language = list(
@@ -1480,21 +1418,14 @@ server <- function(input, output, session) {
           infoEmpty = "No hi ha registres disponibles",
           thousands = ".",
           zeroRecords = "No s'han trobat registres coincidents",
-          emptyTable = "No hi ha dades disponibles a la taula",
-          buttons = list(
-            copyTitle = 'Copiat al portapapers',
-            copySuccess = list(
-              `_` = '%d files copiades',
-              `1` = '1 fila copiada'
-            )
-          )
+          emptyTable = "No hi ha dades disponibles a la taula"
         ),
         columnDefs = list(
           list(visible = FALSE, targets = 0),
           list(className = 'dt-left', targets = 1:4), 
-          list(className = 'dt-center', targets = 5:10),
+          list(className = 'dt-center', targets = 5:11),
           list(
-            targets = 5:10,
+            targets = 6:11,
             render = JS("function(data, type, row) {
               if (type === 'export') {
                 return data;
@@ -1516,12 +1447,7 @@ server <- function(input, output, session) {
   
   # Mostrar GWalkR
   output$analisi_exploratoria_dades_eda = renderGwalkr({
-    df_renamed <- df %>%
-      rename(
-        "Regió sanitària" = RS,
-        "Àrea bàsica de salut" = ABS
-      )
-    gwalkr(df_renamed)
+    gwalkr(df)
   })
   
   # Mostrar fitxa seleccionada
