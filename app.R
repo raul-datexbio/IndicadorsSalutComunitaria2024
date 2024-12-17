@@ -2,6 +2,7 @@
 library(bslib)
 library(DT)
 library(dplyr)
+library(gtools)
 library(GWalkR)
 library(readr)
 library(shiny)
@@ -669,7 +670,7 @@ ui <- tagList(
                       icon("check", style = "color: #5E5E5E; margin-right: 10px;"), 
                       HTML("<b>Pas 1:</b> Selecciona les regions sanitàries")
                     ),
-                    choices = c("Totes", sort(as.character(unique(df$`Regió sanitària`)))),
+                    choices = c("Totes", mixedsort(as.character(unique(df$`Regió sanitària`)))),
                     selected = NULL,
                     multiple = TRUE,
                     width = "100%"
@@ -684,7 +685,7 @@ ui <- tagList(
                       icon("check", style = "color: #5E5E5E; margin-right: 10px;"), 
                       HTML("<b>Pas 2:</b> Selecciona les àrees bàsiques de salut")
                     ),
-                    choices = c("Totes", unique(df$`Àrea bàsica de salut`)),
+                    choices = c("Totes", mixedsort(as.character(unique(df$`Àrea bàsica de salut`)))),
                     selected = NULL,
                     multiple = TRUE,
                     width = "100%"
@@ -699,7 +700,7 @@ ui <- tagList(
                       icon("check", style = "color: #5E5E5E; margin-right: 10px;"), 
                       HTML("<b>Pas 3:</b> Selecciona els àmbits")
                     ),
-                    choices = c("Tots", unique(df$`Àmbit`)),
+                    choices = c("Tots", mixedsort(as.character(unique(df$`Àmbit`)))),
                     selected = NULL,
                     multiple = TRUE,
                     width = "100%"
@@ -714,7 +715,7 @@ ui <- tagList(
                       icon("check", style = "color: #5E5E5E; margin-right: 10px;"), 
                       HTML("<b>Pas 4:</b> Selecciona els indicadors de salut comunitària")
                     ),
-                    choices = c("Tots", unique(df$Indicador)),
+                    choices = c("Tots", mixedsort(as.character(unique(df$Indicador)))),
                     selected = NULL,
                     multiple = TRUE,
                     width = "100%"
@@ -953,21 +954,20 @@ ui <- tagList(
                   "Cobertura vacunal de la població infantil" = "fitxa_SCPR01",
                   "Consum de risc d'alcohol de població de 15 anys i més (brut)" = "fitxa_SCES02",
                   "Consum de risc d'alcohol de població de 15 anys i més (estandarditzat)" = "fitxa_SCES03",
-                  "Esperança de vida en néixer" = "fitxa_SCMR05",
+                  "Esperança de vida en néixer" = "fitxa_SCMR06",
                   "Gent gran que viu sola" = "fitxa_SCDE03",
                   "Índex de sobreenvelliment" = "fitxa_SCDE02",
                   "Índex socioeconòmic territorial" = "fitxa_SCSO03",
                   "Mitjana de visites de la població assignada i atesa" = "fitxa_SCRE02",
                   "Nombre de defuncions" = "fitxa_SCMR01",
                   "Nombre de defuncions per COVID-19" = "fitxa_SCMR07",
-                  "Nombre de defuncions per suïcidi" = "fitxa_SCMR04",
+                  "Nombre de defuncions per suïcidi" = "fitxa_SCMR05",
                   "Població amb autopercepció bona de la seva salut (brut)" = "fitxa_SCMO08",
                   "Població amb autopercepció bona de la seva salut (estandarditzat)" = "fitxa_SCMO09",
                   "Població amb autopercepció dolenta de la seva salut (brut)" = "fitxa_SCMO10",
                   "Població amb autopercepció dolenta de la seva salut (estandarditzat)" = "fitxa_SCMO11",
                   "Població amb excés de pes" = "fitxa_SCMO05",
                   "Població amb nacionalitat d'un país en vies de desenvolupament" = "fitxa_SCDE04",
-                  "Població amb nivell d'instrucció insuficient" = "fitxa_SCSO02",
                   "Població amb obesitat" = "fitxa_SCMO07",
                   "Població amb sobrepès" = "fitxa_SCMO06",
                   "Població assignada" = "fitxa_SCDE01",
@@ -988,7 +988,7 @@ ui <- tagList(
                   "Població menor de 18 anys atesa a centres ambulatoris de salut mental" = "fitxa_SCMO04",
                   "Població polimedicada amb 10 ATC o més" = "fitxa_SCRE07",
                   "Taxa bruta de mortalitat" = "fitxa_SCMR02",
-                  "Taxa de mortalitat ajustada" = "fitxa_SCMR06"
+                  "Taxa de mortalitat estandarditzada" = "fitxa_SCMR03_04"
                 ),
                 selected = "",
                 width = "100%"
@@ -1040,7 +1040,7 @@ server <- function(input, output, session) {
     if (is.null(input$select_rs) || length(input$select_rs) == 0) {
       print("Selector RS buit. Resetejar ABS")
       updateSelectInput(session, "select_abs",
-                        choices = c("Totes", sort(as.character(unique(df$`Àrea bàsica de salut`)))),
+                        choices = c("Totes", mixedsort(as.character(unique(df$`Àrea bàsica de salut`)))),
                         selected = NULL)
       return()
     }
@@ -1056,11 +1056,11 @@ server <- function(input, output, session) {
     if ("Totes" %in% input$select_rs) {
       print("Seleccionat 'Totes'. Mostra totes les ABS")
       updateSelectInput(session, "select_abs",
-                        choices = c("Totes", sort(as.character(unique(df$`Àrea bàsica de salut`)))),
+                        choices = c("Totes", mixedsort(as.character(unique(df$`Àrea bàsica de salut`)))),
                         selected = NULL)
       return()
     }
-    selected_abs <- sort(as.character(unique(df$`Àrea bàsica de salut`[df$`Regió sanitària` %in% input$select_rs])))
+    selected_abs <- mixedsort(as.character(unique(df$`Àrea bàsica de salut`[df$`Regió sanitària` %in% input$select_rs])))
     print(paste("ABS vàlids:", selected_abs))
     current_abs <- input$select_abs
     valid_abs <- current_abs[current_abs %in% selected_abs]
@@ -1074,7 +1074,7 @@ server <- function(input, output, session) {
     if (is.null(input$select_rs) || length(input$select_rs) == 0) {
       print("Selector RS buit")
       updateSelectInput(session, "select_abs",
-                        choices = c("Totes", sort(as.character(unique(df$`Àrea bàsica de salut`)))),
+                        choices = c("Totes", mixedsort(as.character(unique(df$`Àrea bàsica de salut`)))),
                         selected = NULL)
     }
   })
@@ -1089,7 +1089,7 @@ server <- function(input, output, session) {
         "Cal seleccionar primer una o més regions sanitàries abans de seleccionar àrees bàsiques de salut."
       )
       updateSelectInput(session, "select_abs",
-                        choices = c("Totes", sort(as.character(unique(df$`Àrea bàsica de salut`)))),
+                        choices = c("Totes", mixedsort(as.character(unique(df$`Àrea bàsica de salut`)))),
                         selected = NULL)
       return()
     }
@@ -1112,7 +1112,7 @@ server <- function(input, output, session) {
     if (is.null(input$select_ambits) || length(input$select_ambits) == 0) {
       print("Selector àmbits buit. Resetejar indicadors")
       updateSelectInput(session, "select_indicadors",
-                        choices = c("Tots", sort(as.character(unique(df$Indicador)))),
+                        choices = c("Tots", mixedsort(as.character(unique(df$Indicador)))),
                         selected = NULL)
       return()
     }
@@ -1128,11 +1128,11 @@ server <- function(input, output, session) {
     if ("Tots" %in% input$select_ambits) {
       print("Seleccionat 'Tots'. Mostra tots els indicadors")
       updateSelectInput(session, "select_indicadors",
-                        choices = c("Tots", sort(as.character(unique(df$Indicador)))),
+                        choices = c("Tots", mixedsort(as.character(unique(df$Indicador)))),
                         selected = NULL)
       return()
     }
-    selected_indicadors <- sort(as.character(unique(df$Indicador[df$`Àmbit` %in% input$select_ambits])))
+    selected_indicadors <- mixedsort(as.character(unique(df$Indicador[df$`Àmbit` %in% input$select_ambits])))
     print(paste("Indicadors vàlids:", selected_indicadors))
     current_indicadors <- input$select_indicadors
     valid_indicadors <- current_indicadors[current_indicadors %in% selected_indicadors]
@@ -1146,7 +1146,7 @@ server <- function(input, output, session) {
     if (is.null(input$select_ambits) || length(input$select_ambits) == 0) {
       print("Selector àmbits buit")
       updateSelectInput(session, "select_indicadors",
-                        choices = c("Tots", sort(as.character(unique(df$Indicador)))),
+                        choices = c("Tots", mixedsort(as.character(unique(df$Indicador)))),
                         selected = NULL)
     }
   })
@@ -1161,7 +1161,7 @@ server <- function(input, output, session) {
         "Cal seleccionar primer un o més àmbits abans de seleccionar indicadors de salut comunitària."
       )
       updateSelectInput(session, "select_indicadors",
-                        choices = c("Tots", sort(as.character(unique(df$Indicador)))),
+                        choices = c("Tots", mixedsort(as.character(unique(df$Indicador)))),
                         selected = NULL)
       return()
     }
@@ -1252,16 +1252,16 @@ server <- function(input, output, session) {
   # Observar confirmació neteja
   observeEvent(input$confirm_clear, {
     updateSelectInput(session, "select_rs", 
-                      choices = c("Totes", sort(as.character(unique(df$`Regió sanitària`)))),
+                      choices = c("Totes", mixedsort(as.character(unique(df$`Regió sanitària`)))),
                       selected = NULL)
     updateSelectInput(session, "select_abs",
-                      choices = c("Totes", unique(df$`Àrea bàsica de salut`)),
+                      choices = c("Totes", mixedsort(as.character(unique(df$`Àrea bàsica de salut`)))),
                       selected = NULL)
     updateSelectInput(session, "select_ambits",
-                      choices = c("Tots", unique(df$`Àmbit`)),
+                      choices = c("Tots", mixedsort(as.character(unique(df$`Àmbit`)))),
                       selected = NULL)
     updateSelectInput(session, "select_indicadors",
-                      choices = c("Tots", unique(df$Indicador)),
+                      choices = c("Tots", mixedsort(as.character(unique(df$Indicador)))),
                       selected = NULL)
     selection_applied(FALSE)
     removeModal()
@@ -1409,7 +1409,24 @@ server <- function(input, output, session) {
             titleAttr = "Exporta la taula de dades en format PDF",
             filename = "dades_indicadors_salut_comunitaria",
             title = NULL,
-            orientation = "landscape"
+            orientation = "landscape",
+            customize = JS("function(doc) {
+              doc.content[0].table.body.forEach(function(row, index) {
+                for(var i = 0; i <= 4; i++) {
+                  if(row[i]) row[i].alignment = 'left';
+                }
+                for(var i = 5; i < row.length; i++) {
+                  if(row[i]) row[i].alignment = 'center';
+                }
+      
+                if(index === 0) {
+                  row.forEach(function(cell) {
+                    cell.fillColor = '#5EAEFF';
+                    cell.color = '#FFFFFF';
+                  });
+                }
+              });
+            }")
           )
         ),
         language = list(
@@ -1472,7 +1489,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe i ABS. El nivell socioeconòmic individual es calcula tenint en compte el nivell de renda individual, 
+             p("Disponible per sexe, ABS i grups d'edat (0-14 anys, 15-54 anys, 55-64 anys i 65 i més anys). El nivell socioeconòmic individual es calcula tenint en compte el nivell de renda individual, 
                la situació laboral actual (relació amb la Seguretat Social) i el copagament farmacèutic.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -1544,7 +1561,7 @@ server <- function(input, output, session) {
                  class = "fraction",
                  div(
                    class = "fraction-top",
-                   "Població de 75 anys i més que viu sola"
+                   "Població de 65 anys i més que viu sola"
                  ),
                  div(
                    class = "fraction-bottom",
@@ -1664,46 +1681,6 @@ server <- function(input, output, session) {
              h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Origen de les dades", class = "title-style"),
              p("Registre Central d'Assegurats (RCA).",
-               style = "margin-bottom: 0px; text-align: justify;")
-           ),
-           
-           "fitxa_SCSO02" = div(
-             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("Es considera nivell d'instrucció insuficient si l'individu no sap llegir o escriure, o té estudis primaris (nivells 0 i 1 de la classificació CCED-2014 (A).",
-               style = "margin-bottom: 20px; text-align: justify;"),
-             
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Fórmula", class = "title-style"),
-             div(
-               class = "formula-container",
-               div(
-                 class = "fraction",
-                 div(
-                   class = "fraction-top",
-                   "Població del grup d'edat determinat amb nivell d'instrucció insuficient"
-                 ),
-                 div(
-                   class = "fraction-bottom",
-                   "Població del mateix grup d'edat"
-                 )
-               ),
-               "× 100"
-             ),
-             
-             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe, grup d'edat (16-44, 45-64, 65-74 i 75 anys i més) i ABS.",
-               style = "margin-bottom: 20px; text-align: justify;"),
-             
-             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Període", class = "title-style"),
-             p("2022",
-               style = "margin-bottom: 20px; text-align: justify;"),
-             
-             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Origen de les dades", class = "title-style"),
-             p("Institut d'Estadística de Catalunya (Idescat).",
                style = "margin-bottom: 0px; text-align: justify;")
            ),
            
@@ -2071,7 +2048,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe i ABS.",
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2112,7 +2089,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe i ABS.",
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2153,7 +2130,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe i ABS.",
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2194,7 +2171,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe i ABS.",
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2234,7 +2211,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe i ABS.",
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2274,7 +2251,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe i ABS.",
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2314,7 +2291,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe i ABS.",
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2354,7 +2331,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe i ABS.",
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2446,73 +2423,7 @@ server <- function(input, output, session) {
                style = "margin-bottom: 0px; text-align: justify;")
            ),
            
-           "fitxa_SCMR04" = div(
-             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que hem fet servir en els càlculs dels 
-               indicadors prové del Registre Central d'Assegurats.",
-               style = "margin-bottom: 20px; text-align: justify;"),
-             
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Fórmula", class = "title-style"),
-             p("Nombre de defuncions per suïcidi en el període d'estudi.",
-               style = "margin-bottom: 20px; text-align: justify;"),
-             
-             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
-             p(paste("Disponible per sexe i ABS. Per tal de mantenir el secret estadístic el nombre de defuncions per suïcidi i COVID-19 segons la seva ABS amb menys de 9 casos apareixerà com < 10 excepte en el període (2015-2019)."),
-               tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
-                      style = "margin-left: 5px;",
-                      icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
-                      title = "Més informació sobre la metodologia de l'anàlisi de la mortalitat a Catalunya",
-                      target = "_blank"),
-               style = "margin-bottom: 20px; text-align: justify;"),
-             
-             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Període", class = "title-style"),
-             p("2015-2019, 2020, 2021",
-               style = "margin-bottom: 20px; text-align: justify;"),
-             
-             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Origen de les dades", class = "title-style"),
-             p("Registre de Mortalitat de Catalunya (RMC).",
-               style = "margin-bottom: 0px; text-align: justify;")
-           ),
-           
-           "fitxa_SCMR05" = div(
-             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que hem fet servir en els càlculs dels 
-               indicadors prové del Registre Central d'Assegurats.",
-               style = "margin-bottom: 20px; text-align: justify;"),
-             
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Fórmula", class = "title-style"),
-             p(HTML("La metodologia emprada per al càlcul de la taula de vida es pot consultar al web del Departament en el document <i>Metodologia de l'anàlisi de la mortalitat a Catalunya</i>."),
-               tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
-                      style = "margin-left: 5px;",
-                      icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
-                      title = "Enllaç extern",
-                      target = "_blank"),
-               style = "margin-bottom: 20px; text-align: justify;"),
-             
-             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe i ABS. Per tal de mantenir el secret estadístic el nombre de defuncions per suïcidi i COVID-19 segons la seva ABS amb menys de 9 casos apareixerà com < 10 excepte en el període (2015-2019).",
-               style = "margin-bottom: 20px; text-align: justify;"),
-             
-             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Període", class = "title-style"),
-             p("2015-2019, 2020, 2021",
-               style = "margin-bottom: 20px; text-align: justify;"),
-             
-             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Origen de les dades", class = "title-style"),
-             p("Registre de Mortalitat de Catalunya (RMC).",
-               style = "margin-bottom: 0px; text-align: justify;")
-           ),
-           
-           "fitxa_SCMR06" = div(
+           "fitxa_SCMR03_04" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
              p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que hem fet servir en els càlculs dels 
@@ -2547,6 +2458,72 @@ server <- function(input, output, session) {
                       icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
                       title = "Més informació sobre la metodologia de l'anàlisi de la mortalitat a Catalunya",
                       target = "_blank"),
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2015-2019, 2020, 2021",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Registre de Mortalitat de Catalunya (RMC).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMR05" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que hem fet servir en els càlculs dels 
+               indicadors prové del Registre Central d'Assegurats.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             p("Nombre de defuncions per suïcidi en el període d'estudi.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p(paste("Disponible per sexe i ABS. Per tal de mantenir el secret estadístic el nombre de defuncions per suïcidi i COVID-19 segons la seva ABS amb menys de 9 casos apareixerà com < 10 excepte en el període (2015-2019)."),
+               tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
+                      style = "margin-left: 5px;",
+                      icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
+                      title = "Més informació sobre la metodologia de l'anàlisi de la mortalitat a Catalunya",
+                      target = "_blank"),
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2015-2019, 2020, 2021",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Registre de Mortalitat de Catalunya (RMC).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMR06" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que hem fet servir en els càlculs dels 
+               indicadors prové del Registre Central d'Assegurats.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             p(HTML("La metodologia emprada per al càlcul de la taula de vida es pot consultar al web del Departament en el document <i>Metodologia de l'anàlisi de la mortalitat a Catalunya</i>."),
+               tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
+                      style = "margin-left: 5px;",
+                      icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
+                      title = "Enllaç extern",
+                      target = "_blank"),
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p("Disponible per sexe i ABS. Per tal de mantenir el secret estadístic el nombre de defuncions per suïcidi i COVID-19 segons la seva ABS amb menys de 9 casos apareixerà com < 10 excepte en el període (2015-2019).",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2649,7 +2626,8 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe i ABS. Es calcula usant la informació sobre la freqüència del consum d'alcohol, el tipus de beguda consumida, la quantitat i la distribució del consum al llarg de la setmana. 
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es calcula usant la informació sobre la freqüència del consum d'alcohol, 
+               el tipus de beguda consumida, la quantitat i la distribució del consum al llarg de la setmana. 
                Es categoritza la població per unitat de consum diari d'alcohol, estimada a partir de l'estandardització del tipus de beguda alcohòlica consumida (unitat de beguda estàndard, UBE). 
                Es classifiquen com a consum de risc: en els homes, aquells que prenen 28 o més unitats/setmana; en les dones, les que prenen 16 unitats/setmana. 
                També es considera consum de risc quan les persones consumeixen 5 o més consumicions seguides almenys un cop al mes.",
@@ -2680,7 +2658,8 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe i ABS. Es calcula usant la informació sobre la freqüència del consum d'alcohol, el tipus de beguda consumida, la quantitat i la distribució del consum al llarg de la setmana. 
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es calcula usant la informació sobre la freqüència del consum d'alcohol, 
+               el tipus de beguda consumida, la quantitat i la distribució del consum al llarg de la setmana. 
                Es categoritza la població per unitat de consum diari d'alcohol, estimada a partir de l'estandardització del tipus de beguda alcohòlica consumida (unitat de beguda estàndard, UBE). 
                Es classifiquen com a consum de risc: en els homes, aquells que prenen 28 o més unitats/setmana; en les dones, les que prenen 16 unitats/setmana. També es considera consum de risc quan les persones
                consumeixen 5 o més consumicions seguides almenys un cop al mes.",
@@ -2710,37 +2689,9 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe i ABS. Es recull amb l'instrument MEDAS (Mediterranean Diet Adherence Screener), que consta de 14 preguntes sobre els diferents elements de la dieta mediterrània. 
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es recull amb l'instrument MEDAS (Mediterranean Diet Adherence Screener), 
+               que consta de 14 preguntes sobre els diferents elements de la dieta mediterrània. 
                S'hi estableixen tres categories: compliment baix (≤ 5 punts), compliment mitjà (entre 6 i 9 punts) i compliment alt (≥ 10 punts). Es considera com a seguiment adequat de les recomanacions
-               d'alimentació mediterrània els nivells de compliment mitjà i alt.",
-               style = "margin-bottom: 20px; text-align: justify;"),
-             
-             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Període", class = "title-style"),
-             p("2019-2022",
-               style = "margin-bottom: 20px; text-align: justify;"),
-             
-             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Origen de les dades", class = "title-style"),
-             p("Enquesta de Salut de Catalunya (ESCA).",
-               style = "margin-bottom: 0px; text-align: justify;")
-           ),
-           
-           "fitxa_SCES04" = div(
-             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("Aquest indicador és clau per avaluar la qualitat de l'alimentació d'una població en relació amb el patró dietètic mediterrani, reconegut com un model alimentari saludable.",
-               style = "margin-bottom: 20px; text-align: justify;"),
-             
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Fórmula", class = "title-style"),
-             p("—",
-               style = "margin-bottom: 20px; text-align: justify;"),
-             
-             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe i ABS. Es recull amb l'instrument MEDAS (Mediterranean Diet Adherence Screener), que consta de 14 preguntes sobre els diferents elements de la dieta mediterrània. 
-               S'hi estableixen tres categories: compliment baix (≤ 5 punts), compliment mitjà (entre 6 i 9 punts) i compliment alt (≥ 10 punts). Es considera com a seguiment adequat de les recomanacions 
                d'alimentació mediterrània els nivells de compliment mitjà i alt.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2768,7 +2719,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe i ABS. Es recull amb l'instrument MEDAS (Mediterranean Diet Adherence Screener), que consta de 14 preguntes sobre els diferents elements de la dieta mediterrània. 
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es recull amb l'instrument MEDAS (Mediterranean Diet Adherence Screener), que consta de 14 preguntes sobre els diferents elements de la dieta mediterrània. 
                S'hi estableixen tres categories: compliment baix (≤ 5 punts), compliment mitjà (entre 6 i 9 punts) i compliment alt (≥ 10 punts). Es considera com a seguiment adequat de les recomanacions 
                d'alimentació mediterrània els nivells de compliment mitjà i alt.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -2798,7 +2749,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe i ABS. Es mesura a partir de l'instrument IPAQ, que classifica la població en tres categories: baixa, moderada i alta. Es considera activitat física saludable la suma de l'activitat moderada i l'alta.",
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es mesura a partir de l'instrument IPAQ, que classifica la població en tres categories: baixa, moderada i alta. Es considera activitat física saludable la suma de l'activitat moderada i l'alta.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2826,7 +2777,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe i ABS. Es mesura a partir de l'instrument IPAQ, que classifica la població en tres categories: baixa, moderada i alta. Es considera activitat física saludable la suma de l'activitat moderada i l'alta.",
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es mesura a partir de l'instrument IPAQ, que classifica la població en tres categories: baixa, moderada i alta. Es considera activitat física saludable la suma de l'activitat moderada i l'alta.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
