@@ -1382,8 +1382,20 @@ server <- function(input, output, session) {
               orthogonal = 'export'
             ),
             customize = JS("function(csv) {
-              var header = 'regio_sanitaria, area_basica_salut, ambit,indicador, mesura, periode, abs_homes, abs_dones, abs_total, catalunya_homes, catalunya_dones, catalunya_total\\n';
-              return '\ufeff' + header + csv.split('\\n').slice(1).join('\\n');
+              var header = 'regio_sanitaria;area_basica_salut;ambit;indicador;mesura;periode;abs_homes;abs_dones;abs_total;catalunya_homes;catalunya_dones;catalunya_total\\n';
+              var rows = csv.split('\\n');
+              var processedRows = rows.slice(1).map(function(row) {
+                var columns = row.split(',').map(val => val.replace(/\"/g, ''));
+                if (columns[4] !== 'Persones') {
+                  for(var i = 6; i < columns.length; i++) {
+                    if(columns[i].includes('.')) {
+                      columns[i] = columns[i].replace('.', ',');
+                    }
+                  }
+                }
+                return columns.join(';');
+              });
+              return '\ufeff' + header + processedRows.join('\\n');
             }")
           ),
           list(
@@ -1448,13 +1460,21 @@ server <- function(input, output, session) {
                 return data;
               }
               if (type === 'display') {
+                if (row[4] !== 'Persones') {  // Cambiado de row[3] a row[4]
+                  return new Intl.NumberFormat('es-ES', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 2,
+                    useGrouping: true
+                  }).format(data);
+              } else {  // Para 'Persones'
                 return new Intl.NumberFormat('es-ES', {
                   minimumFractionDigits: 0,
-                  maximumFractionDigits: 2,
+                  maximumFractionDigits: 0,
                   useGrouping: true
                 }).format(data);
               }
-              return data;
+            }
+            return data;
             }")
           )
         )

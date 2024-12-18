@@ -2003,7 +2003,7 @@
   },
   "files": {
     "app.R": {
-      "checksum": "a249284e7ccea2e98847b3aab52a9ec4"
+      "checksum": "d7e106caf53e9e3ebfa2384fe6c01116"
     },
     "borradors/app_v1.R": {
       "checksum": "b5b777ad3e1679b1dac50e9d5c3b3d81"
@@ -2021,7 +2021,7 @@
       "checksum": "f54b8ac6df9480b2fdc50a1a8884b787"
     },
     "dades_indicadors_salut_comunitaria.csv": {
-      "checksum": "f28f8c53ab8c24d5d2d43d6ffe20e53d"
+      "checksum": "621b236d3f9b5b7497296da345a2466e"
     },
     "imatges/aquas_logotip.png": {
       "checksum": "e24a80e3fdd761ad94eae70fe654d54e"
@@ -2072,7 +2072,7 @@
       "checksum": "bdc8c3473537d9a9e42582ce36c83f8b"
     },
     "URL.txt": {
-      "checksum": "e328ccc63c24faec00627e9203e481ac"
+      "checksum": "6d8a76ab9aebe0a72dddda93193610c9"
     }
   },
   "users": null
