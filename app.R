@@ -1943,7 +1943,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe, grup d'edat (6-12 anys i 18-74 anys) i ABS.",
+             p("Disponible per sexe, grup d'edat (6-17 anys i 18-74 anys) i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -1983,8 +1983,8 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe, grup d'edat (6-12 anys i 18-74 anys) i ABS. Pel grup d'edat de 18 a 74 anys es calcula com la població assignada i atesa amb 
-               un Índex de massa corporal (IMC) > 25 i ≤ 30 o un codi diagnòstic d'augment anormal de pes. Pels infants de 6 a 12 anys es calcula com la població 
+             p("Disponible per sexe, grup d'edat (6-17 anys i 18-74 anys) i ABS. Pel grup d'edat de 18 a 74 anys es calcula com la població assignada i atesa amb 
+               un Índex de massa corporal (IMC) > 25 i ≤ 30 o un codi diagnòstic d'augment anormal de pes. Pels infants de 6 a 17 anys es calcula com la població 
                assignada i atesa amb un pes entre el percentil 90 i 95 o un codi diagnòstic d'augment anormal de pes.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2025,8 +2025,8 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe, grup d'edat (6-12 anys i 18-74 anys) i ABS. Pel grup d'edat de 18 a 74 anys es calcula com la població assignada i atesa amb 
-               un Índex de massa corporal (IMC) > 25 i ≤ 30 o un codi diagnòstic d'augment anormal de pes. Pels infants de 6 a 12 anys es calcula com la població 
+             p("Disponible per sexe, grup d'edat (6-17 anys i 18-74 anys) i ABS. Pel grup d'edat de 18 a 74 anys es calcula com la població assignada i atesa amb 
+               un Índex de massa corporal (IMC) > 25 i ≤ 30 o un codi diagnòstic d'augment anormal de pes. Pels infants de 6 a 17 anys es calcula com la població 
                assignada i atesa amb un pes per sobre el percentil 95 o un codi diagnòstic d'obesitat.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2855,27 +2855,14 @@ server <- function(input, output, session) {
            "fitxa_SCRE01" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("Percentatge de persones ateses per un equip d'atenció primària respecte a les persones assegurades (població assegurada). 
+             p("Nombre de persones assignades i ateses per un equip d'atenció primària. 
                S'entén com a persona atesa aquella que s'ha visitat almenys un cop durant l'any seleccionat en qualsevol equip d'atenció primària.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Fórmula", class = "title-style"),
-             div(
-               class = "formula-container",
-               div(
-                 class = "fraction",
-                 div(
-                   class = "fraction-top",
-                   "Persones ateses en EAP amb almenys una visita durant el període"
-                 ),
-                 div(
-                   class = "fraction-bottom",
-                   "Població atesa assignada"
-                 )
-               ),
-               "× 100"
-             ),
+             p("Persones assignades i ateses (amb almenys una visita durant el període) a l'EAP.",
+               style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
