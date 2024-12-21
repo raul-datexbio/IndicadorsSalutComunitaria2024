@@ -1456,9 +1456,20 @@ server <- function(input, output, session) {
           list(
             targets = 6:11,
             render = JS("function(data, type, row) {
+            
+              if (data === null || data === 'NA' || isNaN(data)) {
+                if (type === 'export') {
+                  return 'NA';
+                }
+                if (type === 'display' || type === 'pdf') {
+                  return '—'; 
+                }
+                return data;
+                }
               if (type === 'export') {
                 return data;
               }
+              
               if (type === 'display') {
                 if (row[4] !== 'Persones') {  // Cambiado de row[3] a row[4]
                   return new Intl.NumberFormat('es-ES', {
