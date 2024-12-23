@@ -2003,10 +2003,10 @@
   },
   "files": {
     ".RData": {
-      "checksum": "a1bf221672b2261843149a985c446742"
+      "checksum": "e98d1414c62a83e94a670c9a9a2a2964"
     },
     "app.R": {
-      "checksum": "2f26048fcaa61da7461688a0d5da239a"
+      "checksum": "9c5098af6e68ab4abbcb2d64a30c2571"
     },
     "borradors/app_v1.R": {
       "checksum": "b5b777ad3e1679b1dac50e9d5c3b3d81"
@@ -2024,7 +2024,7 @@
       "checksum": "f54b8ac6df9480b2fdc50a1a8884b787"
     },
     "dades_indicadors_salut_comunitaria.csv": {
-      "checksum": "3e04e3d69bc451e1ede93e83a7c286fb"
+      "checksum": "21b8b81e9556cabca5d5bf7bb6314460"
     },
     "imatges/aquas_logotip.png": {
       "checksum": "e24a80e3fdd761ad94eae70fe654d54e"

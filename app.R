@@ -1457,7 +1457,11 @@ server <- function(input, output, session) {
             targets = 6:11,
             render = JS("function(data, type, row) {
             
-              if (data === null || data === 'NA' || isNaN(data)) {
+              if (typeof data === 'string' && isNaN(Number(data))) {
+                return data;
+              }
+            
+              if (data === null || data === 'NA') {
                 if (type === 'export') {
                   return 'NA';
                 }
