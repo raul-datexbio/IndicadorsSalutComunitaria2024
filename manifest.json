@@ -2006,7 +2006,7 @@
       "checksum": "e98d1414c62a83e94a670c9a9a2a2964"
     },
     "app.R": {
-      "checksum": "9c5098af6e68ab4abbcb2d64a30c2571"
+      "checksum": "2a412470c43cac018b4c74754b68fdf2"
     },
     "borradors/app_v1.R": {
       "checksum": "b5b777ad3e1679b1dac50e9d5c3b3d81"
@@ -2024,7 +2024,10 @@
       "checksum": "f54b8ac6df9480b2fdc50a1a8884b787"
     },
     "dades_indicadors_salut_comunitaria.csv": {
-      "checksum": "21b8b81e9556cabca5d5bf7bb6314460"
+      "checksum": "c5752941884e7ef8dd03c70aa3cf6c8f"
+    },
+    "dades_indicadors_salut_comunitaria_gwalkr.csv": {
+      "checksum": "371651b69e86e22242196cc45b621b9d"
     },
     "imatges/aquas_logotip.png": {
       "checksum": "e24a80e3fdd761ad94eae70fe654d54e"

@@ -9,8 +9,12 @@ library(shiny)
 library(shinyjs)
 library(shinythemes)
 
-# Carregar CSV
+# Carregar CSV penstanya 'Dades'
 df <- read.csv('https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/dades_indicadors_salut_comunitaria.csv',
+               sep = ",", encoding = "latin1", check.names = FALSE)
+
+# Carregar CSV penstanya 'Anàlisi'
+df_gwalkr <- read.csv('https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/dades_indicadors_salut_comunitaria_gwalkr.csv',
                sep = ",", encoding = "latin1", check.names = FALSE)
 
 ################################################################################
@@ -1385,7 +1389,8 @@ server <- function(input, output, session) {
               var header = 'regio_sanitaria;area_basica_salut;ambit;indicador;mesura;periode;abs_homes;abs_dones;abs_total;catalunya_homes;catalunya_dones;catalunya_total\\n';
               var rows = csv.split('\\n');
               var processedRows = rows.slice(1).map(function(row) {
-                var columns = row.split(',').map(val => val.replace(/\"/g, ''));
+                row = row.replace(/\",\"/g, ';');
+                var columns = row.split(';').map(val => val.replace(/\"/g, ''));
                 if (columns[4] !== 'Persones') {
                   for(var i = 6; i < columns.length; i++) {
                     if(columns[i].includes('.')) {
@@ -1422,7 +1427,13 @@ server <- function(input, output, session) {
             filename = "dades_indicadors_salut_comunitaria",
             title = NULL,
             orientation = "landscape",
+            pageSize = "A4",
             customize = JS("function(doc) {
+            
+              doc.defaultStyle.fontSize = 8;
+              doc.styles.tableHeader.fontSize = 8;
+              doc.pageMargins = [20, 20, 20, 20];
+              
               doc.content[0].table.body.forEach(function(row, index) {
                 for(var i = 0; i <= 4; i++) {
                   if(row[i]) row[i].alignment = 'left';
@@ -1453,6 +1464,7 @@ server <- function(input, output, session) {
           list(visible = FALSE, targets = 0),
           list(className = 'dt-left', targets = 1:4), 
           list(className = 'dt-center', targets = 5:11),
+          list(targets = 6:11, orderable = FALSE), # Desactivar l'ordenació a les columnes 6 a 11 perquè són mixtes (valors numèrics i text) i funciona malament
           list(
             targets = 6:11,
             render = JS("function(data, type, row) {
@@ -1475,13 +1487,13 @@ server <- function(input, output, session) {
               }
               
               if (type === 'display') {
-                if (row[4] !== 'Persones') {  // Cambiado de row[3] a row[4]
+                if (row[4] !== 'Persones') {
                   return new Intl.NumberFormat('es-ES', {
                     minimumFractionDigits: 1,
                     maximumFractionDigits: 2,
                     useGrouping: true
                   }).format(data);
-              } else {  // Para 'Persones'
+              } else {
                 return new Intl.NumberFormat('es-ES', {
                   minimumFractionDigits: 0,
                   maximumFractionDigits: 0,
@@ -1499,7 +1511,7 @@ server <- function(input, output, session) {
   
   # Mostrar GWalkR
   output$analisi_exploratoria_dades_eda = renderGwalkr({
-    gwalkr(df)
+    gwalkr(df_gwalkr)
   })
   
   # Mostrar fitxa seleccionada
