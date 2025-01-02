@@ -1781,10 +1781,10 @@ server <- function(input, output, session) {
            "fitxa_SCMO01" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("Població de 0 a 14 anys assignada i atesa per alguna de les següents patologies: altres hèrnies abdominals, trastorns de refracció,
+             p("Població de 0 a 14 anys assignada i atesa per alguna de les següents patologies: altres hèrnies abdominals, trastorns de refracció, 
                deformitats adquirides columna, deformitats adquirides extremitats, migranya, síndrome del túnel carpià, trastorn ansietat i angoixa, 
-               ceguesa, fòbia o trastorn compulsiu, hipertròfia amígdales/adenoides, asma, rinitis al·lèrgica, síndrome apnea del son, obesitat, 
-               hipotiroïdisme/mixedema, alteracions del metabolisme lipídic, criptorquídia, trastorns hipercinètics o osteocondrosi.",
+               ceguesa, fòbia o trastorn compulsiu, hipertròfia amigdales/adenoïdes, asma, rinitis al·lèrgica, síndrome apnea del son, obesitat, 
+               hipotiroïdisme/mixedema, criptoquídia, trastorns hipercinètics o osteocondrosi.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -1824,9 +1824,9 @@ server <- function(input, output, session) {
            "fitxa_SCMO02" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("Població de 15 anys i més assignada i atesa per alguna de les següents patologies: alteracions del metabolisme lipídic, diabetis no 
-               insulinodependent, depressió, altres malalties del cor, altres artrosis, hipertròfia prostàtica benigna, hipotiroïdisme/mixedema, 
-               hipertensió arterial no complicada, trastorn ansietat/angoixa/estat ansiós, osteoporosis, rinitis al·lèrgica, varius a les cames, obesitat.",
+             p("Població de 15 anys i més assignada i atesa per alguna de les següents patologies: alteracions del metabolisme lipídic, 
+               diabetis no insulionodependent, depressió, altres malalties del cor, altres artrosis, hipertròfia prostàtica benigna, 
+               hipotiroïdisme/mixedema, hipertensió arterial no complicada, trastorn anisetat/angoixa/estat ansiós, osteoporosis, varius a les cames o obesitat.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
