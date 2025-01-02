@@ -1866,8 +1866,10 @@ server <- function(input, output, session) {
            "fitxa_SCMO03" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("Població de 18 anys i més assignada i atesa per alguna de les següents patologies: depressió, ansietat, esquizofrènia, 
-               altres psicosis, trastorn bipolar, demència.",
+             p("Població de 18 anys i més assignada i atesa per alguna de les següents patologies: amb qualsevol diagnòstic de salut mental, 
+               trastorn per esquizofrènia, trastorn depressiu, trastorn bipolar, altres trastorns de l'estat d'ànim, ansietat i trastorns de la por, 
+               trastorn obsessivocompulsiu, trastorns per traumes i estrès, trastorns de conducta, trastorns de la personalitat, trastorns de la conducta alimentària, 
+               trastorns somàtics, idees suïcides, trastorns de comportament o trastorns del neurodesenvolupament.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -1907,7 +1909,8 @@ server <- function(input, output, session) {
            "fitxa_SCMO04" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("Trastorn de conducta alimentària, trastorn de conducta, trastorn de l'espectre autista, dèficit d'atenció i/o hiperactivitat, trastorn adaptatiu.",
+             p("Població menor de 18 anys assignada i atesa per alguna de les següents patologies: trastorns de la conducta alimentària, 
+               trastorns de conducta, trastorn de l'espectre autista, dèficit d'atenció i/o hiperactivitat o trastorn adaptatiu.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
