@@ -975,7 +975,7 @@ ui <- tagList(
                   "Població amb obesitat" = "fitxa_SCMO07",
                   "Població amb sobrepès" = "fitxa_SCMO06",
                   "Població assignada" = "fitxa_SCDE01",
-                  "Població assignada a l'EAP de 75 anys o més que ha estat atesa al programa ATDOM" = "fitxa_SCRE03",
+                  "Població assignada a l'EAP de 75 anys i més que ha estat atesa al programa ATDOM" = "fitxa_SCRE03",
                   "Població assignada i atesa" = "fitxa_SCRE01",
                   "Població atesa a centres ambulatoris de salut mental" = "fitxa_SCRE04",
                   "Població consumidora de fàrmacs" = "fitxa_SCRE05",
@@ -1454,7 +1454,7 @@ server <- function(input, output, session) {
         ),
         language = list(
           search = "<i class='glyphicon glyphicon-search'></i>",
-          info = "Registres seleccionats: _TOTAL_",
+          info = "Registres disponibles: _TOTAL_",
           infoEmpty = "No hi ha registres disponibles",
           thousands = ".",
           zeroRecords = "No s'han trobat registres coincidents",
@@ -1620,7 +1620,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe, grup d'edat (65-74 anys, 75-84 anys, 85 anys i més) i ABS.",
+             p("Disponible per sexe, ABS i grups d'edat (65-74 anys, 75-84 anys, 85 anys i més).",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -1660,7 +1660,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe, grup d'edat (0-14 anys, 15-44 anys, 45-64 anys i 65 anys i més) i ABS. Es consideren països en via de desenvolupament: 
+             p("Disponible per sexe, ABS i grups d'edat (0-14 anys, 15-44 anys, 45-64 anys i 65 anys i més). Es consideren països en via de desenvolupament: 
                Afganistan, Algèria, Angola, Anguilla, Antigua i Barbuda, Antilles Neerlandeses, Aràbia Saudita, Argentina, Armènia, Aruba, Azerbaidjan, 
                Bahames, Bahrain, Bangladesh, Barbados, Belize, Benín, Bhutan, Bolívia, Botswana, Brasil, Brunei, Burkina Faso, Burundi, Cambodja, Camerun, 
                Cap Verd, Colòmbia, Comores, Congo, Corea del Nord, Corea del Sud, Costa d'Ivori, Costa Rica, Cuba, Djibouti, Dominica, Egipte, El Salvador, 
