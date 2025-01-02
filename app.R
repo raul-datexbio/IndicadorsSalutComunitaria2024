@@ -1973,7 +1973,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe, grup d'edat (6-17 anys i 18-74 anys) i ABS.",
+             p("Disponible per sexe, ABS i grups d’edat (6-17 anys i 18-74 anys).",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2013,7 +2013,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe, grup d'edat (6-17 anys i 18-74 anys) i ABS. Pel grup d'edat de 18 a 74 anys es calcula com la població assignada i atesa amb 
+             p("Disponible per sexe, ABS i grups d’edat (6-17 anys i 18-74 anys). Pel grup d'edat de 18 a 74 anys es calcula com la població assignada i atesa amb 
                un Índex de massa corporal (IMC) > 25 i ≤ 30 o un codi diagnòstic d'augment anormal de pes. Pels infants de 6 a 17 anys es calcula com la població 
                assignada i atesa amb un pes entre el percentil 90 i 95 o un codi diagnòstic d'augment anormal de pes.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -2055,7 +2055,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe, grup d'edat (6-17 anys i 18-74 anys) i ABS. Pel grup d'edat de 18 a 74 anys es calcula com la població assignada i atesa amb 
+             p("Disponible per sexe, ABS i grups d’edat (6-17 anys i 18-74 anys). Pel grup d'edat de 18 a 74 anys es calcula com la població assignada i atesa amb 
                un Índex de massa corporal (IMC) > 25 i ≤ 30 o un codi diagnòstic d'augment anormal de pes. Pels infants de 6 a 17 anys es calcula com la població 
                assignada i atesa amb un pes per sobre el percentil 95 o un codi diagnòstic d'obesitat.",
                style = "margin-bottom: 20px; text-align: justify;"),
