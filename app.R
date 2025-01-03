@@ -950,7 +950,7 @@ ui <- tagList(
                   "Indicador de salut comunitària", class = "title-style", style = "margin-bottom: 5px;"
                 ),
                 choices = c(
-                  "Selecciona o escriu el nom d'un indicador" = "",
+                  " " = "",
                   "Activitat física saludable de la població de 15-69 anys (brut)" = "fitxa_SCES06",
                   "Activitat física saludable de la població de 15-69 anys (estandarditzat)" = "fitxa_SCES07",
                   "Adherència a la dieta mediterrània de la població de 15 anys i més (brut)" = "fitxa_SCES04",
@@ -992,7 +992,7 @@ ui <- tagList(
                   "Població menor de 18 anys atesa a centres ambulatoris de salut mental" = "fitxa_SCMO04",
                   "Població polimedicada amb 10 ATC o més" = "fitxa_SCRE07",
                   "Taxa bruta de mortalitat" = "fitxa_SCMR02",
-                  "Taxa de mortalitat estandarditzada" = "fitxa_SCMR03_04"
+                  "Taxa de mortalitat estandarditzada" = "fitxa_SCMR03"
                 ),
                 selected = "",
                 width = "100%"
@@ -1526,7 +1526,7 @@ server <- function(input, output, session) {
            "fitxa_SCDE01" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("Població assignada a un equip d’atenció primària (EAP) que ha estat assignada per aquest equip en l’any d’estudi.",
+             p("Població assignada a un equip d'atenció primària (EAP) que ha estat assignada per aquest equip en l'any d'estudi.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -1536,7 +1536,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe, ABS i grups d'edat (0-14 anys, 15-54 anys, 55-64 anys i 65 i més anys). El nivell socioeconòmic individual es calcula tenint en compte el nivell de renda individual, 
+             p("Disponible per sexe, ABS i grups d'edat (0-14 anys, 15-54 anys, 55-64 anys i 65 anys i més). El nivell socioeconòmic individual es calcula tenint en compte el nivell de renda individual, 
                la situació laboral actual (relació amb la Seguretat Social) i el copagament farmacèutic.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -1547,7 +1547,7 @@ server <- function(input, output, session) {
              
              h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Origen de les dades", class = "title-style"),
-             p("Registre Central d’Assegurats (RCA), Servei Català de la Salut (CatSalut).",
+             p("Registre Central d'Assegurats (RCA), Servei Català de la Salut (CatSalut).",
                style = "margin-bottom: 0px; text-align: justify;")
            ),
            
@@ -1588,7 +1588,7 @@ server <- function(input, output, session) {
              
              h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Origen de les dades", class = "title-style"),
-             p("Registre Central d’Assegurats (RCA), Servei Català de la Salut (CatSalut).",
+             p("Registre Central d'Assegurats (RCA), Servei Català de la Salut (CatSalut).",
                style = "margin-bottom: 0px; text-align: justify;")
            ),
            
@@ -1620,7 +1620,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe, ABS i grups d'edat (65-74 anys, 75-84 anys, 85 anys i més).",
+             p("Disponible per sexe, ABS i grups d'edat (65-74 anys, 75-84 anys i 85 anys i més).",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -1781,10 +1781,10 @@ server <- function(input, output, session) {
            "fitxa_SCMO01" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("Població de 0 a 14 anys assignada i atesa per alguna de les següents patologies: altres hèrnies abdominals, trastorns de refracció, 
-               deformitats adquirides columna, deformitats adquirides extremitats, migranya, síndrome del túnel carpià, trastorn ansietat i angoixa, 
-               ceguesa, fòbia o trastorn compulsiu, hipertròfia amigdales/adenoïdes, asma, rinitis al·lèrgica, síndrome apnea del son, obesitat, 
-               hipotiroïdisme/mixedema, criptoquídia, trastorns hipercinètics o osteocondrosi.",
+             p("Població de 0 a 14 anys assignada i atesa per alguna de les següents patologies: altres hèrnies abdominals; trastorns de refracció; 
+               deformitats adquirides de la columna; deformitats adquirides de les extremitats; migranya; síndrome del túnel carpià; trastorn d'ansietat i angoixa; 
+               ceguesa; fòbia o trastorn compulsiu; hipertròfia d'amígdales/adenoides; asma; rinitis al·lèrgica; síndrome d'apnea del son; obesitat; hipotiroïdisme/mixedema; 
+               criptoquídia; trastorns hipercinètics; o osteocondrosi.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -1824,9 +1824,9 @@ server <- function(input, output, session) {
            "fitxa_SCMO02" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("Població de 15 anys i més assignada i atesa per alguna de les següents patologies: alteracions del metabolisme lipídic, 
-               diabetis no insulionodependent, depressió, altres malalties del cor, altres artrosis, hipertròfia prostàtica benigna, 
-               hipotiroïdisme/mixedema, hipertensió arterial no complicada, trastorn anisetat/angoixa/estat ansiós, osteoporosis, varius a les cames o obesitat.",
+             p("Població de 15 anys i més assignada i atesa per alguna de les següents patologies: alteracions del metabolisme lipídic; 
+               diabetis no insulinodependent; depressió; altres malalties del cor; altres artrosis; hipertròfia prostàtica benigna; hipotiroïdisme/mixedema; 
+               hipertensió arterial no complicada; trastorn ansietat/angoixa/estat ansiós; osteoporosis; varius a les cames; o obesitat.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -1866,10 +1866,10 @@ server <- function(input, output, session) {
            "fitxa_SCMO03" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("Població de 18 anys i més assignada i atesa per alguna de les següents patologies: amb qualsevol diagnòstic de salut mental, 
-               trastorn per esquizofrènia, trastorn depressiu, trastorn bipolar, altres trastorns de l'estat d'ànim, ansietat i trastorns de la por, 
-               trastorn obsessivocompulsiu, trastorns per traumes i estrès, trastorns de conducta, trastorns de la personalitat, trastorns de la conducta alimentària, 
-               trastorns somàtics, idees suïcides, trastorns de comportament o trastorns del neurodesenvolupament.",
+             p("Població de 18 anys i més assignada i atesa per alguna de les següents patologies: amb qualsevol diagnòstic de salut mental;
+               trastorn per esquizofrènia; trastorn depressiu; trastorn bipolar; altres trastorns de l'estat d'ànim; ansietat i trastorns de la por;
+               trastorn obsessivocompulsiu; trastorns per traumes i estrès; trastorns de conducta; trastorns de la personalitat;
+               trastorns de la conducta alimentària; trastorns somàtics; idees suïcides; trastorns de comportament; o trastorns del neurodesenvolupament.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -1909,8 +1909,8 @@ server <- function(input, output, session) {
            "fitxa_SCMO04" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("Població menor de 18 anys assignada i atesa per alguna de les següents patologies: trastorns de la conducta alimentària, 
-               trastorns de conducta, trastorn de l'espectre autista, dèficit d'atenció i/o hiperactivitat o trastorn adaptatiu.",
+             p("Població menor de 18 anys assignada i atesa per alguna de les següents patologies: trastorns de la conducta alimentària; 
+               trastorns de conducta; trastorn de l'espectre autista; dèficit d'atenció i/o hiperactivitat; o trastorn adaptatiu.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -1973,7 +1973,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe, ABS i grups d’edat (6-17 anys i 18-74 anys).",
+             p("Disponible per sexe, ABS i grups d'edat (6-17 anys i 18-74 anys).",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -1990,7 +1990,7 @@ server <- function(input, output, session) {
            "fitxa_SCMO06" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("L'indicador es calcula de manera diferent depenent del grup d'edat.",
+             p("Població assignada amb sobrepès.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2013,9 +2013,10 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe, ABS i grups d’edat (6-17 anys i 18-74 anys). Pel grup d'edat de 18 a 74 anys es calcula com la població assignada i atesa amb 
-               un Índex de massa corporal (IMC) > 25 i ≤ 30 o un codi diagnòstic d'augment anormal de pes. Pels infants de 6 a 17 anys es calcula com la població 
-               assignada i atesa amb un pes entre el percentil 90 i 95 o un codi diagnòstic d'augment anormal de pes.",
+             p("Disponible per sexe, ABS i grups d'edat (6-17 anys i 18-74 anys). L'indicador es calcula de manera diferent depenent del grup d'edat. 
+               Pels infants de 6 a 17 anys es calcula com la població assignada i atesa amb un pes entre el percentil 90 i 95 o un codi diagnòstic d'augment 
+               anormal de pes. Pel grup d'edat de 18 a 74 anys es calcula com la població assignada i atesa amb un Índex de massa corporal (IMC) > 25 i ≤ 30 
+               o un codi diagnòstic d'augment anormal de pes.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2032,7 +2033,7 @@ server <- function(input, output, session) {
            "fitxa_SCMO07" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("L'indicador es calcula de manera diferent depenent del grup d'edat.",
+             p("Població assignada amb obesitat.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2043,11 +2044,11 @@ server <- function(input, output, session) {
                  class = "fraction",
                  div(
                    class = "fraction-top",
-                   "Població de 18-74 anys amb un IMC > 30 o un codi diagnòstic d'obesitat"
+                   "Població amb obesitat"
                  ),
                  div(
                    class = "fraction-bottom",
-                   "Població de 18-74 anys assignada a l'equip d'atenció primària"
+                   "Població assignada a l'equip d'atenció primària"
                  )
                ),
                "× 100"
@@ -2055,9 +2056,9 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe, ABS i grups d’edat (6-17 anys i 18-74 anys). Pel grup d'edat de 18 a 74 anys es calcula com la població assignada i atesa amb 
-               un Índex de massa corporal (IMC) > 25 i ≤ 30 o un codi diagnòstic d'augment anormal de pes. Pels infants de 6 a 17 anys es calcula com la població 
-               assignada i atesa amb un pes per sobre el percentil 95 o un codi diagnòstic d'obesitat.",
+             p("Disponible per sexe, ABS i grups d'edat (6-17 anys i 18-74 anys). L'indicador es calcula de manera diferent depenent del grup d'edat. 
+               Pels infants de 6 a 17 anys es calcula com la població assignada i atesa amb un pes per sobre el percentil 95 o un codi diagnòstic d'obesitat. 
+               Pel grup d'edat de 18 a 74 anys es calcula com la població assignada i atesa amb un Índex de massa corporal (IMC) > 30 o un codi diagnòstic d'obesitat.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2398,7 +2399,7 @@ server <- function(input, output, session) {
            "fitxa_SCMR01" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que hem fet servir en els càlculs dels 
+             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que s'ha fet servir en els càlculs dels 
                indicadors prové del Registre Central d'Assegurats.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2409,8 +2410,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe i ABS. Per tal de mantenir el secret estadístic el nombre de defuncions per suïcidi i COVID-19 segons la seva ABS amb menys 
-               de 9 casos apareixerà com < 10 excepte en el període (2015-2019).",
+             p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2427,7 +2427,7 @@ server <- function(input, output, session) {
            "fitxa_SCMR02" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que hem fet servir en els càlculs dels 
+             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que s'ha fet servir en els càlculs dels 
                indicadors prové del Registre Central d'Assegurats.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2451,14 +2451,14 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p(paste("Disponible per sexe i ABS. Es calcula per les següents causes de defunció: certes malalties infeccioses i parasitàries, tumors, malalties 
-                     endocrines, nutricionals i metabòliques, trastorns mentals i del comportament, malalties del sistema nerviós, malalties de l'aparell circulatori, 
-                     malalties de l'aparell respiratori, malalties de l'aparell digestiu, malalties del sistema osteomuscular i teixit conjuntiu, malalties de l'aparell 
-                     genitourinari, símptomes i signes mal definits, causes externes de morbiditat i mortalitat."),
+             p(paste("Disponible per sexe i ABS. Es calcula per les següents causes de defunció: certes malalties infeccioses i parasitàries; 
+                     tumors; malalties endocrines, nutricionals i metabòliques; trastorns mentals i del comportament; malalties del sistema nerviós; 
+                     malalties de l'aparell circulatori; malalties de l'aparell respiratori; malalties de l'aparell digestiu; malalties del sistema osteomuscular 
+                     i del teixit conjuntiu; malalties de l'aparell genitourinari; símptomes i signes mal definits; i causes externes de morbiditat i mortalitat."),
                tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
                       style = "margin-left: 5px;",
                       icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
-                      title = "Més informació sobre la metodologia de l’anàlisi de la mortalitat a Catalunya",
+                      title = "Més informació sobre la metodologia de l'anàlisi de la mortalitat a Catalunya",
                       target = "_blank"),
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2473,10 +2473,10 @@ server <- function(input, output, session) {
                style = "margin-bottom: 0px; text-align: justify;")
            ),
            
-           "fitxa_SCMR03_04" = div(
+           "fitxa_SCMR03" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que hem fet servir en els càlculs dels 
+             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que s'ha fet servir en els càlculs dels 
                 indicadors prové del Registre Central d'Assegurats.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2488,7 +2488,7 @@ server <- function(input, output, session) {
                  class = "fraction",
                  div(
                    class = "fraction-top",
-                   "Sumatori de la taxa específica de mortalitat de cada tram d'edat del període n × la població tipus de cada tram d'edat"
+                   "Sumatori de la taxa específica de mortalitat de cada tram d'edat del període n × Població tipus de cada tram d'edat"
                  ),
                  div(
                    class = "fraction-bottom",
@@ -2499,10 +2499,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p(paste("Disponible per sexe i ABS. Es calcula per les següents causes de defunció: certes malalties infeccioses i parasitàries, tumors, malalties 
-                     endocrines, nutricionals i metabòliques, trastorns mentals i del comportament, malalties del sistema nerviós, malalties de l'aparell circulatori, 
-                     malalties de l'aparell respiratori, malalties de l'aparell digestiu, malalties del sistema osteomuscular i teixit conjuntiu, malalties de l'aparell 
-                     genitourinari, símptomes i signes mal definits, causes externes de morbiditat i mortalitat."),
+             p(paste("Disponible per sexe i ABS."),
                tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
                       style = "margin-left: 5px;",
                       icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
@@ -2524,7 +2521,7 @@ server <- function(input, output, session) {
            "fitxa_SCMR05" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que hem fet servir en els càlculs dels 
+             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que s'ha fet servir en els càlculs dels 
                indicadors prové del Registre Central d'Assegurats.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2535,7 +2532,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p(paste("Disponible per sexe i ABS. Per tal de mantenir el secret estadístic el nombre de defuncions per suïcidi i COVID-19 segons la seva ABS amb menys de 9 casos apareixerà com < 10 excepte en el període (2015-2019)."),
+             p(paste("Disponible per sexe i ABS. Per tal de mantenir el secret estadístic, el nombre de defuncions per suïcidi a les ABS amb menys de 10 casos apareixerà com <10, excepte en el període 2015-2019."),
                tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
                       style = "margin-left: 5px;",
                       icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
@@ -2557,7 +2554,7 @@ server <- function(input, output, session) {
            "fitxa_SCMR06" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que hem fet servir en els càlculs dels 
+             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que s'ha fet servir en els càlculs dels 
                indicadors prové del Registre Central d'Assegurats.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2573,7 +2570,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe i ABS. Per tal de mantenir el secret estadístic el nombre de defuncions per suïcidi i COVID-19 segons la seva ABS amb menys de 9 casos apareixerà com < 10 excepte en el període (2015-2019).",
+             p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2590,7 +2587,7 @@ server <- function(input, output, session) {
            "fitxa_SCMR07" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que hem fet servir en els càlculs dels 
+             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que s'ha fet servir en els càlculs dels 
                 indicadors prové del Registre Central d'Assegurats.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2601,7 +2598,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe i ABS.",
+             p("Disponible per sexe i ABS. Per tal de mantenir el secret estadístic, el nombre de defuncions per COVID-19 a les ABS amb menys de 10 casos apareixerà com <10.",
                tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
                       style = "margin-left: 5px;",
                       icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
@@ -2623,7 +2620,7 @@ server <- function(input, output, session) {
            "fitxa_SCES01" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("Permet mesurar la prevalença del consum de tabac en la població assignada a l'EAP, una dada essencial per comprendre l'abast d'aquest hàbit en una comunitat específica.
+             p("Permet mesurar la prevalença del consum de tabac de la població assignada a l'equip d'atenció primària (EAP), una dada essencial per comprendre l'abast d'aquest hàbit en una comunitat específica.
                 Serveix com a indicador del risc associat a malalties relacionades amb el consum de tabac, com malalties respiratòries cròniques, càncer de pulmó, malalties cardiovasculars
                i altres patologies.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -2844,8 +2841,9 @@ server <- function(input, output, session) {
            "fitxa_SCPR01" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("Percentatge de població entre 0 i 14 anys que està correctament vacunada de: diftèria, tètanus, pertussis, poliomielitis, Hib (Haemophilus), TV (triple vírica: xarampió, rubèola, parotiditis) MCC (antimeningocòccica C), 
-               VHB (hepatitis B), meningococ B, antipneumocòccica conjugada, papil·loma humà, hepatitis A, varicel·la, antimeningocòccica ACWY segons el calendari sistemàtic vacunal vigent.",
+             p("Percentatge de població entre 0 i 14 anys correctament vacunada, segons el calendari sistemàtic vacunal vigent, amb les vacunes següents: 
+               diftèria; tètanus; pertussis; poliomielitis; Hib (Haemophilus); TV (triple vírica: xarampió, rubèola i parotiditis); MCC (antimeningocòccica C); 
+               VHB (hepatitis B); meningococ B; antipneumocòccica conjugada; papil·loma humà; hepatitis A; varicel·la; i antimeningocòccica ACWY.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2868,7 +2866,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe, grup d'edat (0-1 anys, 2-4 anys, 5-9 anys, 10-14 anys) i ABS.",
+             p("Disponible per sexe, ABS i grups d'edat (0-1 anys, 2-4 anys, 5-9 anys i 10-14 anys).",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2885,7 +2883,7 @@ server <- function(input, output, session) {
            "fitxa_SCRE01" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("Nombre de persones assignades i ateses per un equip d'atenció primària. 
+             p("Nombre de persones assignades i ateses per un equip d'atenció primària (EAP). 
                S'entén com a persona atesa aquella que s'ha visitat almenys un cop durant l'any seleccionat en qualsevol equip d'atenció primària.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2896,7 +2894,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe, grup d'edat (0-14, 15-54, 55-64, 65 i més anys) i ABS.",
+             p("Disponible per sexe, ABS i grups d'edat (0-14 anys, 15-54 anys, 55-64 anys i 65 anys i més).",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2913,7 +2911,7 @@ server <- function(input, output, session) {
            "fitxa_SCRE02" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("Nombre de visites de població assignada a l'atenció primària ateses (per medicina de família, infermeria, pediatria, odontologia i treball social).",
+             p("Mitjana de visites de la població assignada a l'equip d'atenció primària (EAP), ateses per medicina de família, infermeria, pediatria, odontologia i treball social.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2924,18 +2922,18 @@ server <- function(input, output, session) {
                  class = "fraction",
                  div(
                    class = "fraction-top",
-                   "Nombre de visites de població assignada a l'atenció primària ateses per medicina de família, infermeria, pediatria, odontologia i treball social"
+                   "Nombre de visites de la població assignada i atesa a l'EAP"
                  ),
                  div(
                    class = "fraction-bottom",
-                   "Població assignada"
+                   "Població assignada i atesa a l'EAP"
                  )
                )
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe, tipologia de visita i ABS.",
+             p("Disponible per sexe, ABS i tipologia de visita.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2952,8 +2950,9 @@ server <- function(input, output, session) {
            "fitxa_SCRE03" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("Percentatge de població major de 14 anys, incloses a l'ATDOM en què s'ha valorat la dependència, l'estat cognitiu (test Pfeiffer o qualsevol altre test que avaluï l'estat cognitiu)
-               i el risc social, o bé que s'hagi avaluat la complexitat, com a mínim una vegada durant el període d'avaluació.",
+             p("Percentatge de població assignada a l'equip d'atenció primària (EAP) de 75 anys i més, inclosa al programa d'atenció domiciliaria (ATDOM),
+               en què s'ha valorat la dependència, l'estat cognitiu (test Pfeiffer o qualsevol altre test que avaluï l'estat cognitiu) i el risc social, 
+               o bé que s'hagi avaluat la complexitat, com a mínim, una vegada durant el període d'avaluació.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -2964,12 +2963,11 @@ server <- function(input, output, session) {
                  class = "fraction",
                  div(
                    class = "fraction-top",
-                   "Població major de 74 anys, inclosa a l'ATDOM en què s'ha valorat la dependència, l'estat cognitiu (test Pfeiffer o qualsevol altre test que avaluï l'estat cognitiu)
-                   i el risc social, o bé que s'hagi avaluat la complexitat, com a mínim una vegada durant el període d'avaluació"
+                   "Població assignada a l'EAP de 75 anys i més atesa al programa ATDOM"
                  ),
                  div(
                    class = "fraction-bottom",
-                   "Població atesa assignada activa major de 14 anys incloses al programa ATDOM (inclou PCC, MACA majors de 90 anys i en cures pal·liatives)"
+                   "Població assignada a l'EAP de 75 anys i més"
                  )
                ),
                "× 100"
@@ -3018,7 +3016,7 @@ server <- function(input, output, session) {
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p("Disponible per sexe, grup d'edat (0-17 anys i 18 anys i més) i ABS.",
+             p("Disponible per sexe, ABS i grups d'edat (0-17 anys i 18 anys i més).",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -3035,9 +3033,9 @@ server <- function(input, output, session) {
            "fitxa_SCRE05" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("Percentatge de població atesa que se'ls ha prescrit tractament amb el fàrmac seleccionat durant l'any seleccionat. Els fàrmacs seleccionats inclouen: antidiabètics orals, 
-               hipocolesterolemiants, antipsicòtics, antidepressius i antibiòtics. Cada grup de fàrmacs està destinat a tractar condicions específiques: els antidiabètics orals per a la diabetis, 
-               els hipocolesterolemiants per al colesterol alt, els antipsicòtics per a trastorns mentals greus, els antidepressius per a la depressió, i els antibiòtics per a infeccions bacterianes.",
+             p("Percentatge de població atesa que se'ls ha prescrit tractament amb el fàrmac seleccionat durant l'any seleccionat. Els fàrmacs seleccionats inclouen antidiabètics orals, 
+               hipocolesterolemiants, antipsicòtics, antidepressius i antibiòtics. Cada grup de fàrmacs està destinat a tractar condicions específiques: els antidiabètics orals per a la diabetis; 
+               els hipocolesterolemiants per al colesterol alt; els antipsicòtics per a trastorns mentals greus; els antidepressius per a la depressió; i els antibiòtics per a infeccions bacterianes.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
@@ -3128,7 +3126,7 @@ server <- function(input, output, session) {
                  class = "fraction",
                  div(
                    class = "fraction-top",
-                   "Població assignada amb 10 o més medicaments (ATC) diferents prescrits amb una vigència igual o superior a 3 mesos"
+                   "Població assignada amb 10 o més ATC diferents prescrits amb una vigència igual o superior a 3 mesos"
                  ),
                  div(
                    class = "fraction-bottom",
