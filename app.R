@@ -1320,6 +1320,7 @@ server <- function(input, output, session) {
       dades_seleccionades,
       style = "default",
       extensions = 'Buttons',
+      plugins = 'natural', # PROBLEM: https://forum.posit.co/t/how-to-sort-alphanumeric-column-by-natural-numbers-in-a-datatable/2262
       rownames = FALSE,
       options = list(
         autoWidth = FALSE,
@@ -1454,17 +1455,30 @@ server <- function(input, output, session) {
         ),
         language = list(
           search = "<i class='glyphicon glyphicon-search'></i>",
-          info = "Registres disponibles: _TOTAL_",
-          infoEmpty = "No hi ha registres disponibles",
-          thousands = ".",
+          emptyTable = "No hi ha registres disponibles",
           zeroRecords = "No s'han trobat registres coincidents",
-          emptyTable = "No hi ha dades disponibles a la taula"
+          info = "Registres disponibles: _TOTAL_",
+          infoEmpty = "",
+          infoFiltered = "",
+          thousands = "."
         ),
         columnDefs = list(
           list(visible = FALSE, targets = 0),
           list(className = 'dt-left', targets = 1:4), 
           list(className = 'dt-center', targets = 5:11),
-          list(targets = 6:11, orderable = FALSE), # Desactivar l'ordenació a les columnes 6 a 11 perquè són mixtes (valors numèrics i text) i funciona malament
+          list(type = 'natural', targets = c(1, 3:4, 6:11)), # PROBLEM: https://forum.posit.co/t/how-to-sort-alphanumeric-column-by-natural-numbers-in-a-datatable/2262
+          list(
+            targets = c(1:4),
+            # Eliminem accents per ordenar correctament les columnes 1-4 i els restablim després.
+            render = JS("
+              function(data, type, row) {
+                if (type === 'sort') {
+                  return data.normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').toLowerCase();
+              }
+              return data;
+            }
+          ")
+          ),
           list(
             targets = 6:11,
             render = JS("function(data, type, row) {
@@ -1507,7 +1521,9 @@ server <- function(input, output, session) {
         )
       )
     )
-  })
+  },
+  server = FALSE # PROBLEM: https://forum.posit.co/t/how-to-sort-alphanumeric-column-by-natural-numbers-in-a-datatable/2262
+ )
   
   # Mostrar GWalkR
   output$analisi_exploratoria_dades_eda = renderGwalkr({
