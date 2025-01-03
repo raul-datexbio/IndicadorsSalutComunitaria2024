@@ -1320,7 +1320,7 @@ server <- function(input, output, session) {
       dades_seleccionades,
       style = "default",
       extensions = 'Buttons',
-      plugins = 'natural', # PROBLEM: https://forum.posit.co/t/how-to-sort-alphanumeric-column-by-natural-numbers-in-a-datatable/2262
+      plugins = 'natural', # https://forum.posit.co/t/how-to-sort-alphanumeric-column-by-natural-numbers-in-a-datatable/2262
       rownames = FALSE,
       options = list(
         autoWidth = FALSE,
@@ -1466,10 +1466,10 @@ server <- function(input, output, session) {
           list(visible = FALSE, targets = 0),
           list(className = 'dt-left', targets = 1:4), 
           list(className = 'dt-center', targets = 5:11),
-          list(type = 'natural', targets = c(1, 3:4, 6:11)), # PROBLEM: https://forum.posit.co/t/how-to-sort-alphanumeric-column-by-natural-numbers-in-a-datatable/2262
+          list(type = 'natural', targets = c(1:11)), # https://forum.posit.co/t/how-to-sort-alphanumeric-column-by-natural-numbers-in-a-datatable/2262
           list(
             targets = c(1:4),
-            # Eliminem accents per ordenar correctament les columnes 1-4 i els restablim després.
+            # Eliminem els accents de les columnes 1-4 per ordenar-les correctament i restablim els accents després de la ordenació
             render = JS("
               function(data, type, row) {
                 if (type === 'sort') {
@@ -1481,7 +1481,21 @@ server <- function(input, output, session) {
           ),
           list(
             targets = 6:11,
+            # Manipulem les dades de les columnes 6-11 per assegurar una ordenació, visualització i exportació correcta (NO FUNCIONA ORDENACIÓ <10)
             render = JS("function(data, type, row) {
+            
+            if (type === 'sort') {
+              if (typeof data === 'string' && data.trim() === '<10') { // NO FUNCIONA
+                return -999999998;
+              }
+              if (typeof data === 'string' && data.includes('(')) {
+                return Number(data.split('(')[0].trim().replace(',', '.'));
+              }
+              if (data === null || data === 'NA' || data === '—') {
+                return -999999999;
+              }
+              return typeof data === 'number' ? data : Number(data.replace(',', '.'));
+            }
             
               if (typeof data === 'string' && isNaN(Number(data))) {
                 return data;
@@ -1522,7 +1536,7 @@ server <- function(input, output, session) {
       )
     )
   },
-  server = FALSE # PROBLEM: https://forum.posit.co/t/how-to-sort-alphanumeric-column-by-natural-numbers-in-a-datatable/2262
+  server = FALSE # https://forum.posit.co/t/how-to-sort-alphanumeric-column-by-natural-numbers-in-a-datatable/2262
  )
   
   # Mostrar GWalkR
