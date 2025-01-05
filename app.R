@@ -1289,7 +1289,7 @@ server <- function(input, output, session) {
           HTML("
           <i class='fas fa-info-circle' style='font-size: 24px; margin-bottom: 15px; color: #1565C0;'></i><br>
           <span style='font-size: 16px; font-weight: 600;'>Seguint els passos, selecciona les regions, àrees, àmbits i indicadors d'interès, fes clic al botó <code style='color: #1565C0;'>Aplica la selecció</code> i confirma la selecció.</span><br>
-          <span style='font-size: 14px; color: #1976D2;'>Si no selecciones cap elements i confirmes, es mostrarà una taula amb totes les dades disponibles.</span><br>
+          <span style='font-size: 14px; color: #1976D2;'>Si no selecciones cap elements i confirmes, es mostrarà una taula amb totes les dades disponibles (no recomanat, ja que pot ralenteir l'aplicació web per la gran quantitat de dades).</span><br>
           <span style='font-size: 14px; color: #1976D2;'>Un cop es mostri la taula, podràs modificar les seleccions en temps real sense necessitat de confirmar.</span>
         ")
         )
@@ -1319,20 +1319,36 @@ server <- function(input, output, session) {
     datatable(
       dades_seleccionades,
       style = "default",
-      extensions = 'Buttons',
-      plugins = 'natural', # https://forum.posit.co/t/how-to-sort-alphanumeric-column-by-natural-numbers-in-a-datatable/2262
+      extensions = c('Buttons', 'FixedHeader'), # https://rstudio.github.io/DT/extensions.html
+      plugins = 'natural', # https://rstudio.github.io/DT/plugins.html
       rownames = FALSE,
       options = list(
         autoWidth = FALSE,
+        fixedHeader = list(
+          header = TRUE,
+          headerOffset = 0,
+          fixedPosition = TRUE
+        ),
+        scrollX = TRUE, 
+        scrollY = "287px",
+        scrollCollapse = TRUE,
         pageLength = nrow(dades_seleccionades),
         dom = 'Bfrti',
         initComplete = JS("function(settings, json) {
+          // Assegurar que es mostren totes les files seleccionades inicialment
+          this.api().page.len(this.api().rows().count()).draw();
+          
+          // Sincronizar scroll horizontal
+          $('.dataTables_scrollBody').on('scroll', function () {
+          $('.dataTables_scrollHead').scrollLeft($(this).scrollLeft());
+          });
+        
           // Estil 1a fila taula
           $(this.api().table().header()).css({
             'background-color': '#5EAEFF',
             'color': '#FFFFFF'
           });
-      
+          
           // Espai vertical elements
           $('.dt-buttons').css('margin-bottom', '10px');
           $('.dataTables_filter').css('margin-bottom', '10px');
@@ -1466,7 +1482,7 @@ server <- function(input, output, session) {
           list(visible = FALSE, targets = 0),
           list(className = 'dt-left', targets = 1:4), 
           list(className = 'dt-center', targets = 5:11),
-          list(type = 'natural', targets = c(1:11)), # https://forum.posit.co/t/how-to-sort-alphanumeric-column-by-natural-numbers-in-a-datatable/2262
+          list(type = 'natural', targets = c(1:11)), # https://rstudio.github.io/DT/plugins.html
           list(
             targets = c(1:4),
             # Eliminem els accents de les columnes 1-4 per ordenar-les correctament i restablim els accents després de la ordenació
