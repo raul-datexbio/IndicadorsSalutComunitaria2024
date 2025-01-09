@@ -1311,10 +1311,10 @@ server <- function(input, output, session) {
                        "catalunya_homes", "catalunya_dones", "catalunya_total"))
       numeric_cols <- c("abs_homes", "abs_dones", "abs_total", 
                         "catalunya_homes", "catalunya_dones", "catalunya_total")
-      dt[dt$mesura == "Taxa per 100.000 habitants", (numeric_cols) := lapply(.SD, function(x) {
+      dt[dt$indicador == "Taxa de mortalitat estandarditzada", (numeric_cols) := lapply(.SD, function(x) {
         ifelse(is.na(x), NA, gsub("\\.", "", x))
       }), .SDcols = numeric_cols]
-      dt[dt$mesura != "Persones" & dt$mesura != "Taxa per 100.000 habitants", (numeric_cols) := lapply(.SD, function(x) {
+      dt[dt$mesura != "Persones" & dt$indicador != "Taxa de mortalitat estandarditzada", (numeric_cols) := lapply(.SD, function(x) {
         ifelse(is.na(x), NA, 
                ifelse(grepl("\\.", x), gsub("\\.", ",", x), x))
       }), .SDcols = numeric_cols]
@@ -1571,7 +1571,7 @@ server <- function(input, output, session) {
               var processedRows = rows.slice(1).map(function(row) {
                 row = row.replace(/\",\"/g, ';');
                 var columns = row.split(';').map(val => val.replace(/\"/g, ''));
-                if (columns[4] === 'Taxa per 100.000 habitants') {
+                if (columns[3] === 'Taxa de mortalitat estandarditzada') {
                   for(var i = 6; i < columns.length; i++) {
                     columns[i] = columns[i].replace(/\\./g, '');
                   }
