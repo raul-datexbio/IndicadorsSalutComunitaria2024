@@ -9,13 +9,13 @@ library(shiny)
 library(shinyjs)
 library(shinythemes)
 
-# Carregar CSV penstanya 'Dades'
+# Carregar CSV pestanya 'Dades'
 df <- read.csv('https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/dades_indicadors_salut_comunitaria.csv',
                sep = ",", encoding = "latin1", check.names = FALSE)
 
-# Carregar CSV penstanya 'Anàlisi'
+# Carregar CSV pestanya 'Anàlisi'
 df_gwalkr <- read.csv('https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/dades_indicadors_salut_comunitaria_gwalkr.csv',
-               sep = ",", encoding = "latin1", check.names = FALSE)
+                      sep = ",", encoding = "latin1", check.names = FALSE)
 
 ################################################################################
 
@@ -216,7 +216,7 @@ ui <- tagList(
       div(
         style = "margin-top: -20px",
         card(
-
+          
           card_header(
             div(
               style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
@@ -992,6 +992,7 @@ ui <- tagList(
                   "Població menor de 18 anys atesa a centres ambulatoris de salut mental" = "fitxa_SCMO04",
                   "Població polimedicada amb 10 ATC o més" = "fitxa_SCRE07",
                   "Taxa bruta de mortalitat" = "fitxa_SCMR02",
+                  "Taxa de mortalitat específica per causa de mort" = "fitxa_SCMR04",
                   "Taxa de mortalitat estandarditzada" = "fitxa_SCMR03"
                 ),
                 selected = "",
@@ -1035,6 +1036,18 @@ server <- function(input, output, session) {
   observeEvent(input$close_modal, {
     removeModal()
   })
+  
+  # Funció verifica selecció totes les dades disponibles
+  is_showing_all_data <- function(select_rs, select_abs, select_ambits, select_indicadors) {
+    return(
+      (is.null(select_rs) && is.null(select_abs) && 
+         is.null(select_ambits) && is.null(select_indicadors)) ||
+        (("Totes" %in% select_rs || is.null(select_rs)) && 
+           ("Totes" %in% select_abs || is.null(select_abs)) && 
+           ("Tots" %in% select_ambits || is.null(select_ambits)) && 
+           ("Tots" %in% select_indicadors || is.null(select_indicadors)))
+    )
+  }
   
   # Observar canvis selecció RS
   observeEvent(input$select_rs, {
@@ -1208,20 +1221,126 @@ server <- function(input, output, session) {
   
   # Observar cancel·lació selecció
   observeEvent(input$cancel_apply, {
+    updateSelectInput(session, "select_rs", 
+                      choices = c("Totes", mixedsort(as.character(unique(df$`Regió sanitària`)))),
+                      selected = NULL)
+    updateSelectInput(session, "select_abs",
+                      choices = c("Totes", mixedsort(as.character(unique(df$`Àrea bàsica de salut`)))),
+                      selected = NULL)
+    updateSelectInput(session, "select_ambits",
+                      choices = c("Tots", mixedsort(as.character(unique(df$`Àmbit`)))),
+                      selected = NULL)
+    updateSelectInput(session, "select_indicadors",
+                      choices = c("Tots", mixedsort(as.character(unique(df$Indicador)))),
+                      selected = NULL)
     removeModal()
   })
   
   # Observar confirmació selecció
   observeEvent(input$confirm_apply, {
-    selection_applied(TRUE)
+    if (is_showing_all_data(input$select_rs, input$select_abs, 
+                            input$select_ambits, input$select_indicadors)) {
+      updateSelectInput(session, "select_rs", 
+                        choices = c("Totes", mixedsort(as.character(unique(df$`Regió sanitària`)))),
+                        selected = NULL)
+      updateSelectInput(session, "select_abs",
+                        choices = c("Totes", mixedsort(as.character(unique(df$`Àrea bàsica de salut`)))),
+                        selected = NULL)
+      updateSelectInput(session, "select_ambits",
+                        choices = c("Tots", mixedsort(as.character(unique(df$`Àmbit`)))),
+                        selected = NULL)
+      updateSelectInput(session, "select_indicadors",
+                        choices = c("Tots", mixedsort(as.character(unique(df$Indicador)))),
+                        selected = NULL)
+      
+      showModal(modalDialog(
+        title = "Advertència",
+        HTML("
+                <p>No es poden visualitzar totes les dades disponibles, ja que això pot alentir o bloquejar l'aplicació.</p>
+                <p>Si us plau, selecciona prèviament les dades d'interès o descarrega el conjunt complet de dades en format CSV.</p>
+            "),
+        footer = div(
+          style = "display: flex; justify-content: space-between; gap: 10px;",
+          actionButton(
+            "select_data_button",
+            "Seleccionar dades",
+            class = "action-button-primary",
+            icon = NULL
+          ),
+          downloadButton(
+            "download_csv_button",
+            "Descarregar CSV",
+            class = "action-button-primary",
+            icon = NULL
+          )
+        ),
+        easyClose = FALSE
+      ))
+    } else {
+      selection_applied(TRUE)
+      removeModal()
+    }
+  })
+  
+  # Observar botó seleccionar dades
+  observeEvent(input$select_data_button, {
+    updateNavbarPage(session, inputId = NULL, selected = "tab_dades")
     removeModal()
+  })
+  
+  # Crear valor reactiu per controlar la descàrrega
+  csv_downloaded <- reactiveVal(FALSE)
+  
+  # Observar botó descarregar csv
+  output$download_csv_button <- downloadHandler(
+    filename = function() {
+      "dades_indicadors_salut_comunitaria.csv"
+    },
+    content = function(file) {
+      require(data.table)
+      dt <- read.csv('https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/dades_indicadors_salut_comunitaria.csv',
+                     sep = ",", encoding = "latin1", check.names = FALSE, 
+                     na.strings = c("", " ", "NA"))
+      dt <- as.data.table(dt)
+      setnames(dt, 
+               old = c("Regió sanitària", "Àrea bàsica de salut", "Àmbit", "Indicador", 
+                       "Mesura", "Període", "ABS homes", "ABS dones", "ABS total",
+                       "Catalunya homes", "Catalunya dones", "Catalunya total"),
+               new = c("regio_sanitaria", "area_basica_salut", "ambit", "indicador",
+                       "mesura", "periode", "abs_homes", "abs_dones", "abs_total",
+                       "catalunya_homes", "catalunya_dones", "catalunya_total"))
+      numeric_cols <- c("abs_homes", "abs_dones", "abs_total", 
+                        "catalunya_homes", "catalunya_dones", "catalunya_total")
+      dt[dt$mesura == "Taxa per 100.000 habitants", (numeric_cols) := lapply(.SD, function(x) {
+        ifelse(is.na(x), NA, gsub("\\.", "", x))
+      }), .SDcols = numeric_cols]
+      dt[dt$mesura != "Persones" & dt$mesura != "Taxa per 100.000 habitants", (numeric_cols) := lapply(.SD, function(x) {
+        ifelse(is.na(x), NA, 
+               ifelse(grepl("\\.", x), gsub("\\.", ",", x), x))
+      }), .SDcols = numeric_cols]
+      fwrite(dt, file, sep = ";", dec = ",", quote = FALSE, row.names = FALSE, na = "NA")
+      
+      # Actualizar el valor reactivo después de la descarga
+      csv_downloaded(TRUE)
+    },
+    contentType = "text/csv"
+  )
+  
+  # Observar quan es completa la descàrrega
+  observeEvent(csv_downloaded(), {
+    if(csv_downloaded()) {
+      updateNavbarPage(session, inputId = NULL, selected = "tab_dades")
+      removeModal()
+      # Resetear el valor para futuras descargas
+      csv_downloaded(FALSE)
+    }
   })
   
   # Observar botó netejar selecció
   observeEvent(input$clear_selection, {
     if (is.null(input$select_rs) && is.null(input$select_abs) && 
         is.null(input$select_ambits) && is.null(input$select_indicadors)) {
-       show_message(
+      show_message(
         "Cap selecció activa",
         "No hi ha cap selecció per netejar."
       )
@@ -1271,6 +1390,51 @@ server <- function(input, output, session) {
     removeModal()
   })
   
+  # RENUEVO
+  # Observar cambios en los selectores cuando la tabla está visible
+  observe({
+    req(selection_applied())
+    if (is_showing_all_data(input$select_rs, input$select_abs, 
+                            input$select_ambits, input$select_indicadors)) {
+      selection_applied(FALSE)
+      updateSelectInput(session, "select_rs", 
+                        choices = c("Totes", mixedsort(as.character(unique(df$`Regió sanitària`)))),
+                        selected = NULL)
+      updateSelectInput(session, "select_abs",
+                        choices = c("Totes", mixedsort(as.character(unique(df$`Àrea bàsica de salut`)))),
+                        selected = NULL)
+      updateSelectInput(session, "select_ambits",
+                        choices = c("Tots", mixedsort(as.character(unique(df$`Àmbit`)))),
+                        selected = NULL)
+      updateSelectInput(session, "select_indicadors",
+                        choices = c("Tots", mixedsort(as.character(unique(df$Indicador)))),
+                        selected = NULL)
+      showModal(modalDialog(
+        title = "Advertència",
+        HTML("
+                <p>No es poden visualitzar totes les dades disponibles ja que això ralentitza o bloqueja l'aplicació.</p>
+                <p>Si us plau, selecciona prèviament les dades d'interès o descarrega el conjunt complet de dades en format CSV.</p>
+            "),
+        footer = div(
+          style = "display: flex; justify-content: space-between; gap: 10px;",
+          actionButton(
+            "select_data_button",
+            "Seleccionar dades",
+            class = "action-button-primary",
+            icon = NULL
+          ),
+          downloadButton(
+            "download_csv_button",
+            "Descarregar CSV",
+            class = "action-button-primary",
+            icon = NULL
+          )
+        ),
+        easyClose = FALSE
+      ))
+    }
+  })
+  
   # Gestionar la visualització condicional de la taula de dades
   output$taula_container <- renderUI({
     if (selection_applied()) {
@@ -1289,7 +1453,6 @@ server <- function(input, output, session) {
           HTML("
           <i class='fas fa-info-circle' style='font-size: 24px; margin-bottom: 15px; color: #1565C0;'></i><br>
           <span style='font-size: 16px; font-weight: 600;'>Seguint els passos, selecciona les regions, àrees, àmbits i indicadors d'interès, fes clic al botó <code style='color: #1565C0;'>Aplica la selecció</code> i confirma la selecció.</span><br>
-          <span style='font-size: 14px; color: #1976D2;'>Si no selecciones cap elements i confirmes, es mostrarà una taula amb totes les dades disponibles (no recomanat, ja que pot ralenteir l'aplicació web per la gran quantitat de dades).</span><br>
           <span style='font-size: 14px; color: #1976D2;'>Un cop es mostri la taula, podràs modificar les seleccions en temps real sense necessitat de confirmar.</span>
         ")
         )
@@ -1408,7 +1571,11 @@ server <- function(input, output, session) {
               var processedRows = rows.slice(1).map(function(row) {
                 row = row.replace(/\",\"/g, ';');
                 var columns = row.split(';').map(val => val.replace(/\"/g, ''));
-                if (columns[4] !== 'Persones') {
+                if (columns[4] === 'Taxa per 100.000 habitants') {
+                  for(var i = 6; i < columns.length; i++) {
+                    columns[i] = columns[i].replace(/\\./g, '');
+                  }
+                } else if (columns[4] !== 'Persones') {
                   for(var i = 6; i < columns.length; i++) {
                     if(columns[i].includes('.')) {
                       columns[i] = columns[i].replace('.', ',');
@@ -1434,6 +1601,16 @@ server <- function(input, output, session) {
               var headers = ['regio_sanitaria', 'area_basica_salut', 'ambit', 'indicador', 'mesura', 'periode', 'abs_homes', 'abs_dones', 'abs_total', 'catalunya_homes', 'catalunya_dones', 'catalunya_total'];
               $('row:first c', sheet).each(function(i) {
                 $(this).find('t').text(headers[i]);
+              });
+              $('row:gt(0) c', sheet).each(function(i) {
+                var colIndex = i % headers.length;
+                if (colIndex >= 6) {
+                  var $t = $(this).find('t');
+                  var text = $t.text();
+                  if (text) {
+                    $t.text(text.replace(/\\./g, ''));
+                  }
+                }
               });
             }")
           ),
@@ -1497,21 +1674,21 @@ server <- function(input, output, session) {
           ),
           list(
             targets = 6:11,
-            # Manipulem les dades de les columnes 6-11 per assegurar una ordenació, visualització i exportació correcta (NO FUNCIONA ORDENACIÓ <10)
+            # Manipulem les dades de les columnes 6-11 per assegurar una ordenació, visualització i exportació correcta
             render = JS("function(data, type, row) {
             
-            if (type === 'sort') {
-              if (typeof data === 'string' && data.trim() === '<10') { // NO FUNCIONA
-                return -999999998;
+              if (type === 'sort') {
+                if (typeof data === 'string' && data.trim() === '&lt;10') { 
+                  return -999999998;
+                }
+                if (typeof data === 'string' && data.includes('(')) {
+                  return Number(data.split('(')[0].trim().replace(',', '.'));
+                }
+                if (data === null || data === 'NA' || data === '—') {
+                  return -999999999;
+                }
+                return typeof data === 'number' ? data : Number(data.replace(',', '.'));
               }
-              if (typeof data === 'string' && data.includes('(')) {
-                return Number(data.split('(')[0].trim().replace(',', '.'));
-              }
-              if (data === null || data === 'NA' || data === '—') {
-                return -999999999;
-              }
-              return typeof data === 'number' ? data : Number(data.replace(',', '.'));
-            }
             
               if (typeof data === 'string' && isNaN(Number(data))) {
                 return data;
@@ -1526,6 +1703,7 @@ server <- function(input, output, session) {
                 }
                 return data;
                 }
+              
               if (type === 'export') {
                 return data;
               }
@@ -1553,7 +1731,7 @@ server <- function(input, output, session) {
     )
   },
   server = FALSE # https://forum.posit.co/t/how-to-sort-alphanumeric-column-by-natural-numbers-in-a-datatable/2262
- )
+  )
   
   # Mostrar GWalkR
   output$analisi_exploratoria_dades_eda = renderGwalkr({
@@ -1912,7 +2090,7 @@ server <- function(input, output, session) {
            "fitxa_SCMO03" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("Població de 18 anys i més assignada i atesa per alguna de les següents patologies: amb qualsevol diagnòstic de salut mental;
+             p("Població de 18 anys i més assignada i atesa a un centre ambulatori de salut mental (CSM) per alguna de les següents patologies: amb qualsevol diagnòstic de salut mental;
                trastorn per esquizofrènia; trastorn depressiu; trastorn bipolar; altres trastorns de l'estat d'ànim; ansietat i trastorns de la por;
                trastorn obsessivocompulsiu; trastorns per traumes i estrès; trastorns de conducta; trastorns de la personalitat;
                trastorns de la conducta alimentària; trastorns somàtics; idees suïcides; trastorns de comportament; o trastorns del neurodesenvolupament.",
@@ -1955,7 +2133,7 @@ server <- function(input, output, session) {
            "fitxa_SCMO04" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px;"),
-             p("Població menor de 18 anys assignada i atesa per alguna de les següents patologies: trastorns de la conducta alimentària; 
+             p("Població menor de 18 anys assignada i atesa a un centre ambulatori de salut mental (CSM) per alguna de les següents patologies: trastorns de la conducta alimentària; 
                trastorns de conducta; trastorn de l'espectre autista; dèficit d'atenció i/o hiperactivitat; o trastorn adaptatiu.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2492,15 +2670,12 @@ server <- function(input, output, session) {
                    "Població assegurada període n"
                  )
                ),
-               "× 1.000"
+               "× 100.000"
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
                 "Criteris tècnics", class = "title-style"),
-             p(paste("Disponible per sexe i ABS. Es calcula per les següents causes de defunció: certes malalties infeccioses i parasitàries; 
-                     tumors; malalties endocrines, nutricionals i metabòliques; trastorns mentals i del comportament; malalties del sistema nerviós; 
-                     malalties de l'aparell circulatori; malalties de l'aparell respiratori; malalties de l'aparell digestiu; malalties del sistema osteomuscular 
-                     i del teixit conjuntiu; malalties de l'aparell genitourinari; símptomes i signes mal definits; i causes externes de morbiditat i mortalitat."),
+             p(paste("Disponible per sexe i ABS."),
                tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
                       style = "margin-left: 5px;",
                       icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
@@ -2541,6 +2716,55 @@ server <- function(input, output, session) {
                    "Sumatori de la població tipus en tots els trams d'edat"
                  )
                )
+             ),
+             
+             h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Criteris tècnics", class = "title-style"),
+             p(paste("Disponible per sexe i ABS."),
+               tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
+                      style = "margin-left: 5px;",
+                      icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
+                      title = "Més informació sobre la metodologia de l'anàlisi de la mortalitat a Catalunya",
+                      target = "_blank"),
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Període", class = "title-style"),
+             p("2015-2019, 2020, 2021",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Origen de les dades", class = "title-style"),
+             p("Registre de Mortalitat de Catalunya (RMC).",
+               style = "margin-bottom: 0px; text-align: justify;")
+           ),
+           
+           "fitxa_SCMR04" = div(
+             h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Descripció", class = "title-style", style = "margin-top: 0px;"),
+             p("L'estadística s'elabora amb les defuncions de residents i morts a Catalunya. La població assegurada per ABS que s'ha fet servir en els càlculs dels 
+               indicadors prové del Registre Central d'Assegurats. L'indicador es calcula per les següents causes de defunció: certes malalties infeccioses i parasitàries; 
+                     tumors; malalties endocrines, nutricionals i metabòliques; trastorns mentals i del comportament; malalties del sistema nerviós; 
+                     malalties de l'aparell circulatori; malalties de l'aparell respiratori; malalties de l'aparell digestiu; malalties del sistema osteomuscular 
+                     i del teixit conjuntiu; malalties de l'aparell genitourinari; símptomes i signes mal definits; i causes externes de morbiditat i mortalitat.",
+               style = "margin-bottom: 20px; text-align: justify;"),
+             
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                "Fórmula", class = "title-style"),
+             div(
+               class = "formula-container",
+               div(
+                 class = "fraction",
+                 div(
+                   class = "fraction-top",
+                   "Nombre de defuncions en el període n per una determinada causa"
+                 ),
+                 div(
+                   class = "fraction-bottom",
+                   "Població assegurada període n"
+                 )
+               ),
+               "× 100.000"
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
