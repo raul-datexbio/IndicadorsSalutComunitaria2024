@@ -6,6 +6,7 @@ library(gtools)
 library(GWalkR)
 library(readr)
 library(shiny)
+library(shinycssloaders)
 library(shinyjs)
 library(shinythemes)
 
@@ -86,6 +87,22 @@ ui <- tagList(
           opacity: 1;
         }
       }
+      
+      /* Estils cards */
+      .card {
+        border: none !important;
+        background-color: transparent !important;
+        box-shadow: none !important;
+      }
+
+      .card-header {
+        background-color: transparent !important;
+        border-bottom: none !important;
+      }
+
+      .card-body {
+        background-color: transparent !important;
+      }
 
       /* Estil títols */
       .title-style {
@@ -100,6 +117,19 @@ ui <- tagList(
         color: #5E5E5E;
         text-align: justify;
         line-height: 1.5;
+      }
+      
+      /* Estilo paràgraf destacat */
+      .highlighted-paragraph {
+        background-color: #FFF4E5;
+        border-left: 5px solid #FFA726;
+        border-radius: 0px;
+        padding: 10px 15px;
+        font-size: 16px;
+        color: #5E5E5E;
+        text-align: justify;
+        line-height: 1.5;
+        margin-bottom: -5px;
       }
       
       /* Estil botó primari */
@@ -216,84 +246,32 @@ ui <- tagList(
       div(
         style = "margin-top: -20px",
         card(
-          
-          card_header(
-            div(
-              style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
-              icon("person-chalkboard", 
-                   style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
-              h2("Presentació", 
-                 class = "title-style",
-                 style = "margin: 0; padding: 0;")
-            )
-          ),
           card_body(
             div(
               class = "paragraph-style",
-              p("Per desplegar l'orientació comunitària és essencial comptar amb dades fiables i robustes per àrees petites, que permetin una 
-                primera aproximació al diagnòstic comunitari."),
-              p("En el marc del Pla de Salut de Catalunya, s'han seleccionat i calculat un conjunt d'indicadors de salut comunitària a nivell d'àrees bàsiques de
-                salut (ABS).")
-            )
-          )
-        ),
-        
-        br(),
-        
-        # Cards Aplicació web i Estructura
-        layout_column_wrap(
-          width = 1/2,
-          style = css(grid_gap = "14px"),
-          
-          # Card Aplicació web
-          card(
-            card_header(
-              div(
-                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
-                icon("desktop", 
-                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
-                h2("Aplicació web", 
-                   class = "title-style",
-                   style = "margin: 0; padding: 0;")
-              )
-            ),
-            card_body(
-              class = "paragraph-style",
-              p("Per donar suport a aquest projecte, s'ha desenvolupat una aplicació web interactiva mitjançant el paquet Shiny de R.",
+              p("Per desplegar l'orientació comunitària, és fonamental disposar de dades fiables i robustes per àrees petites, que permetin fer una primera aproximació 
+                al diagnòstic comunitari. Per tal de facilitar aquesta part metodològica de l’acció comunitària, en el marc del Pla de Salut de Catalunya i seguint 
+                el marc conceptual dels determinats socials de la salut, es presenta la tercera edició dels indicadors bàsics a nivell d'àrees bàsiques de salut (ABS)."),
+              p("Els indicadors seleccionats i calculats s'han agrupat en set àmbits diferents: demogràfic, estils de vida, morbiditat, mortalitat, pràctiques preventives, 
+                 recursos i ús de serveis, i socioeconòmic. Les dades, estratificades per sexe i grups d’edat sempre que les dades ho permetin, fan referència 
+                 principalment a l’any 2022, amb alguns períodes diferents per a certs indicadors d'estils de vida, morbiditat, mortalitat i situació socioeconòmica."),
+              p(
+                "L'actualització dels indicadors d'aquesta edició compta amb la novetat que es presenta en format aplicació web amb una nova visualització, 
+                 més dinàmica, interactiva i fàcilment exportable. Aquesta aplicació s'ha desenvolupat amb Shiny ",
                 tags$a(
                   href = "https://shiny.posit.co/",
-                  style = "margin-left: 5px;",
+                  style = "display: inline-flex; align-items: center; text-decoration: none;",
                   icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
                   title = "Pàgina web de Shiny",
                   target = "_blank"
                 ),
-              ),
-              p("Aquesta aplicació està dissenyada per facilitar la consulta, l'anàlisi i l'exportació intuïtiva de les dades disponibles sobre indicadors 
-                 de salut comunitària per ABS de Catalunya.")
-            )
-          ),
-          
-          # Card Estructura
-          card(
-            card_header(
-              div(
-                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
-                icon("sitemap", 
-                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
-                h2("Estructura", 
-                   class = "title-style",
-                   style = "margin: 0; padding: 0;")
-              )
-            ),
-            card_body(
-              class = "paragraph-style",
-              p("L'aplicació s'estructura en quatre pestanyes principals:"),
+                " i s'estructura en quatre seccions:"),
               tags$ul(
-                style = "list-style-type: none; padding-left: 0;",
-                tags$li(style = "margin-bottom: 10px;", icon("home", style = "color: #5E5E5E; margin-right: 10px;"), HTML("<b>Inici:</b> Introducció al projecte i informació clau.")),
-                tags$li(style = "margin-bottom: 10px;", icon("table", style = "color: #5E5E5E; margin-right: 10px;"), HTML("<b>Dades:</b> Taula de dades amb les ABS i els indicadors seleccionats.")),
-                tags$li(style = "margin-bottom: 10px;", icon("chart-column", style = "color: #5E5E5E; margin-right: 10px;"), HTML("<b>Anàlisi:</b> Eina per crear gràfics personalitzats.")),
-                tags$li(style = "margin-bottom: -10px;", icon("file-alt", style = "color: #5E5E5E; margin-right: 10px;"), HTML("<b>Fitxes:</b> Fitxes metodològiques de cada indicador."))
+                style = "list-style-type: none; padding-left: 0;", 
+                tags$li(style = "margin-bottom: 10px;", icon("home", style = "color: #5E5E5E; margin-right: 10px;"), HTML("Inici: presentació del projecte.")),
+                tags$li(style = "margin-bottom: 10px;", icon("table", style = "color: #5E5E5E; margin-right: 10px;"), HTML("Dades: taula de dades amb els indicadors bàsics de salut per ABS seleccionats.")),
+                tags$li(style = "margin-bottom: 10px;", icon("chart-column", style = "color: #5E5E5E; margin-right: 10px;"), HTML("Anàlisi: eina interactiva per crear gràfics personalitzats.")),
+                tags$li(icon("file-alt", style = "color: #5E5E5E; margin-right: 10px;"), HTML("Fitxes metodològiques: detalls metodològics específics de cada indicador."))
               )
             )
           )
@@ -322,31 +300,11 @@ ui <- tagList(
               class = "paragraph-style",
               p("Grup de treball d'indicadors de salut per àrees bàsiques de salut, format per:"),
               tags$ul(
-                style = "list-style-type: none; padding-left: 0;",
-                tags$li(
-                  style = "margin-bottom: 10px;",
-                  style = "display: flex; align-items: flex-start; gap: 10px;",
-                  icon("user-large", style = "color: #5E5E5E; min-width: 16px; margin-top: 4px;"),
-                  "Agència de Salut Pública de Catalunya (ASPCAT)."
-                ),
-                tags$li(
-                  style = "margin-bottom: 10px;",
-                  style = "display: flex; align-items: flex-start; gap: 10px;",
-                  icon("user-large", style = "color: #5E5E5E; min-width: 16px; margin-top: 4px;"),
-                  "Observatori del Sistema de Salut de Catalunya (OSSC), Agència de Qualitat i Avaluació Sanitàries de Catalunya (AQuAS)."
-                ),
-                tags$li(
-                  style = "margin-bottom: 10px;",
-                  style = "display: flex; align-items: flex-start; gap: 10px;",
-                  icon("user-large", style = "color: #5E5E5E; min-width: 16px; margin-top: 4px;"),
-                  "Direcció General de Planificació en Salut, Departament de Salut."
-                ),
-                tags$li(
-                  style = "margin-bottom: 5px;",
-                  style = "display: flex; align-items: flex-start; gap: 10px;",
-                  icon("user-large", style = "color: #5E5E5E; min-width: 16px; margin-top: 4px;"),
-                  "Secretaria General, Departament de Salut."
-                )
+                style = "margin-left: 0px; padding-left: 20px;",
+                tags$li(style = "margin-bottom: 10px;", "Agència de Salut Pública de Catalunya (ASPCAT)."),
+                tags$li(style = "margin-bottom: 10px;", "Observatori del Sistema de Salut de Catalunya (OSSC), Agència de Qualitat i Avaluació Sanitàries de Catalunya (AQuAS)."),
+                tags$li(style = "margin-bottom: 10px;", "Direcció General de Planificació en Salut, Departament de Salut."),
+                tags$li("Secretaria General, Departament de Salut.")
               ),
               p("Amb la col·laboració de l'Institut Català de la Salut (ICS) i l'Idescat.", style = "margin-top: -20px;")
             )
@@ -366,12 +324,12 @@ ui <- tagList(
             ),
             card_body(
               class = "paragraph-style",
-              p("© 2024, Generalitat de Catalunya. Departament de Salut."),
+              p("© 2025, Generalitat de Catalunya. Departament de Salut."),
               p("Els continguts d'aquesta obra estan subjectes a una llicència de Reconeixement-NoComercial-SenseObraDerivada 4.0 Internacional."),
               div(
                 style = "text-align: left;",
                 a(
-                  href = "http://creativecommons.org/licenses/by-nc-nd/4.0/deed.ca' target='_blank' title='Informació llicència",
+                  href = "http://creativecommons.org/licenses/by-nc-nd/4.0/deed.ca'",
                   target = "_blank",
                   img(src = "https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/imatges/llicencia_logotip.png",
                       height = "45px",
@@ -405,10 +363,10 @@ ui <- tagList(
             card_body(
               class = "paragraph-style",
               tags$ul(
-                style = "list-style-type: none; padding-left: 0;",
-                tags$li(style = "margin-bottom: 10px;", icon("calendar-day", style = "color: #5E5E5E; margin-right: 10px;"), HTML("<b>1a edició:</b> Barcelona maig 2018.")),
-                tags$li(style = "margin-bottom: 10px;", icon("calendar-day", style = "color: #5E5E5E; margin-right: 10px;"), HTML("<b>2a edició:</b> Barcelona abril 2021.")),
-                tags$li(style = "margin-bottom: -10px;", icon("calendar-day", style = "color: #5E5E5E; margin-right: 10px;"), HTML("<b>3a edició:</b> Barcelona desembre 2024."))
+                style = "margin-left: 0px; padding-left: 20px;",
+                tags$li(style = "margin-bottom: 10px;", "1a edició: Barcelona maig 2018."),
+                tags$li(style = "margin-bottom: 10px;", "2a edició: Barcelona abril 2021."),
+                tags$li("3a edició: Barcelona gener 2025.")
               )
             )
           ),
@@ -566,7 +524,7 @@ ui <- tagList(
             ),
             div(
               style = "text-align: center; font-size: 10px;",
-              "Agència de Qualitat i Avaluació Sanitàries de Catalunya, 2024"
+              "Agència de Qualitat i Avaluació Sanitàries de Catalunya, 2025"
             ),
             div(
               style = "text-align: right; font-size: 10px; display: flex; align-items: center; gap: 8px;",
@@ -623,21 +581,17 @@ ui <- tagList(
         column(
           width = 12,
           card(
-            card_header(
-              div(
-                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
-                icon("table", 
-                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
-                h2("Taula de dades", 
-                   class = "title-style",
-                   style = "margin: 0; padding: 0;")
-              )
-            ),
             card_body(
               div(
-                class = "paragraph-style",
-                p("En aquesta pàgina, es pot visualitzar una taula de dades amb els indicadors de salut comunitària per àrees bàsiques de salut (ABS) de Catalunya."),
-                p("Els selectors permeten mostrar les dades d'interès. És possible fer seleccions múltiples. La taula de dades resultant es pot exportar en diferents formats.")
+                class = "highlighted-paragraph",
+                p("Explora en format taula els indicadors de salut comunitària per àrea bàsica de salut (ABS) de Catalunya, organitzats en els següents àmbits: 
+                  demogràfic, estils de vida, morbiditat, mortalitat, pràctiques preventives, recursos i ús de serveis, i socioeconòmic.")
+              ),
+              div(
+                class = "highlighted-paragraph",
+                p("Selecciona una o diverses regions, àrees, àmbits i indicadors d'interès seguint l'ordre establert, i fes clic al botó ",
+                  span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Aplica la selecció"),
+                  ". Quan es mostri la taula amb les dades seleccionades, podràs modificar la selecció, ordenar les dades de manera ascendent o descendent i exportar-les en diversos formats.")
               )
             )
           )
@@ -651,16 +605,7 @@ ui <- tagList(
           width = 12,
           card(
             class = "overflow-visible",
-            card_header(
-              div(
-                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
-                icon("list-check", 
-                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
-                h2("Selectors", 
-                   class = "title-style",
-                   style = "margin: 0; padding: 0;")
-              )
-            ),
+            style = "box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important; margin-left: 20px; margin-right: 20px;",
             card_body(
               style = "overflow: visible;",
               fluidRow(
@@ -671,8 +616,7 @@ ui <- tagList(
                     inputId = "select_rs",
                     label = div(
                       class = "paragraph-style",
-                      icon("check", style = "color: #5E5E5E; margin-right: 10px;"), 
-                      HTML("<b>Pas 1:</b> Selecciona les regions sanitàries")
+                      HTML("<b>Pas 1: Selecciona les regions sanitàries</b>")
                     ),
                     choices = c("Totes", mixedsort(as.character(unique(df$`Regió sanitària`)))),
                     selected = NULL,
@@ -686,8 +630,7 @@ ui <- tagList(
                     inputId = "select_abs",
                     label = div(
                       class = "paragraph-style",
-                      icon("check", style = "color: #5E5E5E; margin-right: 10px;"), 
-                      HTML("<b>Pas 2:</b> Selecciona les àrees bàsiques de salut")
+                      HTML("<b>Pas 2: Selecciona les àrees bàsiques de salut</b>")
                     ),
                     choices = c("Totes", mixedsort(as.character(unique(df$`Àrea bàsica de salut`)))),
                     selected = NULL,
@@ -701,8 +644,7 @@ ui <- tagList(
                     inputId = "select_ambits",
                     label = div(
                       class = "paragraph-style",
-                      icon("check", style = "color: #5E5E5E; margin-right: 10px;"), 
-                      HTML("<b>Pas 3:</b> Selecciona els àmbits")
+                      HTML("<b>Pas 3: Selecciona els àmbits</b>")
                     ),
                     choices = c("Tots", mixedsort(as.character(unique(df$`Àmbit`)))),
                     selected = NULL,
@@ -716,8 +658,7 @@ ui <- tagList(
                     inputId = "select_indicadors",
                     label = div(
                       class = "paragraph-style",
-                      icon("check", style = "color: #5E5E5E; margin-right: 10px;"), 
-                      HTML("<b>Pas 4:</b> Selecciona els indicadors de salut comunitària")
+                      HTML("<b>Pas 4: Selecciona els indicadors de salut comunitària</b>")
                     ),
                     choices = c("Tots", mixedsort(as.character(unique(df$Indicador)))),
                     selected = NULL,
@@ -791,83 +732,67 @@ ui <- tagList(
           width = 12,
           # Card Anàlisi exploratòria de dades
           card(
-            card_header(
-              div(
-                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
-                icon("chart-column", 
-                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
-                h2("Anàlisi exploratòria de dades", 
-                   class = "title-style",
-                   style = "margin: 0; padding: 0;")
-              )
-            ),
             card_body(
               div(
-                class = "paragraph-style",
-                p(
-                  "En aquesta pàgina, es poden analitzar de manera interactiva les dades dels indicadors de salut comunitària per àrees bàsiques de salut (ABS) de Catalunya utilitzant GWalkR.",
+                class = "highlighted-paragraph",
+                p("Analitza i visualitza gràficament els indicadors de salut comunitària per àrea bàsica de salut (ABS) de Catalunya mitjançant GWalkR.",
                   tags$a(
                     href = "https://github.com/Kanaries/GWalkR",
                     style = "margin-left: 5px;",
-                    icon("github", style = "font-size: 16px; color: #5E5E5E;"),
+                    icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
                     title = "GitHub del paquet GWalkR",
                     target = "_blank"
-                  ),
-                ),
-                p(
-                  HTML("A la pestanya <code style='color: #5E5E5E;'>Visualization</code>, es pot filtrar les dades i establir relacions entre variables per generar gràfics personalitzats.")
+                  )
                 )
-              )
-            )
-          )
-        )
-      ),
-      fluidRow(
-        style = "margin-top: 0px;",
-        column(
-          width = 12,
-          # Card Exemple
-          card(
-            card_header(
+              ),
               div(
-                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
-                icon("person-chalkboard", 
-                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
-                h2("Exemple", 
-                   class = "title-style",
-                   style = "margin: 0; padding: 0;")
-              )
-            ),
-            card_body(
-              class = "paragraph-style",
-              tags$ul(
-                style = "list-style-type: none; padding-left: 0;",
-                tags$li(
-                  style = "margin-bottom: 10px;",
-                  icon("check", style = "color: #5E5E5E; margin-right: 10px;"),
-                  HTML("<b>Pas 1:</b> Arrossega la variable <code style='color: #5E5E5E;'>Regió sanitària</code> al camp <code style='color: #5E5E5E;'>Filters</code>, 
-                  fes clic al botó <code style='color: #5E5E5E;'>Unselect All</code> i selecciona només el valor 
-                  <code style='color: #5E5E5E;'>Lleida</code>.")
+                class = "highlighted-paragraph",
+                p("A la pestanya ",
+                  span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Visualization"),
+                  ", pots filtrar les dades i establir relacions entre variables per generar gràfics personalitzats. Per exemple, 
+                  si vols generar un gràfic de barres amb les ABS de la regió sanitària de Lleida ordenades de menor a major percentatge
+                  de població infantil de 0 i 1 anys correctament vacunada, segueix els següents passos:"
                 ),
-                tags$li(
-                  style = "margin-bottom: 10px;",
-                  icon("check", style = "color: #5E5E5E; margin-right: 10px;"),
-                  HTML("<b>Pas 2:</b> Arrossega la variable <code style='color: #5E5E5E;'>Indicador</code> al camp <code style='color: #5E5E5E;'>Filters</code>, 
-                  fes clic al botó <code style='color: #5E5E5E;'>Unselect All</code> i selecciona només el valor 
-                  <code style='color: #5E5E5E;'>Població assignada de 0-14 anys</code>.")
-                ),
-                tags$li(
-                  style = "margin-bottom: 10px;",
-                  icon("check", style = "color: #5E5E5E; margin-right: 10px;"),
-                  HTML("<b>Pas 3:</b> Arrossega les variables <code style='color: #5E5E5E;'>Àrea bàsica de salut</code> i <code style='color: #5E5E5E;'>ABS homes</code> als camps 
-                  <code style='color: #5E5E5E;'>X-Axis</code> i <code style='color: #5E5E5E;'>Y-Axis</code>, respectivament.")
-                ),
-                tags$li(
-                  style = "margin-bottom: -10px;",
-                  icon("check", style = "color: #5E5E5E; margin-right: 10px;"),
-                  HTML("<b>Pas 4:</b> Fes clic als botons <code style='color: #5E5E5E;'>Aggregation</code>, <code style='color: #5E5E5E;'>Sort in Descending Order</code> 
-                  i <code style='color: #5E5E5E;'>Layout Mode: Container</code>, situats en 3a, 8a i 10a posició a la barra d'eines superior,
-                  per obtenir un gràfic de barres amb les ABS ordenades de major a menor població assignada d'homes de 0 a 14 anys.")
+                tags$ol(
+                  style = "margin-left: 0px; padding-left: 20px;",
+                  tags$li(style = "margin-bottom: 10px;", 
+                          "Arrossega la variable ",
+                          span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Regió sanitària"),
+                          " al camp ",
+                          span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Filters"),
+                          " i selecciona només ",
+                          span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Lleida"),
+                          "."
+                  ),
+                  tags$li(style = "margin-bottom: 10px;", 
+                          "Arrossega la variable ",
+                          span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Indicador"),
+                          " al camp ",
+                          span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Filters"),
+                          " i selecciona només ",
+                          span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Cobertura vacunal de la població infantil de 0-1 anys"),
+                          "."
+                  ),
+                  tags$li(style = "margin-bottom: 10px;", 
+                          "Arrossega les variables ",
+                          span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Àrea bàsica de salut"),
+                          " i ",
+                          span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "ABS total"),
+                          " als camps ",
+                          span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "X-Axis"),
+                          " i ",
+                          span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Y-Axis"),
+                          " , respectivament."
+                  ),
+                  tags$li(
+                    "Fes clic als botons ",
+                    span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Aggregation"),
+                    ", ",
+                    span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Sort in Ascending Order"),
+                    " i ",
+                    span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Layout Mode: Container"),
+                    " , situats a la 3a, 7a i 10a posició de la barra d'eines superior."
+                  )
                 )
               )
             )
@@ -880,7 +805,13 @@ ui <- tagList(
         style = "margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;",
         column(
           width = 12,
-          gwalkrOutput("analisi_exploratoria_dades_eda")
+          withSpinner(
+            gwalkrOutput("analisi_exploratoria_dades_eda"),
+            type = 8,
+            color = "#1565C0",
+            size = 1,
+            proxy.height = "100px"
+          )
         )
       ),
       
@@ -912,22 +843,17 @@ ui <- tagList(
         column(
           width = 12,
           card(
-            card_header(
-              div(
-                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
-                icon("file-alt", 
-                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
-                h2("Fitxes metodològiques", 
-                   class = "title-style",
-                   style = "margin: 0; padding: 0;")
-              )
-            ),
             card_body(
               div(
-                class = "paragraph-style",
-                p("En aquesta pàgina, es poden consultar les fitxes metodològiques dels indicadors de salut comunitària, desenvolupades per l'Agència de Qualitat i Avaluació Sanitàries de Catalunya (AQuAS)."),
-                p("Cada fitxa proporciona informació detallada sobre la descripció de l'indicador, la fórmula de càlcul, els criteris tècnics, el període i l'origen de les dades."),
-                p("Per accedir al contingut complet d'una fitxa determinada, només cal seleccionar l'indicador d'interès al menú desplegable o escriure el seu nom directament al menú.")
+                class = "highlighted-paragraph",
+                p("Consulta les fitxes metodològiques dels indicadors de salut comunitària, elaborades per 
+                  l'Agència de Qualitat i Avaluació Sanitàries de Catalunya (AQuAS). Cada fitxa inclou informació detallada 
+                  sobre la descripció de l'indicador, la fórmula de càlcul, els criteris tècnics, el període i l'origen de les dades.")
+              ),
+              div(
+                class = "highlighted-paragraph",
+                p("Selecciona l'indicador d'interès des del menú desplegable o escriu el seu nom directament al menú per accedir 
+                  al contingut complet de la fitxa corresponent.")
               )
             )
           )
@@ -941,13 +867,14 @@ ui <- tagList(
           width = 12,
           card(
             class = "overflow-visible",
+            style = "box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important; margin-left: 20px; margin-right: 20px;",
             card_body(
               style = "overflow: visible;",
               selectInput(
                 inputId = "select_fitxes",
                 label = h2(
-                  icon("book-medical", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                  "Indicador de salut comunitària", class = "title-style", style = "margin-bottom: 5px;"
+                  icon("file-alt", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
+                  "Fitxa metodològica", class = "title-style", style = "margin-bottom: 5px;"
                 ),
                 choices = c(
                   " " = "",
@@ -1311,6 +1238,7 @@ server <- function(input, output, session) {
                        "catalunya_homes", "catalunya_dones", "catalunya_total"))
       numeric_cols <- c("abs_homes", "abs_dones", "abs_total", 
                         "catalunya_homes", "catalunya_dones", "catalunya_total")
+      dt[, (numeric_cols) := lapply(.SD, trimws), .SDcols = numeric_cols]
       dt[dt$indicador == "Taxa de mortalitat estandarditzada", (numeric_cols) := lapply(.SD, function(x) {
         ifelse(is.na(x), NA, gsub("\\.", "", x))
       }), .SDcols = numeric_cols]
@@ -1390,7 +1318,6 @@ server <- function(input, output, session) {
     removeModal()
   })
   
-  # RENUEVO
   # Observar cambios en los selectores cuando la tabla está visible
   observe({
     req(selection_applied())
@@ -1437,27 +1364,31 @@ server <- function(input, output, session) {
   
   # Gestionar la visualització condicional de la taula de dades
   output$taula_container <- renderUI({
-    if (selection_applied()) {
-      dataTableOutput("taula_dades")
-    } else {
-      div(
-        style = "text-align: center; 
-               padding: 30px; 
-               color: #1565C0;
-               background: linear-gradient(135deg, #E3F2FD, #90CAF9);
-               border-radius: 10px;
-               box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-               margin-top: 0px;",
+    withSpinner(
+      if (selection_applied()) {
+        dataTableOutput("taula_dades")
+      } else {
         div(
-          style = "font-size: 16px; line-height: 1.5;",
-          HTML("
-          <i class='fas fa-info-circle' style='font-size: 24px; margin-bottom: 15px; color: #1565C0;'></i><br>
-          <span style='font-size: 16px; font-weight: 600;'>Seguint els passos, selecciona les regions, àrees, àmbits i indicadors d'interès, fes clic al botó <code style='color: #1565C0;'>Aplica la selecció</code> i confirma la selecció.</span><br>
-          <span style='font-size: 14px; color: #1976D2;'>Un cop es mostri la taula, podràs modificar les seleccions en temps real sense necessitat de confirmar.</span>
-        ")
+          style = "text-align: center; 
+                padding: 30px; 
+                color: #1565C0;
+                background: transparent;
+                border: none;
+                margin-top: -100px;",
+          div(
+            style = "font-size: 16px; line-height: 1.5;",
+            HTML("
+           <i class='fas fa-table' style='font-size: 40px; color: #1565C0;'></i><br>
+           <span style='font-size: 16px; font-weight: 600; color: #1565C0; line-height: 1.5; margin-top: 15px; display: inline-block;'>La taula de dades es mostrarà aquí</span>
+            ")
+          )
         )
-      )
-    }
+      },
+      type = 8,
+      color = "#1565C0",
+      size = 1,
+      proxy.height = "100px"
+    )
   })
   
   # Renderitzar la taula de dades amb les seleccions aplicades
@@ -1482,8 +1413,8 @@ server <- function(input, output, session) {
     datatable(
       dades_seleccionades,
       style = "default",
-      extensions = c('Buttons', 'FixedHeader'), # https://rstudio.github.io/DT/extensions.html
-      plugins = 'natural', # https://rstudio.github.io/DT/plugins.html
+      extensions = c('Buttons', 'FixedHeader'),
+      plugins = 'natural',
       rownames = FALSE,
       options = list(
         autoWidth = FALSE,
@@ -1542,6 +1473,16 @@ server <- function(input, output, session) {
           $('<style>')
           .prop('type', 'text/css')
           .html(`
+            .dataTables_filter {
+              margin-right: 20px;
+            }
+            .dataTables_filter label {
+              display: flex;
+              align-items: center;
+            }
+            .dataTables_filter .glyphicon {
+              margin-right: 8px;
+            }
             .dataTables_filter input {
               border: none;
               outline: none;
@@ -1659,7 +1600,7 @@ server <- function(input, output, session) {
           list(visible = FALSE, targets = 0),
           list(className = 'dt-left', targets = 1:4), 
           list(className = 'dt-center', targets = 5:11),
-          list(type = 'natural', targets = c(1:11)), # https://rstudio.github.io/DT/plugins.html
+          list(type = 'natural', targets = c(1:11)),
           list(
             targets = c(1:4),
             # Eliminem els accents de les columnes 1-4 per ordenar-les correctament i restablim els accents després de la ordenació
@@ -1730,7 +1671,7 @@ server <- function(input, output, session) {
       )
     )
   },
-  server = FALSE # https://forum.posit.co/t/how-to-sort-alphanumeric-column-by-natural-numbers-in-a-datatable/2262
+  server = FALSE
   )
   
   # Mostrar GWalkR
