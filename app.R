@@ -2049,7 +2049,7 @@ server <- function(input, output, session) {
                  ),
                  div(
                    class = "fraction-bottom",
-                   "Població de 18 anys i més atesa a CSM"
+                   "Població de 18 anys i més de referència d’un CSM"
                  )
                ),
                "× 100"
@@ -2090,7 +2090,7 @@ server <- function(input, output, session) {
                  ),
                  div(
                    class = "fraction-bottom",
-                   "Població de menys de 18 anys atesa a CSM"
+                   "Població de menys de 18 anys de referència d’un CSM"
                  )
                ),
                "× 100"
