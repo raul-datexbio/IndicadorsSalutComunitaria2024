@@ -2034,13 +2034,43 @@
       "checksum": "05b1fc886dfd59f3c93093df149be082"
     },
     "app.R": {
-      "checksum": "614a3e9e809deb8eeb3a489523207670"
+      "checksum": "2aa00d487fdca15a6d324e4e501b1d0c"
     },
-    "borradors/app_v1.R": {
+    "borradors/app_v01.R": {
       "checksum": "b5b777ad3e1679b1dac50e9d5c3b3d81"
     },
-    "borradors/app_v2.R": {
+    "borradors/app_v02.R": {
       "checksum": "7095031536b693ac2c1300b24a435a3e"
+    },
+    "borradors/app_v03.R": {
+      "checksum": "3383b954ca73392066755ee1091eb019"
+    },
+    "borradors/app_v04.R": {
+      "checksum": "11983f80a802b3f54ad9cdadd75983a8"
+    },
+    "borradors/app_v05.R": {
+      "checksum": "9c5098af6e68ab4abbcb2d64a30c2571"
+    },
+    "borradors/app_v06.R": {
+      "checksum": "0951303ae50a686e84959b34e52098a1"
+    },
+    "borradors/app_v07.R": {
+      "checksum": "415d85c3bf85f6e9b152c9acd8b6abea"
+    },
+    "borradors/app_v08.R": {
+      "checksum": "46c88f4abc5741226084889bcda45517"
+    },
+    "borradors/app_v09.R": {
+      "checksum": "c4dbeba8a7bccdfcdfe69749e4bd4570"
+    },
+    "borradors/app_v10.R": {
+      "checksum": "aa5620792ca439a81dd575472634e5c0"
+    },
+    "borradors/app_v11.R": {
+      "checksum": "c9ee552881930ea22e84685c97666b8c"
+    },
+    "borradors/app_v12.R": {
+      "checksum": "614a3e9e809deb8eeb3a489523207670"
     },
     "borradors/Indicadors_ABS.csv": {
       "checksum": "61afd029b061a12fad49b7619be05af4"
@@ -2113,6 +2143,9 @@
     },
     "URL.txt": {
       "checksum": "6d8a76ab9aebe0a72dddda93193610c9"
+    },
+    "www/js/piwik_sc.js": {
+      "checksum": "f99b32c86772003a12f1c9312bada0a8"
     }
   },
   "users": null

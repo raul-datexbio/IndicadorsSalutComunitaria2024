@@ -188,8 +188,11 @@ ui <- tagList(
       $(".navbar-collapse").collapse("hide");
     });
   });
-'),
+  '),
   
+  # Incloure el fitxer JavaScript piwik_sc.js
+  tags$script(src = "js/piwik_sc.js"),
+
   page_navbar(
     
     # Idioma català
@@ -249,30 +252,15 @@ ui <- tagList(
           card_body(
             div(
               class = "paragraph-style",
-              p("Per desplegar l'orientació comunitària, és fonamental disposar de dades fiables i robustes per àrees petites, que permetin fer una primera aproximació 
-                al diagnòstic comunitari. Per tal de facilitar aquesta part metodològica de l’acció comunitària, en el marc del Pla de Salut de Catalunya i seguint 
-                el marc conceptual dels determinats socials de la salut, es presenta la tercera edició dels indicadors bàsics a nivell d'àrees bàsiques de salut (ABS)."),
-              p("Els indicadors seleccionats i calculats s'han agrupat en set àmbits diferents: demogràfic, estils de vida, morbiditat, mortalitat, pràctiques preventives, 
-                 recursos i ús de serveis, i socioeconòmic. Les dades, estratificades per sexe i grups d’edat sempre que les dades ho permetin, fan referència 
-                 principalment a l’any 2022, amb alguns períodes diferents per a certs indicadors d'estils de vida, morbiditat, mortalitat i situació socioeconòmica."),
-              p(
-                "L'actualització dels indicadors d'aquesta edició compta amb la novetat que es presenta en format aplicació web amb una nova visualització, 
-                 més dinàmica, interactiva i fàcilment exportable. Aquesta aplicació s'ha desenvolupat amb Shiny ",
-                tags$a(
-                  href = "https://shiny.posit.co/",
-                  style = "display: inline-flex; align-items: center; text-decoration: none;",
-                  icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
-                  title = "Pàgina web de Shiny",
-                  target = "_blank"
-                ),
-                " i s'estructura en quatre seccions:"),
-              tags$ul(
-                style = "list-style-type: none; padding-left: 0;", 
-                tags$li(style = "margin-bottom: 10px;", icon("home", style = "color: #5E5E5E; margin-right: 10px;"), HTML("Inici: presentació del projecte.")),
-                tags$li(style = "margin-bottom: 10px;", icon("table", style = "color: #5E5E5E; margin-right: 10px;"), HTML("Dades: taula de dades amb els indicadors bàsics de salut per ABS seleccionats.")),
-                tags$li(style = "margin-bottom: 10px;", icon("chart-column", style = "color: #5E5E5E; margin-right: 10px;"), HTML("Anàlisi: eina interactiva per crear gràfics personalitzats.")),
-                tags$li(icon("file-alt", style = "color: #5E5E5E; margin-right: 10px;"), HTML("Fitxes metodològiques: detalls metodològics específics de cada indicador."))
-              )
+              p("Per desplegar l'orientació comunitària és essencial comptar amb dades fiables i robustes per àrees petites, que permetin una primera aproximació 
+                 al diagnòstic comunitari. Per tal de facilitar aquesta part metodològica de l’acció comunitària, en el marc del Pla de Salut, aquí es presenta 
+                 la tercera edició dels indicadors bàsics a nivell d'àrees bàsiques de salut (ABS) seguint el marc conceptual dels determinats socials de la salut."),
+              p("Es presenten un conjunt de 43 indicadors, agrupats en 7 àmbits diferents (demogràfic, estils de vida, morbiditat, mortalitat, pràctiques preventives, 
+                 recursos i ús de serveis, socioeconòmic). Les dades, estratificades per sexe i grups d’edat sempre que les dades ho permeten, fan referència principalment
+                 a l’any 2022, amb períodes diferents pels indicadors de l’àmbit d’estils de vida i mortalitat."),
+              p("L’actualització dels indicadors d’aquesta edició compta amb la novetat que es presenten amb una nova visualització, més dinàmica i fàcilment exportable. 
+                 L’objectiu és facilitar als territoris la realització del diagnòstic de salut."),
+              p("Aquest és el resultat del grup motor de salut comunitària, format  per membres del Departament de Salut, etc...")
             )
           )
         ),
@@ -584,7 +572,7 @@ ui <- tagList(
             card_body(
               div(
                 class = "highlighted-paragraph",
-                p("Explora en format taula els indicadors de salut comunitària per àrea bàsica de salut (ABS) de Catalunya, organitzats en els següents àmbits: 
+                p("Explora en format taula els 43 indicadors de salut comunitària per àrea bàsica de salut (ABS) de Catalunya, organitzats en els següents àmbits: 
                   demogràfic, estils de vida, morbiditat, mortalitat, pràctiques preventives, recursos i ús de serveis, i socioeconòmic.")
               ),
               div(
