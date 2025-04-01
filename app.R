@@ -11,12 +11,8 @@ library(shinyjs)
 library(shinythemes)
 
 # Carregar CSV pestanya 'Dades'
-df <- read.csv('https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/dades_indicadors_salut_comunitaria.csv',
+df <- read.csv('https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/dades_indicadors_salut_comunitaria_v2.csv',
                sep = ",", encoding = "latin1", check.names = FALSE)
-
-# Carregar CSV pestanya 'Anàlisi'
-df_gwalkr <- read.csv('https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/dades_indicadors_salut_comunitaria_gwalkr.csv',
-                      sep = ",", encoding = "latin1", check.names = FALSE)
 
 ################################################################################
 
@@ -169,6 +165,45 @@ ui <- tagList(
         padding: 0 5px;
         text-align: center;
       }
+      
+      /* Estils responsius peu pàgina */
+      @media (max-width: 768px) {
+        .social-container {
+          flex-direction: column !important;
+          gap: 5px !important;
+          text-align: center !important;
+        }
+        .social-text {
+          margin-right: 0 !important;
+        }
+        .info-container {
+          flex-direction: column !important;
+          justify-content: center !important;
+          gap: 5px !important;
+          padding: 8px 24px !important;
+        }
+        .gencat-logo, .copyright-text, .legal-links {
+          text-align: center !important;
+          width: 100% !important;
+        }
+        .legal-links {
+          justify-content: center !important;
+        }
+        #footer-info {
+          padding: 8px 0 !important;
+        }
+      }
+
+      /* Estils responsius dispositiu mòbil */
+      @media (max-width: 575px) {
+        #titol-app h1 {
+          font-size: 1.5rem !important;
+          text-align: center !important;
+        }
+        #titol-app {
+          padding: 0 10px !important;
+        }
+      }
 
     "))
   ),
@@ -235,8 +270,9 @@ ui <- tagList(
       
       # Títol aplicació
       div(
+        id = "titol-app",
         style = "height: 60px; margin: 45px -24px 0px -24px; width: calc(100% + 48px); display: flex; align-items: center; justify-content: center;
-                background: linear-gradient(135deg, #E3F2FD, #90CAF9); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);",
+            background: linear-gradient(135deg, #E3F2FD, #90CAF9); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);",
         h1(
           "Indicadors de Salut Comunitària",
           style = "color: #1565C0; font-style: bold; font-weight: 600; letter-spacing: 0.5px; margin: 0;"
@@ -245,261 +281,295 @@ ui <- tagList(
       
       br(),
       
-      # Card Presentació
+      # Contenedor cards
       div(
-        style = "margin-top: -20px",
+        id = "presentacio-container",
+        style = "margin-top: -25px",
+        
+        # Card Presentació
         card(
+          id = "card-presentacio",
+          card_header(
+            div(
+              style = "display: flex; align-items: baseline; gap: 15px; line-height: 1.5;",
+              icon("person-chalkboard", 
+                   style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
+              h2("Presentació", 
+                 class = "title-style",
+                 style = "margin: 0; padding: 0;")
+            )
+          ),
           card_body(
             div(
               class = "paragraph-style",
-              p("Per desplegar l'orientació comunitària és essencial comptar amb dades fiables i robustes per àrees petites, que permetin una primera aproximació 
-                 al diagnòstic comunitari. Per tal de facilitar aquesta part metodològica de l’acció comunitària, en el marc del Pla de Salut, aquí es presenta 
-                 la tercera edició dels indicadors bàsics a nivell d'àrees bàsiques de salut (ABS) seguint el marc conceptual dels determinats socials de la salut."),
-              p("Es presenten un conjunt de 43 indicadors, agrupats en 7 àmbits diferents (demogràfic, estils de vida, morbiditat, mortalitat, pràctiques preventives, 
-                 recursos i ús de serveis, socioeconòmic). Les dades, estratificades per sexe i grups d’edat sempre que les dades ho permeten, fan referència principalment
-                 a l’any 2022, amb períodes diferents pels indicadors de l’àmbit d’estils de vida i mortalitat."),
-              p("L’actualització dels indicadors d’aquesta edició compta amb la novetat que es presenten amb una nova visualització, més dinàmica i fàcilment exportable. 
-                 L’objectiu és facilitar als territoris la realització del diagnòstic de salut."),
-              p("Aquest és el resultat del grup motor de salut comunitària, format  per membres del Departament de Salut, etc...")
+              p("Per a implementar l'orientació comunitària és essencial comptar amb dades de confiança i robustes per a àrees petites, que permetin una primera aproximació al diagnòstic comunitari. 
+                Per a facilitar aquesta part metodològica de l'acció comunitària, en el marc del Pla de Salut, aquí es presenta la tercera edició dels indicadors bàsics a nivell d'àrees bàsiques de salut (ABS) 
+                seguint el marc conceptual dels determinants socials de la salut."),
+              p("Es presenta un conjunt de 43 indicadors, agrupats en 7 àmbits diferents (demogràfic, socioeconòmic, morbiditat, mortalitat, estils de vida, pràctiques preventives, recursos i usos de servei). 
+                Aquestes són les característiques de cada àmbit:"),
+              tags$ul(
+                style = "margin-left: 0px; padding-left: 20px;",
+                tags$li(style = "margin-bottom: 10px;", "Demogràfic: característiques de la població en relació amb l'edat, nacionalitat i estructura familiar."),
+                tags$li(style = "margin-bottom: 10px;", "Socioeconòmic: condicions socials i econòmiques que influeixen en la salut de la població."),
+                tags$li(style = "margin-bottom: 10px;", "Morbiditat: presència de malalties i condicions de salut en la població."),
+                tags$li(style = "margin-bottom: 10px;", "Mortalitat: taxes i causes de defunció, així com l'esperança de vida."),
+                tags$li(style = "margin-bottom: 10px;", "Estils de vida: hàbits i comportaments que influeixen en la salut, com el consum de tabac, alcohol, dieta i exercici físic."),
+                tags$li(style = "margin-bottom: 10px;", "Pràctiques preventives: intervencions sanitàries per evitar malalties, com la vacunació infantil."),
+                tags$li("Recursos i ús de serveis: accés i utilització dels serveis sanitaris per part de la població.")
+              ),
+              p("Les dades, estratificades per sexe i grups d'edat sempre que la font origen ho permet, fan referència principalment a l'any 2022, amb períodes diferents pels indicadors de l'àmbit d'estils de vida i mortalitat.
+                L'actualització dels indicadors d'aquesta edició compta amb la novetat que es presenta amb una nova visualització, més dinàmica i fàcil d'exportar. L'objectiu és facilitar al territori la realització del diagnòstic de salut."),
+              p("A banda d'aquesta iniciativa, la Central de Resultats, un instrument que recull els resultats en salut i qualitat assolits pels diferents agents que integren el sistema sanitari català, posa a disposició dels i les professionals
+                i la ciutadania d'indicadors que complementen i ajuden al diagnòstic comunitari. Podeu consultar",
+                span(" aquí ", 
+                     tags$a( 
+                       href = "https://aquas-gencat.shinyapps.io/centralderesultats/",
+                       style = "margin-left: 5px; margin-right: 5px; text-decoration: none;",
+                       icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
+                       title = "Pàgina web de la Central de Resultats",
+                       target = "_blank"
+                     )
+                ), 
+                "les darreres dades publicades de la Central de Resultats."
+              )
             )
           )
         ),
         
-        br(),
-        
-        # Cards Autoria i Llicència
-        layout_column_wrap(
-          width = 1/2,
-          style = css(grid_gap = "14px"),
-          
-          # Card Autoria
-          card(
-            card_header(
-              div(
-                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
-                icon("users", 
-                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
-                h2("Autoria", 
-                   class = "title-style",
-                   style = "margin: 0; padding: 0;")
-              )
-            ),
-            card_body(
-              class = "paragraph-style",
-              p("Grup de treball d'indicadors de salut per àrees bàsiques de salut, format per:"),
-              tags$ul(
-                style = "margin-left: 0px; padding-left: 20px;",
-                tags$li(style = "margin-bottom: 10px;", "Agència de Salut Pública de Catalunya (ASPCAT)."),
-                tags$li(style = "margin-bottom: 10px;", "Observatori del Sistema de Salut de Catalunya (OSSC), Agència de Qualitat i Avaluació Sanitàries de Catalunya (AQuAS)."),
-                tags$li(style = "margin-bottom: 10px;", "Direcció General de Planificació en Salut, Departament de Salut."),
-                tags$li("Secretaria General, Departament de Salut.")
-              ),
-              p("Amb la col·laboració de l'Institut Català de la Salut (ICS) i l'Idescat.", style = "margin-top: -20px;")
+        # Card Autoria
+        card(
+          id = "card-autoria",
+          style = "margin-top: 30px;",
+          card_header(
+            div(
+              style = "display: flex; align-items: baseline; gap: 15px; line-height: 1.5;",
+              icon("users", 
+                   style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
+              h2("Autoria (pendent)", 
+                 class = "title-style",
+                 style = "margin: 0; padding: 0;")
             )
           ),
-          
-          # Card Llicència
-          card(
-            card_header(
-              div(
-                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
-                icon("creative-commons", 
-                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
-                h2("Llicència", 
-                   class = "title-style",
-                   style = "margin: 0; padding: 0;")
-              )
+          card_body(
+            class = "paragraph-style",
+            p("Grup de treball d'indicadors de salut per àrees bàsiques de salut, format per:"),
+            tags$ul(
+              style = "margin-left: 0px; padding-left: 20px;",
+              tags$li(style = "margin-bottom: 10px;", "Agència de Salut Pública de Catalunya (ASPCAT)."),
+              tags$li(style = "margin-bottom: 10px;", "Observatori del Sistema de Salut de Catalunya (OSSC), Agència de Qualitat i Avaluació Sanitàries de Catalunya (AQuAS)."),
+              tags$li(style = "margin-bottom: 10px;", "Direcció General de Planificació en Salut, Departament de Salut."),
+              tags$li("Secretaria General, Departament de Salut.")
             ),
-            card_body(
-              class = "paragraph-style",
-              p("© 2025, Generalitat de Catalunya. Departament de Salut."),
-              p("Els continguts d'aquesta obra estan subjectes a una llicència de Reconeixement-NoComercial-SenseObraDerivada 4.0 Internacional."),
-              div(
-                style = "text-align: left;",
-                a(
-                  href = "http://creativecommons.org/licenses/by-nc-nd/4.0/deed.ca'",
-                  target = "_blank",
-                  img(src = "https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/imatges/llicencia_logotip.png",
-                      height = "45px",
-                      title = "Pàgina web de la llicència Creative Commons"
-                  )
+            p("Amb la col·laboració de l'Institut Català de la Salut (ICS) i l'Idescat.", style = "margin-top: -20px;")
+          )
+        ),
+        
+        # Card Llicència
+        card(
+          id = "card-llicencia",
+          style = "margin-top: 30px;",
+          card_header(
+            div(
+              style = "display: flex; align-items: baseline; gap: 15px; line-height: 1.5;",
+              icon("creative-commons", 
+                   style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
+              h2("Llicència", 
+                 class = "title-style",
+                 style = "margin: 0; padding: 0;")
+            )
+          ),
+          card_body(
+            class = "paragraph-style",
+            p("© 2025, Generalitat de Catalunya. Departament de Salut."),
+            p("Els continguts d'aquesta obra estan subjectes a la llicència Creative Commons Reconeixement-NoComercial-SenseObraDerivada 4.0 Internacional."),
+            div(
+              a(
+                href = "http://creativecommons.org/licenses/by-nc-nd/4.0/deed.ca",
+                target = "_blank",
+                img(
+                  id = "licencia-img",
+                  src = "https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/imatges/llicencia_logotip.png",
+                  height = "45px",
+                  title = "Pàgina web de la llicència CC BY-NC-ND 4.0"
                 )
               )
             )
           )
         ),
         
-        br(),
-        
-        # Cards Edicions i Assessorament lingüístic
-        layout_column_wrap(
-          width = 1/2,
-          style = css(grid_gap = "14px"),
-          
-          # Card Edicions
-          card(
-            card_header(
-              div(
-                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
-                icon("book-open", 
-                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
-                h2("Edicions", 
-                   class = "title-style",
-                   style = "margin: 0; padding: 0;")
-              )
-            ),
-            card_body(
-              class = "paragraph-style",
-              tags$ul(
-                style = "margin-left: 0px; padding-left: 20px;",
-                tags$li(style = "margin-bottom: 10px;", "1a edició: Barcelona maig 2018."),
-                tags$li(style = "margin-bottom: 10px;", "2a edició: Barcelona abril 2021."),
-                tags$li("3a edició: Barcelona gener 2025.")
-              )
+        # Card Edicions
+        card(
+          id = "card-edicions",
+          style = "margin-top: 40px;", 
+          card_header(
+            div(
+              style = "display: flex; align-items: baseline; gap: 15px; line-height: 1.5;",
+              icon("book-open", 
+                   style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
+              h2("Edicions", 
+                 class = "title-style",
+                 style = "margin: 0; padding: 0;")
             )
           ),
-          
-          # Card Assessorament lingüístic
-          card(
-            card_header(
-              div(
-                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
-                icon("language", 
-                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
-                h2("Assessorament lingüístic", 
-                   class = "title-style",
-                   style = "margin: 0; padding: 0;")
-              )
-            ),
-            card_body(
-              class = "paragraph-style",
-              p("Servei de Planificació Lingüística del Departament de Salut.")
-            )
-          )
-        ),
-        
-        br(),
-        
-        # Cards Més informació i Contacte
-        layout_column_wrap(
-          width = 1/2,
-          style = css(grid_gap = "14px"),
-          
-          # Card Més informació
-          card(
-            card_header(
-              div(
-                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
-                icon("circle-info", 
-                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
-                h2("Més informació",
-                   class = "title-style",
-                   style = "margin: 0; padding: 0;")
-              )
-            ),
-            card_body(
-              class = "paragraph-style",
-              span(
-                "Observatori de Desigualtats en Salut > Indicadors de salut comunitària",
+          card_body(
+            class = "paragraph-style",
+            tags$ul(
+              style = "margin-left: 0px; padding-left: 20px;",
+              tags$li(
+                style = "margin-bottom: 10px;", 
+                "1a edició: Barcelona maig 2018",
                 tags$a(
                   href = "http://observatorisalut.gencat.cat/ca/observatori-desigualtats-salut/indicadors_comunitaria/",
-                  style = "margin-left: 5px;",
+                  style = "margin-left: 5px; text-decoration: none;",
                   icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
-                  title = "Pàgina web del projecte Indicadors de salut comunitària",
+                  title = "Pàgina web de l'edició del 2018 dels Indicadors de salut comunitària",
                   target = "_blank"
                 )
-              )
+              ),
+              tags$li(
+                style = "margin-bottom: 10px;", 
+                "2a edició: Barcelona abril 2021",
+                tags$a(
+                  href = "http://observatorisalut.gencat.cat/ca/observatori-desigualtats-salut/indicadors_comunitaria/",
+                  style = "margin-left: 5px; text-decoration: none;",
+                  icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
+                  title = "Pàgina web de l'edició del 2021 dels Indicadors de salut comunitària",
+                  target = "_blank"
+                )
+              ),
+              tags$li("3a edició: Barcelona gener 2025")
+            )
+          )
+        ),
+        
+        # Card Assessorament lingüístic
+        card(
+          id = "card-assessorament",
+          style = "margin-top: 30px;",
+          card_header(
+            div(
+              style = "display: flex; align-items: baseline; gap: 15px; line-height: 1.5;",
+              icon("language", 
+                   style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
+              h2("Assessorament lingüístic", 
+                 class = "title-style",
+                 style = "margin: 0; padding: 0;")
             )
           ),
-          
-          # Card Contacte
-          card(
-            card_header(
-              div(
-                style = "display: flex; align-items: center; gap: 15px; line-height: 1.5;",
-                icon("envelope", 
-                     style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
-                h2("Contacte", 
-                   class = "title-style",
-                   style = "margin: 0; padding: 0;")
-              )
-            ),
-            card_body(
-              class = "paragraph-style",
-              span(
+          card_body(
+            class = "paragraph-style",
+            p("Servei de Planificació Lingüística del Departament de Salut.")
+          )
+        ),
+        
+        # Tens algun dubte?
+        card(
+          id = "contacte-card",
+          style = "margin-top: 30px;",
+          card_header(
+            div(
+              style = "display: flex; align-items: baseline; gap: 15px; line-height: 1.5;",
+              icon("question-circle", 
+                   style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
+              h2("Tens algun dubte?", 
+                 class = "title-style",
+                 style = "margin: 0; padding: 0;")
+            )
+          ),
+          card_body(
+            style = "font-size: 16px; color: #5E5E5E;",
+            div(
+              style = "display: inline;",
+              "Escriu-nos a ",
+              tags$a(
+                href = "mailto:cdr.aquas@gencat.cat",
                 "cdr.aquas@gencat.cat",
-                tags$a(
-                  href = "mailto:cdr.aquas@gencat.cat",
-                  style = "margin-left: 5px;",
-                  icon("paper-plane", style = "font-size: 16px; color: #5E5E5E;"),
-                  title = "Adreça de correu electrònic AQuAS",
-                  target = "_blank"
-                )
+                style = "color: #0078d0; text-decoration: none;",
+                title = "Adreça de correu electrònic d'AQuAS",
+                target = "_blank"
+              ),
+              " o visita'ns al web ",
+              tags$a(
+                href = "https://aquas.gencat.cat",
+                "https://aquas.gencat.cat",
+                style = "color: #0078d0; text-decoration: none;",
+                title = "Pàgina web d'AQuAS",
+                target = "_blank"
               )
             )
           )
         ),
         
         br(),
-        
+
         # Peu pàgina xarxes socials
         div(
+          id = "footer-social",
           style = "background-color: #f8f9fa; padding: 15px 0; width: calc(100% + 48px); border-top: 1px solid #CCCCCC; border-bottom: 1px solid #CCCCCC; margin: 0 -24px;",
           div(
+            class = "social-container",
             style = "display: flex; justify-content: center; align-items: center; gap: 10px;",
             span(
               "Segueix-nos a les xarxes socials AQuAS:",
+              class = "social-text",
               style = "color: #5E5E5E; font-size: 15px; margin-right: 30px;"
             ),
-            a(
-              href = "https://x.com/AQuAScat",
-              target = "_blank",
-              img(
-                src = "https://aquas.gencat.cat/web/resources/fwkResponsive/fpca_peu_xarxesSocials/img/twitter-c.svg",
-                style = "height: 24px; width: 24px;"
+            div(
+              class = "social-icons",
+              style = "display: flex; justify-content: center; gap: 15px;",
+              a(
+                href = "https://x.com/AQuAScat",
+                target = "_blank",
+                img(
+                  src = "https://aquas.gencat.cat/web/resources/fwkResponsive/fpca_peu_xarxesSocials/img/twitter-c.svg",
+                  style = "height: 24px; width: 24px;"
+                ),
+                title = "Twitter",
+                style = "text-decoration: none;"
               ),
-              title = "Twitter",
-              style = "text-decoration: none;"
-            ),
-            a(
-              href = "https://www.linkedin.com/company/aquas-salut/",
-              target = "_blank",
-              img(
-                src = "https://aquas.gencat.cat/web/resources/fwkResponsive/fpca_peu_xarxesSocials/img/linkedin-c.svg",
-                style = "height: 24px; width: 24px;"
+              a(
+                href = "https://www.linkedin.com/company/aquas-salut/",
+                target = "_blank",
+                img(
+                  src = "https://aquas.gencat.cat/web/resources/fwkResponsive/fpca_peu_xarxesSocials/img/linkedin-c.svg",
+                  style = "height: 24px; width: 24px;"
+                ),
+                title = "LinkedIn",
+                style = "text-decoration: none;"
               ),
-              title = "LinkedIn",
-              style = "text-decoration: none;"
-            ),
-            a(
-              href = "https://www.youtube.com/channel/UCLnTGcmpedzhLKkbIR-a0fw",
-              target = "_blank",
-              img(
-                src = "https://aquas.gencat.cat/web/resources/fwkResponsive/fpca_peu_xarxesSocials/img/youtube-c.svg",
-                style = "height: 24px; width: 24px;"
+              a(
+                href = "https://www.youtube.com/channel/UCLnTGcmpedzhLKkbIR-a0fw",
+                target = "_blank",
+                img(
+                  src = "https://aquas.gencat.cat/web/resources/fwkResponsive/fpca_peu_xarxesSocials/img/youtube-c.svg",
+                  style = "height: 24px; width: 24px;"
+                ),
+                title = "YouTube",
+                style = "text-decoration: none;"
               ),
-              title = "YouTube",
-              style = "text-decoration: none;"
-            ),
-            a(
-              href = "https://blog.aquas.cat/",
-              target = "_blank",
-              img(
-                src = "https://aquas.gencat.cat/web/resources/fwkResponsive/fpca_peu_xarxesSocials/img/message-c.svg",
-                style = "height: 24px; width: 24px;"
-              ),
-              title = "Blog",
-              style = "text-decoration: none;"
+              a(
+                href = "https://blog.aquas.cat/",
+                target = "_blank",
+                img(
+                  src = "https://aquas.gencat.cat/web/resources/fwkResponsive/fpca_peu_xarxesSocials/img/message-c.svg",
+                  style = "height: 24px; width: 24px;"
+                ),
+                title = "Blog",
+                style = "text-decoration: none;"
+              )
             )
           )
         ),
         
         # Peu pàgina informació complementària
         div(
+          id = "footer-info",
           style = "background-color: #333333; color: #FFFFFF; padding: 5px 0; width: calc(100% + 48px); margin: 0 -24px;",
           div(
+            class = "info-container",
             style = "display: flex; justify-content: space-between; align-items: center; padding: 0 24px;",
             div(
+              class = "gencat-logo",
               a(
                 img(
                   src = "https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/imatges/gencat_logotip.png",
@@ -511,10 +581,12 @@ ui <- tagList(
               )
             ),
             div(
+              class = "copyright-text",
               style = "text-align: center; font-size: 10px;",
               "Agència de Qualitat i Avaluació Sanitàries de Catalunya, 2025"
             ),
             div(
+              class = "legal-links",
               style = "text-align: right; font-size: 10px; display: flex; align-items: center; gap: 8px;",
               a(
                 "Avís legal",
@@ -553,6 +625,7 @@ ui <- tagList(
       
       # Títol aplicació
       div(
+        id = "titol-app",
         style = "height: 60px; margin: 45px -24px 0px -24px; width: calc(100% + 48px); display: flex; align-items: center; justify-content: center;
             background: linear-gradient(135deg, #E3F2FD, #90CAF9); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);",
         h1(
@@ -695,117 +768,6 @@ ui <- tagList(
       )
     ),
     
-    # Pestanya 'Anàlisi'
-    nav_panel(
-      title = "Anàlisi",
-      icon = icon("chart-column"),
-      value = "tab_analisi",
-      
-      # Títol aplicació
-      div(
-        style = "height: 60px; margin: 45px -24px 0px -24px; width: calc(100% + 48px); display: flex; align-items: center; justify-content: center;
-            background: linear-gradient(135deg, #E3F2FD, #90CAF9); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);",
-        h1(
-          "Indicadors de Salut Comunitària",
-          style = "color: #1565C0; font-style: bold; font-weight: 600; letter-spacing: 0.5px; margin: 0;"
-        )
-      ),
-      
-      br(),
-      
-      # Estructura amb files fluides: text
-      fluidRow(
-        style = "margin-top: -20px;",
-        column(
-          width = 12,
-          # Card Anàlisi exploratòria de dades
-          card(
-            card_body(
-              div(
-                class = "highlighted-paragraph",
-                p("Analitza i visualitza gràficament els indicadors de salut comunitària per àrea bàsica de salut (ABS) de Catalunya mitjançant GWalkR.",
-                  tags$a(
-                    href = "https://github.com/Kanaries/GWalkR",
-                    style = "margin-left: 5px;",
-                    icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
-                    title = "GitHub del paquet GWalkR",
-                    target = "_blank"
-                  )
-                )
-              ),
-              div(
-                class = "highlighted-paragraph",
-                p("A la pestanya ",
-                  span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Visualization"),
-                  ", pots filtrar les dades i establir relacions entre variables per generar gràfics personalitzats. Per exemple, 
-                  si vols generar un gràfic de barres amb les ABS de la regió sanitària de Lleida ordenades de menor a major percentatge
-                  de població infantil de 0 i 1 anys correctament vacunada, segueix els següents passos:"
-                ),
-                tags$ol(
-                  style = "margin-left: 0px; padding-left: 20px;",
-                  tags$li(style = "margin-bottom: 10px;", 
-                          "Arrossega la variable ",
-                          span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Regió sanitària"),
-                          " al camp ",
-                          span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Filters"),
-                          " i selecciona només ",
-                          span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Lleida"),
-                          "."
-                  ),
-                  tags$li(style = "margin-bottom: 10px;", 
-                          "Arrossega la variable ",
-                          span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Indicador"),
-                          " al camp ",
-                          span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Filters"),
-                          " i selecciona només ",
-                          span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Cobertura vacunal de la població infantil de 0-1 anys"),
-                          "."
-                  ),
-                  tags$li(style = "margin-bottom: 10px;", 
-                          "Arrossega les variables ",
-                          span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Àrea bàsica de salut"),
-                          " i ",
-                          span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "ABS total"),
-                          " als camps ",
-                          span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "X-Axis"),
-                          " i ",
-                          span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Y-Axis"),
-                          " , respectivament."
-                  ),
-                  tags$li(
-                    "Fes clic als botons ",
-                    span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Aggregation"),
-                    ", ",
-                    span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Sort in Ascending Order"),
-                    " i ",
-                    span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Layout Mode: Container"),
-                    " , situats a la 3a, 7a i 10a posició de la barra d'eines superior."
-                  )
-                )
-              )
-            )
-          )
-        )
-      ),
-      
-      # Estructura amb files fluides: GWalkR
-      fluidRow(
-        style = "margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px;",
-        column(
-          width = 12,
-          withSpinner(
-            gwalkrOutput("analisi_exploratoria_dades_eda"),
-            type = 8,
-            color = "#1565C0",
-            size = 1,
-            proxy.height = "100px"
-          )
-        )
-      ),
-      
-      tags$div(style = "height: 10px;")
-    ),
-    
     # Pestanya 'Fitxes metodològiques'
     nav_panel(
       
@@ -815,6 +777,7 @@ ui <- tagList(
       
       # Títol aplicació
       div(
+        id = "titol-app",
         style = "height: 60px; margin: 45px -24px 0px -24px; width: calc(100% + 48px); display: flex; align-items: center; justify-content: center;
             background: linear-gradient(135deg, #E3F2FD, #90CAF9); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);",
         h1(
@@ -1213,7 +1176,7 @@ server <- function(input, output, session) {
     },
     content = function(file) {
       require(data.table)
-      dt <- read.csv('https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/dades_indicadors_salut_comunitaria.csv',
+      dt <- read.csv('https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/dades_indicadors_salut_comunitaria_v2.csv',
                      sep = ",", encoding = "latin1", check.names = FALSE, 
                      na.strings = c("", " ", "NA"))
       dt <- as.data.table(dt)
@@ -1661,11 +1624,6 @@ server <- function(input, output, session) {
   },
   server = FALSE
   )
-  
-  # Mostrar GWalkR
-  output$analisi_exploratoria_dades_eda = renderGwalkr({
-    gwalkr(df_gwalkr)
-  })
   
   # Mostrar fitxa seleccionada
   output$fitxa_seleccionada <- renderUI({
