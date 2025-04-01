@@ -166,7 +166,7 @@ ui <- tagList(
         text-align: center;
       }
       
-      /* Estils responsius peu pàgina */
+      /* Estils responsius pantalles ≤ 768px */
       @media (max-width: 768px) {
         .social-container {
           flex-direction: column !important;
@@ -194,7 +194,7 @@ ui <- tagList(
         }
       }
 
-      /* Estils responsius dispositiu mòbil */
+      /* Estils responsius pantalles ≤ 575px */
       @media (max-width: 575px) {
         #titol-app h1 {
           font-size: 1.5rem !important;
@@ -646,13 +646,13 @@ ui <- tagList(
               div(
                 class = "highlighted-paragraph",
                 p("Explora en format taula els 43 indicadors de salut comunitària per àrea bàsica de salut (ABS) de Catalunya, organitzats en els següents àmbits: 
-                  demogràfic, estils de vida, morbiditat, mortalitat, pràctiques preventives, recursos i ús de serveis, i socioeconòmic.")
+                  demogràfic, socioeconòmic, morbiditat, mortalitat, estils de vida, pràctiques preventives, recursos i usos de servei.")
               ),
               div(
                 class = "highlighted-paragraph",
-                p("Selecciona una o diverses regions, àrees, àmbits i indicadors d'interès seguint l'ordre establert, i fes clic al botó ",
+                p("Selecciona una o més regions sanitàries, àrees bàsiques de salut, àmbits i indicadors de salut comunitària seguint l’ordre establert i fes clic al botó ",
                   span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Aplica la selecció"),
-                  ". Quan es mostri la taula amb les dades seleccionades, podràs modificar la selecció, ordenar les dades de manera ascendent o descendent i exportar-les en diversos formats.")
+                  ". Un cop es mostri la taula amb les dades seleccionades, podràs modificar la selecció, ordenar les dades en ordre ascendent o descendent i exportar-les en diversos formats.")
               )
             )
           )
@@ -677,7 +677,7 @@ ui <- tagList(
                     inputId = "select_rs",
                     label = div(
                       class = "paragraph-style",
-                      HTML("<b>Pas 1: Selecciona les regions sanitàries</b>")
+                      HTML("<b>Pas 1: Selecciona les regions</b>")
                     ),
                     choices = c("Totes", mixedsort(as.character(unique(df$`Regió sanitària`)))),
                     selected = NULL,
@@ -691,7 +691,7 @@ ui <- tagList(
                     inputId = "select_abs",
                     label = div(
                       class = "paragraph-style",
-                      HTML("<b>Pas 2: Selecciona les àrees bàsiques de salut</b>")
+                      HTML("<b>Pas 2: Selecciona les àrees</b>")
                     ),
                     choices = c("Totes", mixedsort(as.character(unique(df$`Àrea bàsica de salut`)))),
                     selected = NULL,
@@ -719,7 +719,7 @@ ui <- tagList(
                     inputId = "select_indicadors",
                     label = div(
                       class = "paragraph-style",
-                      HTML("<b>Pas 4: Selecciona els indicadors de salut comunitària</b>")
+                      HTML("<b>Pas 4: Selecciona els indicadors</b>")
                     ),
                     choices = c("Tots", mixedsort(as.character(unique(df$Indicador)))),
                     selected = NULL,
@@ -799,7 +799,7 @@ ui <- tagList(
                 class = "highlighted-paragraph",
                 p("Consulta les fitxes metodològiques dels indicadors de salut comunitària, elaborades per 
                   l'Agència de Qualitat i Avaluació Sanitàries de Catalunya (AQuAS). Cada fitxa inclou informació detallada 
-                  sobre la descripció de l'indicador, la fórmula de càlcul, els criteris tècnics, el període i l'origen de les dades.")
+                  sobre la descripció de l'indicador, la fórmula de càlcul, els criteris metodològics, el període i l'origen de les dades.")
               ),
               div(
                 class = "highlighted-paragraph",
@@ -1646,7 +1646,7 @@ server <- function(input, output, session) {
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe, ABS i grups d'edat (0-14 anys, 15-54 anys, 55-64 anys i 65 anys i més). El nivell socioeconòmic individual es calcula tenint en compte el nivell de renda individual, 
                la situació laboral actual (relació amb la Seguretat Social) i el copagament farmacèutic.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -1688,7 +1688,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -1730,7 +1730,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe, ABS i grups d'edat (65-74 anys, 75-84 anys i 85 anys i més).",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -1770,7 +1770,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe, ABS i grups d'edat (0-14 anys, 15-44 anys, 45-64 anys i 65 anys i més). Es consideren països en via de desenvolupament: 
                Afganistan, Algèria, Angola, Anguilla, Antigua i Barbuda, Antilles Neerlandeses, Aràbia Saudita, Argentina, Armènia, Aruba, Azerbaidjan, 
                Bahames, Bahrain, Bangladesh, Barbados, Belize, Benín, Bhutan, Bolívia, Botswana, Brasil, Brunei, Burkina Faso, Burundi, Cambodja, Camerun, 
@@ -1827,7 +1827,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -1874,7 +1874,7 @@ server <- function(input, output, session) {
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -1917,7 +1917,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -1959,7 +1959,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2002,7 +2002,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2043,7 +2043,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2083,7 +2083,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe, ABS i grups d'edat (6-17 anys i 18-74 anys).",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2123,7 +2123,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe, ABS i grups d'edat (6-17 anys i 18-74 anys). L'indicador es calcula de manera diferent depenent del grup d'edat. 
                Pels infants de 6 a 17 anys es calcula com la població assignada i atesa amb un pes entre el percentil 90 i 95 o un codi diagnòstic d'augment 
                anormal de pes. Pel grup d'edat de 18 a 74 anys es calcula com la població assignada i atesa amb un Índex de massa corporal (IMC) > 25 i ≤ 30 
@@ -2166,7 +2166,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe, ABS i grups d'edat (6-17 anys i 18-74 anys). L'indicador es calcula de manera diferent depenent del grup d'edat. 
                Pels infants de 6 a 17 anys es calcula com la població assignada i atesa amb un pes per sobre el percentil 95 o un codi diagnòstic d'obesitat. 
                Pel grup d'edat de 18 a 74 anys es calcula com la població assignada i atesa amb un Índex de massa corporal (IMC) > 30 o un codi diagnòstic d'obesitat.",
@@ -2209,7 +2209,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2250,7 +2250,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2291,7 +2291,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2332,7 +2332,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2372,7 +2372,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2412,7 +2412,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2452,7 +2452,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2492,7 +2492,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2520,7 +2520,7 @@ server <- function(input, output, session) {
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2561,7 +2561,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p(paste("Disponible per sexe i ABS."),
                tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
                       style = "margin-left: 5px;",
@@ -2606,7 +2606,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p(paste("Disponible per sexe i ABS."),
                tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
                       style = "margin-left: 5px;",
@@ -2655,7 +2655,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p(paste("Disponible per sexe i ABS."),
                tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
                       style = "margin-left: 5px;",
@@ -2688,7 +2688,7 @@ server <- function(input, output, session) {
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p(paste("Disponible per sexe i ABS. Per tal de mantenir el secret estadístic, el nombre de defuncions per suïcidi a les ABS amb menys de 10 casos apareixerà com <10, excepte en el període 2015-2019."),
                tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
                       style = "margin-left: 5px;",
@@ -2726,7 +2726,7 @@ server <- function(input, output, session) {
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2754,7 +2754,7 @@ server <- function(input, output, session) {
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS. Per tal de mantenir el secret estadístic, el nombre de defuncions per COVID-19 a les ABS amb menys de 10 casos apareixerà com <10.",
                tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
                       style = "margin-left: 5px;",
@@ -2801,7 +2801,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2829,7 +2829,7 @@ server <- function(input, output, session) {
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es calcula usant la informació sobre la freqüència del consum d'alcohol, 
                el tipus de beguda consumida, la quantitat i la distribució del consum al llarg de la setmana. 
                Es categoritza la població per unitat de consum diari d'alcohol, estimada a partir de l'estandardització del tipus de beguda alcohòlica consumida (unitat de beguda estàndard, UBE). 
@@ -2861,7 +2861,7 @@ server <- function(input, output, session) {
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es calcula usant la informació sobre la freqüència del consum d'alcohol, 
                el tipus de beguda consumida, la quantitat i la distribució del consum al llarg de la setmana. 
                Es categoritza la població per unitat de consum diari d'alcohol, estimada a partir de l'estandardització del tipus de beguda alcohòlica consumida (unitat de beguda estàndard, UBE). 
@@ -2892,7 +2892,7 @@ server <- function(input, output, session) {
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es recull amb l'instrument MEDAS (Mediterranean Diet Adherence Screener), 
                que consta de 14 preguntes sobre els diferents elements de la dieta mediterrània. 
                S'hi estableixen tres categories: compliment baix (≤ 5 punts), compliment mitjà (entre 6 i 9 punts) i compliment alt (≥ 10 punts). Es considera com a seguiment adequat de les recomanacions
@@ -2922,7 +2922,7 @@ server <- function(input, output, session) {
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es recull amb l'instrument MEDAS (Mediterranean Diet Adherence Screener), que consta de 14 preguntes sobre els diferents elements de la dieta mediterrània. 
                S'hi estableixen tres categories: compliment baix (≤ 5 punts), compliment mitjà (entre 6 i 9 punts) i compliment alt (≥ 10 punts). Es considera com a seguiment adequat de les recomanacions 
                d'alimentació mediterrània els nivells de compliment mitjà i alt.",
@@ -2952,7 +2952,7 @@ server <- function(input, output, session) {
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es mesura a partir de l'instrument IPAQ, que classifica la població en tres categories: baixa, moderada i alta. Es considera activitat física saludable la suma de l'activitat moderada i l'alta.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2980,7 +2980,7 @@ server <- function(input, output, session) {
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es mesura a partir de l'instrument IPAQ, que classifica la població en tres categories: baixa, moderada i alta. Es considera activitat física saludable la suma de l'activitat moderada i l'alta.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -3022,7 +3022,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe, ABS i grups d'edat (0-1 anys, 2-4 anys, 5-9 anys i 10-14 anys).",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -3050,7 +3050,7 @@ server <- function(input, output, session) {
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe, ABS i grups d'edat (0-14 anys, 15-54 anys, 55-64 anys i 65 anys i més).",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -3089,7 +3089,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe, ABS i tipologia de visita.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -3131,7 +3131,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -3172,7 +3172,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe, ABS i grups d'edat (0-17 anys i 18 anys i més).",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -3214,7 +3214,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -3254,7 +3254,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -3294,7 +3294,7 @@ server <- function(input, output, session) {
              ),
              
              h2(icon("people-group", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px;"), 
-                "Criteris tècnics", class = "title-style"),
+                "Criteris metodològics", class = "title-style"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
