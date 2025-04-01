@@ -1640,12 +1640,12 @@ server <- function(input, output, session) {
              p("Població assignada a un equip d'atenció primària (EAP) que ha estat assignada per aquest equip en l'any d'estudi.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Població assignada a l'EAP.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe, ABS i grups d'edat (0-14 anys, 15-54 anys, 55-64 anys i 65 anys i més). El nivell socioeconòmic individual es calcula tenint en compte el nivell de renda individual, 
                la situació laboral actual (relació amb la Seguretat Social) i el copagament farmacèutic.",
@@ -1669,7 +1669,7 @@ server <- function(input, output, session) {
                les necessitats específiques dels grups de població molt longeva, que sovint requereixen més atenció sanitària i serveis socials.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -1687,7 +1687,7 @@ server <- function(input, output, session) {
                "× 100"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -1711,7 +1711,7 @@ server <- function(input, output, session) {
                recursos o falta d'assistència en cas de necessitats mèdiques o urgents.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -1729,7 +1729,7 @@ server <- function(input, output, session) {
                "× 100"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe, ABS i grups d'edat (65-74 anys, 75-84 anys i 85 anys i més).",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -1751,7 +1751,7 @@ server <- function(input, output, session) {
              p("Indicador demogràfic que permet identificar necessitats específiques i planificar recursos i serveis sanitaris adequats per a aquesta població.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -1769,7 +1769,7 @@ server <- function(input, output, session) {
                "× 100"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe, ABS i grups d'edat (0-14 anys, 15-44 anys, 45-64 anys i 65 anys i més). Es consideren països en via de desenvolupament: 
                Afganistan, Algèria, Angola, Anguilla, Antigua i Barbuda, Antilles Neerlandeses, Aràbia Saudita, Argentina, Armènia, Aruba, Azerbaidjan, 
@@ -1808,7 +1808,7 @@ server <- function(input, output, session) {
                no contributiva, en atur i que han perdut el dret a percebre el subsidi d'atur o beneficiaries de l'ingrés mínim vital.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -1826,7 +1826,7 @@ server <- function(input, output, session) {
                "× 100"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -1868,12 +1868,12 @@ server <- function(input, output, session) {
                mitjà baix (de 90 a 100), mitjà alt (de 100 a 110), alt (de 110 a 125) i molt alt (major de 125).",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("—",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -1898,7 +1898,7 @@ server <- function(input, output, session) {
                criptoquídia; trastorns hipercinètics; o osteocondrosi.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -1916,7 +1916,7 @@ server <- function(input, output, session) {
                "× 100"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -1940,7 +1940,7 @@ server <- function(input, output, session) {
                hipertensió arterial no complicada; trastorn ansietat/angoixa/estat ansiós; osteoporosis; varius a les cames; o obesitat.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -1958,7 +1958,7 @@ server <- function(input, output, session) {
                "× 100"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -1983,7 +1983,7 @@ server <- function(input, output, session) {
                trastorns de la conducta alimentària; trastorns somàtics; idees suïcides; trastorns de comportament; o trastorns del neurodesenvolupament.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -2001,7 +2001,7 @@ server <- function(input, output, session) {
                "× 100"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -2024,7 +2024,7 @@ server <- function(input, output, session) {
                trastorns de conducta; trastorn de l'espectre autista; dèficit d'atenció i/o hiperactivitat; o trastorn adaptatiu.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -2042,7 +2042,7 @@ server <- function(input, output, session) {
                "× 100"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -2064,7 +2064,7 @@ server <- function(input, output, session) {
              p("Població assignada amb sobrepès o obesitat.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -2082,7 +2082,7 @@ server <- function(input, output, session) {
                "× 100"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe, ABS i grups d'edat (6-17 anys i 18-74 anys).",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -2104,7 +2104,7 @@ server <- function(input, output, session) {
              p("Població assignada amb sobrepès.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -2122,7 +2122,7 @@ server <- function(input, output, session) {
                "× 100"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe, ABS i grups d'edat (6-17 anys i 18-74 anys). L'indicador es calcula de manera diferent depenent del grup d'edat. 
                Pels infants de 6 a 17 anys es calcula com la població assignada i atesa amb un pes entre el percentil 90 i 95 o un codi diagnòstic d'augment 
@@ -2147,7 +2147,7 @@ server <- function(input, output, session) {
              p("Població assignada amb obesitat.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -2165,7 +2165,7 @@ server <- function(input, output, session) {
                "× 100"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe, ABS i grups d'edat (6-17 anys i 18-74 anys). L'indicador es calcula de manera diferent depenent del grup d'edat. 
                Pels infants de 6 a 17 anys es calcula com la població assignada i atesa amb un pes per sobre el percentil 95 o un codi diagnòstic d'obesitat. 
@@ -2190,7 +2190,7 @@ server <- function(input, output, session) {
                «excel·lent», «molt bona» o «bona», i percepció negativa quan es respon «regular» o «dolenta».",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -2208,7 +2208,7 @@ server <- function(input, output, session) {
                "× 100"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -2231,7 +2231,7 @@ server <- function(input, output, session) {
                «excel·lent», «molt bona» o «bona», i percepció negativa quan es respon «regular» o «dolenta».",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -2249,7 +2249,7 @@ server <- function(input, output, session) {
                "× 100 + Interval de confiança al 95%"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -2272,7 +2272,7 @@ server <- function(input, output, session) {
                «excel·lent», «molt bona» o «bona», i percepció negativa quan es respon «regular» o «dolenta».",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -2290,7 +2290,7 @@ server <- function(input, output, session) {
                "× 100"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -2313,7 +2313,7 @@ server <- function(input, output, session) {
                «excel·lent», «molt bona» o «bona», i percepció negativa quan es respon «regular» o «dolenta».",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -2331,7 +2331,7 @@ server <- function(input, output, session) {
                "× 100 + Interval de confiança al 95%"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -2353,7 +2353,7 @@ server <- function(input, output, session) {
              p("S'obté mitjançant una pregunta sobre la necessitat d'ajuda o de companyia per realitzar activitats habituals de la vida quotidiana a causa d'un problema de salut.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -2371,7 +2371,7 @@ server <- function(input, output, session) {
                "× 100"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -2393,7 +2393,7 @@ server <- function(input, output, session) {
              p("S'obté mitjançant una pregunta sobre la necessitat d'ajuda o de companyia per realitzar activitats habituals de la vida quotidiana a causa d'un problema de salut.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -2411,7 +2411,7 @@ server <- function(input, output, session) {
                "× 100 + Interval de confiança al 95%"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -2433,7 +2433,7 @@ server <- function(input, output, session) {
              p("S'estima a partir d'una llista amb onze tipus diferents de limitacions greus que afecten de manera permanent la capacitat per desenvolupar activitats quotidianes.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -2451,7 +2451,7 @@ server <- function(input, output, session) {
                "× 100"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -2473,7 +2473,7 @@ server <- function(input, output, session) {
              p("S'estima a partir d'una llista amb onze tipus diferents de limitacions greus que afecten de manera permanent la capacitat per desenvolupar activitats quotidianes.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -2491,7 +2491,7 @@ server <- function(input, output, session) {
                "× 100 + Interval de confiança al 95%"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -2514,12 +2514,12 @@ server <- function(input, output, session) {
                indicadors prové del Registre Central d'Assegurats.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Nombre de defuncions en el període d'estudi.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -2542,7 +2542,7 @@ server <- function(input, output, session) {
                indicadors prové del Registre Central d'Assegurats.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -2560,7 +2560,7 @@ server <- function(input, output, session) {
                "× 100.000"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p(paste("Disponible per sexe i ABS."),
                tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
@@ -2588,7 +2588,7 @@ server <- function(input, output, session) {
                 indicadors prové del Registre Central d'Assegurats.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -2605,7 +2605,7 @@ server <- function(input, output, session) {
                )
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p(paste("Disponible per sexe i ABS."),
                tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
@@ -2636,7 +2636,7 @@ server <- function(input, output, session) {
                      i del teixit conjuntiu; malalties de l'aparell genitourinari; símptomes i signes mal definits; i causes externes de morbiditat i mortalitat.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -2654,7 +2654,7 @@ server <- function(input, output, session) {
                "× 100.000"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p(paste("Disponible per sexe i ABS."),
                tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
@@ -2682,12 +2682,12 @@ server <- function(input, output, session) {
                indicadors prové del Registre Central d'Assegurats.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Nombre de defuncions per suïcidi en el període d'estudi.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p(paste("Disponible per sexe i ABS. Per tal de mantenir el secret estadístic, el nombre de defuncions per suïcidi a les ABS amb menys de 10 casos apareixerà com <10, excepte en el període 2015-2019."),
                tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
@@ -2715,7 +2715,7 @@ server <- function(input, output, session) {
                indicadors prové del Registre Central d'Assegurats.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              p(HTML("La metodologia emprada per al càlcul de la taula de vida es pot consultar al web del Departament en el document <i>Metodologia de l'anàlisi de la mortalitat a Catalunya</i>."),
                tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
@@ -2725,7 +2725,7 @@ server <- function(input, output, session) {
                       target = "_blank"),
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -2748,12 +2748,12 @@ server <- function(input, output, session) {
                 indicadors prové del Registre Central d'Assegurats.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Nombre de defuncions per COVID-19 en el període d'estudi.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS. Per tal de mantenir el secret estadístic, el nombre de defuncions per COVID-19 a les ABS amb menys de 10 casos apareixerà com <10.",
                tags$a(href = "https://scientiasalut.gencat.cat/bitstream/handle/11351/9769/metodologia_analisi_mortalitat_catalunya_document_metodologic_registre_mortalitat_catalunya_2023.pdf?sequence=1&isAllowed=y",
@@ -2782,7 +2782,7 @@ server <- function(input, output, session) {
                i altres patologies.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -2800,7 +2800,7 @@ server <- function(input, output, session) {
                "× 100"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -2823,12 +2823,12 @@ server <- function(input, output, session) {
                el percentatge de persones que tenen un consum d'alcohol considerat de risc, és a dir, aquells patrons de consum que poden provocar problemes físics, psíquics o social.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("—",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es calcula usant la informació sobre la freqüència del consum d'alcohol, 
                el tipus de beguda consumida, la quantitat i la distribució del consum al llarg de la setmana. 
@@ -2855,12 +2855,12 @@ server <- function(input, output, session) {
                el percentatge de persones que tenen un consum d'alcohol considerat de risc, és a dir, aquells patrons de consum que poden provocar problemes físics, psíquics o social.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("—",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es calcula usant la informació sobre la freqüència del consum d'alcohol, 
                el tipus de beguda consumida, la quantitat i la distribució del consum al llarg de la setmana. 
@@ -2886,12 +2886,12 @@ server <- function(input, output, session) {
              p("Aquest indicador és clau per avaluar la qualitat de l'alimentació d'una població en relació amb el patró dietètic mediterrani, reconegut com un model alimentari saludable.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("—",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es recull amb l'instrument MEDAS (Mediterranean Diet Adherence Screener), 
                que consta de 14 preguntes sobre els diferents elements de la dieta mediterrània. 
@@ -2916,12 +2916,12 @@ server <- function(input, output, session) {
              p("Aquest indicador és clau per avaluar la qualitat de l'alimentació d'una població en relació amb el patró dietètic mediterrani, reconegut com un model alimentari saludable.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("—",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es recull amb l'instrument MEDAS (Mediterranean Diet Adherence Screener), que consta de 14 preguntes sobre els diferents elements de la dieta mediterrània. 
                S'hi estableixen tres categories: compliment baix (≤ 5 punts), compliment mitjà (entre 6 i 9 punts) i compliment alt (≥ 10 punts). Es considera com a seguiment adequat de les recomanacions 
@@ -2946,12 +2946,12 @@ server <- function(input, output, session) {
                Aquestes recomanacions inclouen almenys 150-300 minuts setmanals d'activitat física aeròbica moderada o 75-150 minuts d'activitat vigorosa, combinades amb exercicis de força.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("—",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es mesura a partir de l'instrument IPAQ, que classifica la població en tres categories: baixa, moderada i alta. Es considera activitat física saludable la suma de l'activitat moderada i l'alta.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -2974,12 +2974,12 @@ server <- function(input, output, session) {
                Aquestes recomanacions inclouen almenys 150-300 minuts setmanals d'activitat física aeròbica moderada o 75-150 minuts d'activitat vigorosa, combinades amb exercicis de força.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("—",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es mesura a partir de l'instrument IPAQ, que classifica la població en tres categories: baixa, moderada i alta. Es considera activitat física saludable la suma de l'activitat moderada i l'alta.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -3003,7 +3003,7 @@ server <- function(input, output, session) {
                VHB (hepatitis B); meningococ B; antipneumocòccica conjugada; papil·loma humà; hepatitis A; varicel·la; i antimeningocòccica ACWY.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -3021,7 +3021,7 @@ server <- function(input, output, session) {
                "× 100"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe, ABS i grups d'edat (0-1 anys, 2-4 anys, 5-9 anys i 10-14 anys).",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -3044,12 +3044,12 @@ server <- function(input, output, session) {
                S'entén com a persona atesa aquella que s'ha visitat almenys un cop durant l'any seleccionat en qualsevol equip d'atenció primària.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Persones assignades i ateses (amb almenys una visita durant el període) a l'EAP.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe, ABS i grups d'edat (0-14 anys, 15-54 anys, 55-64 anys i 65 anys i més).",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -3071,7 +3071,7 @@ server <- function(input, output, session) {
              p("Mitjana de visites de la població assignada a l'equip d'atenció primària (EAP), ateses per medicina de família, infermeria, pediatria, odontologia i treball social.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -3088,7 +3088,7 @@ server <- function(input, output, session) {
                )
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe, ABS i tipologia de visita.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -3112,7 +3112,7 @@ server <- function(input, output, session) {
                o bé que s'hagi avaluat la complexitat, com a mínim, una vegada durant el període d'avaluació.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -3130,7 +3130,7 @@ server <- function(input, output, session) {
                "× 100"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -3153,7 +3153,7 @@ server <- function(input, output, session) {
                S'entén com a persona atesa aquella que s'ha visitat almenys un cop durant l'any seleccionat en qualsevol centre de salut mental (CSMA/CSMIJ).",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -3171,7 +3171,7 @@ server <- function(input, output, session) {
                "× 100"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe, ABS i grups d'edat (0-17 anys i 18 anys i més).",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -3195,7 +3195,7 @@ server <- function(input, output, session) {
                els hipocolesterolemiants per al colesterol alt; els antipsicòtics per a trastorns mentals greus; els antidepressius per a la depressió; i els antibiòtics per a infeccions bacterianes.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -3213,7 +3213,7 @@ server <- function(input, output, session) {
                "× 100"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -3235,7 +3235,7 @@ server <- function(input, output, session) {
              p("Percentatge de població atesa que se'ls ha prescrit tractament amb el psicofàrmac seleccionat durant l'any seleccionat.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -3253,7 +3253,7 @@ server <- function(input, output, session) {
                "× 100"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -3275,7 +3275,7 @@ server <- function(input, output, session) {
              p("Percentatge de població assignada a un equip d'atenció primària (EAP) que tenen 10 o més medicaments (ATC) diferents prescrits amb una vigència igual o superior a 3 mesos.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
-             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
              div(
                class = "formula-container",
@@ -3293,7 +3293,7 @@ server <- function(input, output, session) {
                "× 100"
              ),
              
-             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
+             h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS.",
                style = "margin-bottom: 20px; text-align: justify;"),
