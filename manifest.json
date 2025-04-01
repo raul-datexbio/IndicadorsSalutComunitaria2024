@@ -477,7 +477,7 @@
         "Maintainer": "Carson Sievert <carson@posit.co>",
         "Repository": "CRAN",
         "Date/Publication": "2023-11-23 08:50:07 UTC",
-        "Built": "R 4.4.1; ; 2024-09-04 01:19:02 UTC; windows"
+        "Built": "R 4.4.2; ; 2025-02-16 02:51:26 UTC; windows"
       }
     },
     "data.table": {
@@ -2034,7 +2034,7 @@
       "checksum": "05b1fc886dfd59f3c93093df149be082"
     },
     "app.R": {
-      "checksum": "2aa00d487fdca15a6d324e4e501b1d0c"
+      "checksum": "820413efc34a7a811e353ddf5769163c"
     },
     "borradors/app_v01.R": {
       "checksum": "b5b777ad3e1679b1dac50e9d5c3b3d81"
@@ -2081,17 +2081,8 @@
     "borradors/Requeriments Shiny.docx": {
       "checksum": "f54b8ac6df9480b2fdc50a1a8884b787"
     },
-    "dades_indicadors_salut_comunitaria.csv": {
-      "checksum": "4f3bd7a08248fb6007a2eac578ab14a4"
-    },
-    "dades_indicadors_salut_comunitaria.parquet": {
-      "checksum": "90e21a6ddb7884a59ce58868679b9da9"
-    },
-    "dades_indicadors_salut_comunitaria_gwalkr.csv": {
-      "checksum": "ab9c256071e3a1e2cdf3b6ae5f6596ad"
-    },
-    "dades_indicadors_salut_comunitaria_gwalkr.parquet": {
-      "checksum": "6df6a990965ac200db82199b48365da4"
+    "dades_indicadors_salut_comunitaria_v2.csv": {
+      "checksum": "1d81824051c2e7bc59f54134e36283aa"
     },
     "imatges/aquas_logotip.png": {
       "checksum": "e24a80e3fdd761ad94eae70fe654d54e"
@@ -2109,6 +2100,9 @@
       "checksum": "79e1906e9f4531768c093b1137d661af"
     },
     "imatges/footer.html": {
+      "checksum": "d5770530a46dada6e67a56b7a9b4fc11"
+    },
+    "imatges/footer.txt": {
       "checksum": "d5770530a46dada6e67a56b7a9b4fc11"
     },
     "imatges/gencat_logotip.png": {
