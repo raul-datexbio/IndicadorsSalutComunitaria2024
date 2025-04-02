@@ -345,7 +345,7 @@ ui <- tagList(
               style = "display: flex; align-items: baseline; gap: 15px; line-height: 1.5;",
               icon("users", 
                    style = "color: #5EAEFF; font-size: 24px; display: flex; align-items: center;"),
-              h2("Autoria (pendent)", 
+              h2("Autoria", 
                  class = "title-style",
                  style = "margin: 0; padding: 0;")
             )
@@ -1855,7 +1855,7 @@ server <- function(input, output, session) {
                tags$li("Població jove sense estudis postobligatoris."),
                tags$li("Estrangers de països de renda baixa o mitjana."),
                tags$li("Renda mitjana per persona."),
-               style = "margin-bottom: 10px;"
+               style = "margin-bottom: 10px; text-align: justify;"
              ),
              
              p("La metodologia utilitzada per al càlcul de l'IST ha estat l'anàlisi de components principals a partir de les seccions censals.",
@@ -2186,8 +2186,8 @@ server <- function(input, output, session) {
            "fitxa_SCMO08" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
-             p("La dada s'obté de preguntar: «Com diria vostè que és la seva salut en general?». Es considera percepció positiva de la salut quan s'ha contestat 
-               «excel·lent», «molt bona» o «bona», i percepció negativa quan es respon «regular» o «dolenta».",
+             p("L’autopercepció de l’estat de salut de les persones expressa la sensació de benestar individual. Està àmpliament acceptat que l’autopercepció de l’estat de salut és un bon indicador de l’estat de salut i que una mala valoració és un bon predictor de mortalitat i morbiditat. 
+               Concretament es pregunta: «Com diria vostè que és la seva salut en general?». Es considera percepció positiva de la salut quan s'ha contestat «excel·lent», «molt bona» o «bona», i percepció negativa quan es respon «regular» o «dolenta».",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
@@ -2210,7 +2210,7 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2227,8 +2227,8 @@ server <- function(input, output, session) {
            "fitxa_SCMO09" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
-             p("La dada s'obté de preguntar: «Com diria vostè que és la seva salut en general?». Es considera percepció positiva de la salut quan s'ha contestat 
-               «excel·lent», «molt bona» o «bona», i percepció negativa quan es respon «regular» o «dolenta».",
+             p("L’autopercepció de l’estat de salut de les persones expressa la sensació de benestar individual. Està àmpliament acceptat que l’autopercepció de l’estat de salut és un bon indicador de l’estat de salut i que una mala valoració és un bon predictor de mortalitat i morbiditat. 
+               Concretament es pregunta: «Com diria vostè que és la seva salut en general?». Es considera percepció positiva de la salut quan s'ha contestat «excel·lent», «molt bona» o «bona», i percepció negativa quan es respon «regular» o «dolenta».",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
@@ -2251,7 +2251,8 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.
+               La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal i com recomana l’Eurostat.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2268,8 +2269,8 @@ server <- function(input, output, session) {
            "fitxa_SCMO10" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
-             p("La dada s'obté de preguntar: «Com diria vostè que és la seva salut en general?». Es considera percepció positiva de la salut quan s'ha contestat 
-               «excel·lent», «molt bona» o «bona», i percepció negativa quan es respon «regular» o «dolenta».",
+             p("L’autopercepció de l’estat de salut de les persones expressa la sensació de benestar individual. Està àmpliament acceptat que l’autopercepció de l’estat de salut és un bon indicador de l’estat de salut i que una mala valoració és un bon predictor de mortalitat i morbiditat. 
+               Concretament es pregunta: «Com diria vostè que és la seva salut en general?». Es considera percepció positiva de la salut quan s'ha contestat «excel·lent», «molt bona» o «bona», i percepció negativa quan es respon «regular» o «dolenta».",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
@@ -2292,7 +2293,7 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2309,8 +2310,8 @@ server <- function(input, output, session) {
            "fitxa_SCMO11" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
-             p("La dada s'obté de preguntar: «Com diria vostè que és la seva salut en general?». Es considera percepció positiva de la salut quan s'ha contestat 
-               «excel·lent», «molt bona» o «bona», i percepció negativa quan es respon «regular» o «dolenta».",
+             p("L’autopercepció de l’estat de salut de les persones expressa la sensació de benestar individual. Està àmpliament acceptat que l’autopercepció de l’estat de salut és un bon indicador de l’estat de salut i que una mala valoració és un bon predictor de mortalitat i morbiditat. 
+               Concretament es pregunta: «Com diria vostè que és la seva salut en general?». Es considera percepció positiva de la salut quan s'ha contestat «excel·lent», «molt bona» o «bona», i percepció negativa quan es respon «regular» o «dolenta».",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
@@ -2333,7 +2334,8 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.
+               La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal i com recomana l’Eurostat.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2350,7 +2352,9 @@ server <- function(input, output, session) {
            "fitxa_SCMO12" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
-             p("S'obté mitjançant una pregunta sobre la necessitat d'ajuda o de companyia per realitzar activitats habituals de la vida quotidiana a causa d'un problema de salut.",
+             p("La manca d’autonomia personal o dependència és l’estat de caràcter permanent en què es troben les persones que, per motius derivats de l’edat, la malaltia o la discapacitat, o lligats a la manca o la pèrdua d’autonomia física, mental, 
+                intel·lectual o sensorial necessiten l’atenció d’una altra o altres persones o ajudes importants per fer les activitats de la vida diària, o en el cas de les persones amb discapacitat intel·lectual o malaltia mental, d’altres ajudes per a l’autonomia personal. 
+                S’estima amb una pregunta genèrica sobre la necessitat d’ajuda o companyia per fer les activitats de la vida diària a causa d’un problema de salut.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
@@ -2373,7 +2377,7 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
+             p("Disponible per sexe i ABS per a les persones de 15 anys i més. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2390,7 +2394,9 @@ server <- function(input, output, session) {
            "fitxa_SCMO13" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
-             p("S'obté mitjançant una pregunta sobre la necessitat d'ajuda o de companyia per realitzar activitats habituals de la vida quotidiana a causa d'un problema de salut.",
+             p("La manca d’autonomia personal o dependència és l’estat de caràcter permanent en què es troben les persones que, per motius derivats de l’edat, la malaltia o la discapacitat, o lligats a la manca o la pèrdua d’autonomia física, mental, 
+                intel·lectual o sensorial necessiten l’atenció d’una altra o altres persones o ajudes importants per fer les activitats de la vida diària, o en el cas de les persones amb discapacitat intel·lectual o malaltia mental, d’altres ajudes per a l’autonomia personal. 
+                S’estima amb una pregunta genèrica sobre la necessitat d’ajuda o companyia per fer les activitats de la vida diària a causa d’un problema de salut.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
@@ -2413,7 +2419,8 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
+             p("Disponible per sexe i ABS per a les persones de 15 anys i més. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.
+               La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal i com recomana l’Eurostat.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2430,7 +2437,7 @@ server <- function(input, output, session) {
            "fitxa_SCMO14" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
-             p("S'estima a partir d'una llista amb onze tipus diferents de limitacions greus que afecten de manera permanent la capacitat per desenvolupar activitats quotidianes.",
+             p("La diversitat funcional o discapacitat s'estima a partir d'una llista amb onze tipus diferents de limitacions greus que afecten de manera permanent la capacitat per desenvolupar activitats quotidianes.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
@@ -2453,7 +2460,7 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
+             p("Disponible per sexe i ABS per a les persones de 15 anys i més. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2470,7 +2477,7 @@ server <- function(input, output, session) {
            "fitxa_SCMO15" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
-             p("S'estima a partir d'una llista amb onze tipus diferents de limitacions greus que afecten de manera permanent la capacitat per desenvolupar activitats quotidianes.",
+             p("La diversitat funcional o discapacitat s'estima a partir d'una llista amb onze tipus diferents de limitacions greus que afecten de manera permanent la capacitat per desenvolupar activitats quotidianes.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
@@ -2493,7 +2500,8 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF.",
+             p("Disponible per sexe i ABS per a les persones de 15 anys i més. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.
+               La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal i com recomana l’Eurostat.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2819,8 +2827,12 @@ server <- function(input, output, session) {
            "fitxa_SCES02" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
-             p("Aquest indicador és clau en salut pública per avaluar l'impacte de l'alcohol en la salut de la comunitat. Aquest indicador permet identificar
-               el percentatge de persones que tenen un consum d'alcohol considerat de risc, és a dir, aquells patrons de consum que poden provocar problemes físics, psíquics o social.",
+             p("Aquest indicador és clau en salut pública per avaluar l'impacte de l'alcohol en la salut de la comunitat. 
+               Aquest indicador permet identificar el percentatge de persones que tenen un consum d'alcohol considerat de risc, és a dir, aquells patrons de consum que poden provocar problemes físics, psíquics o social.
+               Es pregunta sobre la freqüència del consum d’alcohol, el tipus de beguda consumida, la quantitat i la distribució del consum al llarg de la setmana. 
+               Es categoritza la població per unitat de consum diari d’alcohol, estimada a partir de l’estandardització del tipus de beguda alcohòlica consumida (unitat de beguda estàndard, UBE). 
+               Es classifiquen com a consum de risc: en els homes, aquells que prenen 28 o més unitats/setmana; en les dones, les que prenen 16 unitats/setmana. 
+               També es considera consum de risc quan les persones consumeixen 5 o més consumicions seguides almenys un cop al mes.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
@@ -2830,11 +2842,8 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es calcula usant la informació sobre la freqüència del consum d'alcohol, 
-               el tipus de beguda consumida, la quantitat i la distribució del consum al llarg de la setmana. 
-               Es categoritza la població per unitat de consum diari d'alcohol, estimada a partir de l'estandardització del tipus de beguda alcohòlica consumida (unitat de beguda estàndard, UBE). 
-               Es classifiquen com a consum de risc: en els homes, aquells que prenen 28 o més unitats/setmana; en les dones, les que prenen 16 unitats/setmana. 
-               També es considera consum de risc quan les persones consumeixen 5 o més consumicions seguides almenys un cop al mes.",
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. 
+               Per aquest motiu és una única dada pel període 2019-2022.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2851,8 +2860,12 @@ server <- function(input, output, session) {
            "fitxa_SCES03" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
-             p("Aquest indicador és clau en salut pública per avaluar l'impacte de l'alcohol en la salut de la comunitat. Aquest indicador permet identificar 
-               el percentatge de persones que tenen un consum d'alcohol considerat de risc, és a dir, aquells patrons de consum que poden provocar problemes físics, psíquics o social.",
+             p("Aquest indicador és clau en salut pública per avaluar l'impacte de l'alcohol en la salut de la comunitat. 
+               Aquest indicador permet identificar el percentatge de persones que tenen un consum d'alcohol considerat de risc, és a dir, aquells patrons de consum que poden provocar problemes físics, psíquics o social.
+               Es pregunta sobre la freqüència del consum d’alcohol, el tipus de beguda consumida, la quantitat i la distribució del consum al llarg de la setmana. 
+               Es categoritza la població per unitat de consum diari d’alcohol, estimada a partir de l’estandardització del tipus de beguda alcohòlica consumida (unitat de beguda estàndard, UBE). 
+               Es classifiquen com a consum de risc: en els homes, aquells que prenen 28 o més unitats/setmana; en les dones, les que prenen 16 unitats/setmana. 
+               També es considera consum de risc quan les persones consumeixen 5 o més consumicions seguides almenys un cop al mes.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
@@ -2862,11 +2875,8 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es calcula usant la informació sobre la freqüència del consum d'alcohol, 
-               el tipus de beguda consumida, la quantitat i la distribució del consum al llarg de la setmana. 
-               Es categoritza la població per unitat de consum diari d'alcohol, estimada a partir de l'estandardització del tipus de beguda alcohòlica consumida (unitat de beguda estàndard, UBE). 
-               Es classifiquen com a consum de risc: en els homes, aquells que prenen 28 o més unitats/setmana; en les dones, les que prenen 16 unitats/setmana. També es considera consum de risc quan les persones
-               consumeixen 5 o més consumicions seguides almenys un cop al mes.",
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. 
+               Per aquest motiu és una única dada pel període 2019-2022. La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal i com recomana l’Eurostat.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2883,7 +2893,10 @@ server <- function(input, output, session) {
            "fitxa_SCES04" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
-             p("Aquest indicador és clau per avaluar la qualitat de l'alimentació d'una població en relació amb el patró dietètic mediterrani, reconegut com un model alimentari saludable.",
+             p("Aquest indicador és clau per avaluar la qualitat de l'alimentació d'una població en relació amb el patró dietètic mediterrani, reconegut com un model alimentari saludable. 
+               El seguiment de la dieta mediterrània es mesura a partir de l'instrument MEDAS (Mediterranean Diet Adherence Screener), que consta de 14 preguntes sobre els diferents elements que la composen. 
+               S'hi estableixen tres categories: compliment baix (≤ 5 punts), compliment mitjà (entre 6 i 9 punts) i compliment alt (≥ 10 punts). 
+               Es considera com a seguiment adequat de les recomanacions d'alimentació mediterrània els nivells de compliment mitjà i alt.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
@@ -2893,10 +2906,8 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es recull amb l'instrument MEDAS (Mediterranean Diet Adherence Screener), 
-               que consta de 14 preguntes sobre els diferents elements de la dieta mediterrània. 
-               S'hi estableixen tres categories: compliment baix (≤ 5 punts), compliment mitjà (entre 6 i 9 punts) i compliment alt (≥ 10 punts). Es considera com a seguiment adequat de les recomanacions
-               d'alimentació mediterrània els nivells de compliment mitjà i alt.",
+             p("Disponible per sexe i ABS per a les persones de 15 anys i més. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. 
+              A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2913,7 +2924,10 @@ server <- function(input, output, session) {
            "fitxa_SCES05" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
-             p("Aquest indicador és clau per avaluar la qualitat de l'alimentació d'una població en relació amb el patró dietètic mediterrani, reconegut com un model alimentari saludable.",
+             p("Aquest indicador és clau per avaluar la qualitat de l'alimentació d'una població en relació amb el patró dietètic mediterrani, reconegut com un model alimentari saludable. 
+               El seguiment de la dieta mediterrània es mesura a partir de l'instrument MEDAS (Mediterranean Diet Adherence Screener), que consta de 14 preguntes sobre els diferents elements que la composen. 
+               S'hi estableixen tres categories: compliment baix (≤ 5 punts), compliment mitjà (entre 6 i 9 punts) i compliment alt (≥ 10 punts). 
+               Es considera com a seguiment adequat de les recomanacions d'alimentació mediterrània els nivells de compliment mitjà i alt.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
@@ -2923,9 +2937,9 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es recull amb l'instrument MEDAS (Mediterranean Diet Adherence Screener), que consta de 14 preguntes sobre els diferents elements de la dieta mediterrània. 
-               S'hi estableixen tres categories: compliment baix (≤ 5 punts), compliment mitjà (entre 6 i 9 punts) i compliment alt (≥ 10 punts). Es considera com a seguiment adequat de les recomanacions 
-               d'alimentació mediterrània els nivells de compliment mitjà i alt.",
+             p("Disponible per sexe i ABS per a les persones de 15 anys i més. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. 
+               A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022. 
+               La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal i com recomana l’Eurostat.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2943,8 +2957,14 @@ server <- function(input, output, session) {
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
              p("Aquest indicador mesura el grau en què les persones d'aquest rang d'edat compleixen les recomanacions d'activitat física per mantenir un estil de vida saludable, segons les directrius de l'Organització Mundial de la Salut (OMS). 
-               Aquestes recomanacions inclouen almenys 150-300 minuts setmanals d'activitat física aeròbica moderada o 75-150 minuts d'activitat vigorosa, combinades amb exercicis de força.",
-               style = "margin-bottom: 20px; text-align: justify;"),
+               S’utilitza l'instrument IPAQ, (International Physical Activity Questionnaire) que classifica la població de 15 a 69 anys en tres categories: baixa, moderada i alta. Es considera activitat física saludable la suma de l'activitat moderada i l'alta, on:",
+               style = "margin-bottom: 10px; text-align: justify;"),
+             
+             tags$ul(
+               tags$li("Activitat física moderada és: fer 3 o més dies d’activitat vigorosa de com a mínim 20 minuts per dia o fer 5 o més dies d’activitat d’intensitat moderada o caminar com a mínim 30 minuts per dia o fer 5 o més dies de qualsevol combinació de caminar, activitat d’intensitat moderada o vigorosa fins a aconseguir un mínim de 600 MET-minuts/setmana."),
+               tags$li("Activitat física alta és: fer una activitat d'intensitat vigorosa almenys 3 dies i acumular com a mínim 1.500 MET-minuts/setmana o fer 7 o més dies de qualsevol combinació de caminar, activitat d’intensitat moderada o vigorosa fins a aconseguir un mínim de 3.000 MET-minuts/setmana."),
+               style = "margin-bottom: 20px; text-align: justify;"
+             ),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
@@ -2953,7 +2973,7 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es mesura a partir de l'instrument IPAQ, que classifica la població en tres categories: baixa, moderada i alta. Es considera activitat física saludable la suma de l'activitat moderada i l'alta.",
+             p("Disponible per sexe i ABS, només per les persones de 15 a 69 anys. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2971,8 +2991,14 @@ server <- function(input, output, session) {
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
              p("Aquest indicador mesura el grau en què les persones d'aquest rang d'edat compleixen les recomanacions d'activitat física per mantenir un estil de vida saludable, segons les directrius de l'Organització Mundial de la Salut (OMS). 
-               Aquestes recomanacions inclouen almenys 150-300 minuts setmanals d'activitat física aeròbica moderada o 75-150 minuts d'activitat vigorosa, combinades amb exercicis de força.",
-               style = "margin-bottom: 20px; text-align: justify;"),
+               S’utilitza l'instrument IPAQ, (International Physical Activity Questionnaire) que classifica la població de 15 a 69 anys en tres categories: baixa, moderada i alta. Es considera activitat física saludable la suma de l'activitat moderada i l'alta, on:",
+               style = "margin-bottom: 10px; text-align: justify;"),
+             
+             tags$ul(
+               tags$li("Activitat física moderada és: fer 3 o més dies d’activitat vigorosa de com a mínim 20 minuts per dia o fer 5 o més dies d’activitat d’intensitat moderada o caminar com a mínim 30 minuts per dia o fer 5 o més dies de qualsevol combinació de caminar, activitat d’intensitat moderada o vigorosa fins a aconseguir un mínim de 600 MET-minuts/setmana."),
+               tags$li("Activitat física alta és: fer una activitat d'intensitat vigorosa almenys 3 dies i acumular com a mínim 1.500 MET-minuts/setmana o fer 7 o més dies de qualsevol combinació de caminar, activitat d’intensitat moderada o vigorosa fins a aconseguir un mínim de 3.000 MET-minuts/setmana."),
+               style = "margin-bottom: 20px; text-align: justify;"
+             ),
              
              h2(icon("calculator", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2.5px;"), 
                 "Fórmula", class = "title-style", style = "display: flex; align-items: baseline;"),
@@ -2981,7 +3007,8 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. Es mesura a partir de l'instrument IPAQ, que classifica la població en tres categories: baixa, moderada i alta. Es considera activitat física saludable la suma de l'activitat moderada i l'alta.",
+             p("Disponible per sexe i ABS, només per les persones de 15 a 69 anys. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022. 
+               La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal i com recomana l’Eurostat.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
