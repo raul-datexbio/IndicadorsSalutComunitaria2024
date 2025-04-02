@@ -11,7 +11,7 @@ library(shinyjs)
 library(shinythemes)
 
 # Carregar CSV pestanya 'Dades'
-df <- read.csv('https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/dades_indicadors_salut_comunitaria_v2.csv',
+df <- read.csv('https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/dades_indicadors_salut_comunitaria.csv',
                sep = ",", encoding = "latin1", check.names = FALSE)
 
 ################################################################################
@@ -1176,7 +1176,7 @@ server <- function(input, output, session) {
     },
     content = function(file) {
       require(data.table)
-      dt <- read.csv('https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/dades_indicadors_salut_comunitaria_v2.csv',
+      dt <- read.csv('https://raw.githubusercontent.com/raul-datexbio/IndicadorsSalutComunitaria2024/main/dades_indicadors_salut_comunitaria.csv',
                      sep = ",", encoding = "latin1", check.names = FALSE, 
                      na.strings = c("", " ", "NA"))
       dt <- as.data.table(dt)
