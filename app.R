@@ -417,7 +417,7 @@ ui <- tagList(
               style = "margin-left: 0px; padding-left: 20px;",
               tags$li(
                 style = "margin-bottom: 10px;", 
-                "1a edició: Barcelona maig 2018",
+                "1a edició: Barcelona maig 2018.",
                 tags$a(
                   href = "http://observatorisalut.gencat.cat/ca/observatori-desigualtats-salut/indicadors_comunitaria/",
                   style = "margin-left: 5px; text-decoration: none;",
@@ -428,7 +428,7 @@ ui <- tagList(
               ),
               tags$li(
                 style = "margin-bottom: 10px;", 
-                "2a edició: Barcelona abril 2021",
+                "2a edició: Barcelona abril 2021.",
                 tags$a(
                   href = "http://observatorisalut.gencat.cat/ca/observatori-desigualtats-salut/indicadors_comunitaria/",
                   style = "margin-left: 5px; text-decoration: none;",
@@ -437,7 +437,7 @@ ui <- tagList(
                   target = "_blank"
                 )
               ),
-              tags$li("3a edició: Barcelona gener 2025")
+              tags$li("3a edició: Barcelona abril 2025.")
             )
           )
         ),
@@ -2534,7 +2534,7 @@ server <- function(input, output, session) {
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Període", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("2015-2019, 2020, 2021",
+             p("2015-2019, 2020, 2021-2022",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2580,7 +2580,7 @@ server <- function(input, output, session) {
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Període", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("2015-2019, 2020, 2021",
+             p("2015-2019, 2020, 2021-2022",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2625,7 +2625,7 @@ server <- function(input, output, session) {
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Període", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("2015-2019, 2020, 2021",
+             p("2015-2019, 2020, 2021-2022",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2674,7 +2674,7 @@ server <- function(input, output, session) {
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Període", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("2015-2019, 2020, 2021",
+             p("2015-2019, 2020, 2021-2022",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2707,7 +2707,7 @@ server <- function(input, output, session) {
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Període", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("2015-2019, 2020, 2021",
+             p("2015-2019, 2020, 2021-2022",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2740,7 +2740,7 @@ server <- function(input, output, session) {
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Període", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("2015-2019, 2020, 2021",
+             p("2015-2019, 2020, 2021-2022",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2773,7 +2773,7 @@ server <- function(input, output, session) {
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Període", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("2020, 2021",
+             p("2020, 2021-2022",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("database", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2876,7 +2876,7 @@ server <- function(input, output, session) {
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. 
-               Per aquest motiu és una única dada pel període 2019-2022. La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal i com recomana l’Eurostat.",
+               Per aquest motiu és una única dada pel període 2019-2022. La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal i com recomana l’Eurostat. Es calcula l’interval de confiança al 95%.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2893,7 +2893,7 @@ server <- function(input, output, session) {
            "fitxa_SCES04" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
-             p("Aquest indicador és clau per avaluar la qualitat de l'alimentació d'una població en relació amb el patró dietètic mediterrani, reconegut com un model alimentari saludable. 
+             p("Aquest indicador és clau per avaluar l'alimentació d'una població en relació amb el patró dietètic mediterrani, reconegut com un model alimentari saludable. 
                El seguiment de la dieta mediterrània es mesura a partir de l'instrument MEDAS (Mediterranean Diet Adherence Screener), que consta de 14 preguntes sobre els diferents elements que la composen. 
                S'hi estableixen tres categories: compliment baix (≤ 5 punts), compliment mitjà (entre 6 i 9 punts) i compliment alt (≥ 10 punts). 
                Es considera com a seguiment adequat de les recomanacions d'alimentació mediterrània els nivells de compliment mitjà i alt.",
@@ -2924,7 +2924,7 @@ server <- function(input, output, session) {
            "fitxa_SCES05" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
-             p("Aquest indicador és clau per avaluar la qualitat de l'alimentació d'una població en relació amb el patró dietètic mediterrani, reconegut com un model alimentari saludable. 
+             p("Aquest indicador és clau per avaluar l'alimentació d'una població en relació amb el patró dietètic mediterrani, reconegut com un model alimentari saludable. 
                El seguiment de la dieta mediterrània es mesura a partir de l'instrument MEDAS (Mediterranean Diet Adherence Screener), que consta de 14 preguntes sobre els diferents elements que la composen. 
                S'hi estableixen tres categories: compliment baix (≤ 5 punts), compliment mitjà (entre 6 i 9 punts) i compliment alt (≥ 10 punts). 
                Es considera com a seguiment adequat de les recomanacions d'alimentació mediterrània els nivells de compliment mitjà i alt.",
@@ -2939,7 +2939,7 @@ server <- function(input, output, session) {
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS per a les persones de 15 anys i més. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. 
                A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022. 
-               La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal i com recomana l’Eurostat.",
+               La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal i com recomana l’Eurostat. Es calcula l’interval de confiança al 95%.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -3008,7 +3008,7 @@ server <- function(input, output, session) {
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
              p("Disponible per sexe i ABS, només per les persones de 15 a 69 anys. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022. 
-               La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal i com recomana l’Eurostat.",
+               La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal i com recomana l’Eurostat. Es calcula l’interval de confiança al 95%.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
