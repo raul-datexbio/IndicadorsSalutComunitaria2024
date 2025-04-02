@@ -2034,7 +2034,7 @@
       "checksum": "05b1fc886dfd59f3c93093df149be082"
     },
     "app.R": {
-      "checksum": "820413efc34a7a811e353ddf5769163c"
+      "checksum": "8347b925c3e095f83c5e8e6bd04ad317"
     },
     "borradors/app_v01.R": {
       "checksum": "b5b777ad3e1679b1dac50e9d5c3b3d81"
@@ -2081,8 +2081,17 @@
     "borradors/Requeriments Shiny.docx": {
       "checksum": "f54b8ac6df9480b2fdc50a1a8884b787"
     },
-    "dades_indicadors_salut_comunitaria_v2.csv": {
-      "checksum": "1d81824051c2e7bc59f54134e36283aa"
+    "dades_indicadors_salut_comunitaria.csv": {
+      "checksum": "e75cd767fe96ae28562c73b635a7fa40"
+    },
+    "dades_indicadors_salut_comunitaria.parquet": {
+      "checksum": "79a79a99f3ea98a4c1d2452fe2670db3"
+    },
+    "dades_indicadors_salut_comunitaria_gwalkr.csv": {
+      "checksum": "e25d7cdee13f9c1308191ba9c24f40d4"
+    },
+    "dades_indicadors_salut_comunitaria_gwalkr.parquet": {
+      "checksum": "f0c2b2ef748e376f9d18a9a6364cef9d"
     },
     "imatges/aquas_logotip.png": {
       "checksum": "e24a80e3fdd761ad94eae70fe654d54e"
