@@ -6,7 +6,7 @@
 
 ## 🌐 URL de la Shiny app
 
-[Indicadors de Salut Comunitària - 3a edició](https://raul-datexbio.shinyapps.io/indicadors-salut-comunitaria/)
+[Indicadors de Salut Comunitària - 3a edició](https://01936a34-5718-c57b-aa7d-170664a8c150.share.connect.posit.cloud/)
 
 ## 📝 Sobre l'aplicació
 
