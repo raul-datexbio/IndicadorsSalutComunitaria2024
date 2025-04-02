@@ -15,7 +15,6 @@ L'aplicació web **Indicadors de Salut Comunitària** és una eina interactiva d
 ### ⚡ Funcionalitats principals
 
 * 📊 **Dades**: Taula interactiva per consultar, filtrar i exportar dades en diversos formats (CSV, XLSX, PDF).
-* 📈 **Anàlisi**: Eina per crear visualitzacions personalitzades mitjançant una interfície intuïtiva d'arrossegar i deixar anar variables.
 * 📄 **Fitxes**: Accés a les fitxes metodològiques detallades de cada indicador.
 
 ### 👥 Autoria
