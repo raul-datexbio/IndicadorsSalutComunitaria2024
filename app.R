@@ -417,27 +417,26 @@ ui <- tagList(
               style = "margin-left: 0px; padding-left: 20px;",
               tags$li(
                 style = "margin-bottom: 10px;", 
-                "1a edició: Barcelona maig 2018.",
+                "1a edició: maig 2018 (dades 2016).",
                 tags$a(
                   href = "http://observatorisalut.gencat.cat/ca/observatori-desigualtats-salut/indicadors_comunitaria/",
                   style = "margin-left: 5px; text-decoration: none;",
                   icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
-                  title = "Pàgina web de l'edició del 2018 dels Indicadors de salut comunitària",
+                  title = "Pàgina web de la 1a edició dels Indicadors de Salut Comunitària",
                   target = "_blank"
                 )
               ),
               tags$li(
                 style = "margin-bottom: 10px;", 
-                "2a edició: Barcelona abril 2021.",
+                "2a edició: abril 2021 (dades 2018).",
                 tags$a(
                   href = "http://observatorisalut.gencat.cat/ca/observatori-desigualtats-salut/indicadors_comunitaria/",
                   style = "margin-left: 5px; text-decoration: none;",
                   icon("arrow-up-right-from-square", style = "font-size: 16px; color: #5E5E5E;"),
-                  title = "Pàgina web de l'edició del 2021 dels Indicadors de salut comunitària",
+                  title = "Pàgina web de la 2a edició dels Indicadors de Salut Comunitària",
                   target = "_blank"
                 )
-              ),
-              tags$li("3a edició: Barcelona abril 2025.")
+              )
             )
           )
         ),
@@ -2956,7 +2955,8 @@ server <- function(input, output, session) {
            "fitxa_SCES06" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
-             p("Aquest indicador mesura el grau en què les persones d'aquest rang d'edat compleixen les recomanacions d'activitat física per mantenir un estil de vida saludable, segons les directrius de l'Organització Mundial de la Salut (OMS). 
+             p("Aquest indicador mesura el grau en què les persones d'aquest rang d'edat compleixen les recomanacions d'activitat física per mantenir un estil de vida saludable, segons les directrius de l'Organització Mundial de la Salut (OMS).
+               Aquestes recomanacions inclouen almenys 150-300 minuts setmanals d'activitat física aeròbica moderada o 75-150 minuts d'activitat vigorosa, combinades amb exercicis de força.
                S’utilitza l'instrument IPAQ, (International Physical Activity Questionnaire) que classifica la població de 15 a 69 anys en tres categories: baixa, moderada i alta. Es considera activitat física saludable la suma de l'activitat moderada i l'alta, on:",
                style = "margin-bottom: 10px; text-align: justify;"),
              
@@ -2990,7 +2990,8 @@ server <- function(input, output, session) {
            "fitxa_SCES07" = div(
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
-             p("Aquest indicador mesura el grau en què les persones d'aquest rang d'edat compleixen les recomanacions d'activitat física per mantenir un estil de vida saludable, segons les directrius de l'Organització Mundial de la Salut (OMS). 
+             p("Aquest indicador mesura el grau en què les persones d'aquest rang d'edat compleixen les recomanacions d'activitat física per mantenir un estil de vida saludable, segons les directrius de l'Organització Mundial de la Salut (OMS).
+               Aquestes recomanacions inclouen almenys 150-300 minuts setmanals d'activitat física aeròbica moderada o 75-150 minuts d'activitat vigorosa, combinades amb exercicis de força.
                S’utilitza l'instrument IPAQ, (International Physical Activity Questionnaire) que classifica la població de 15 a 69 anys en tres categories: baixa, moderada i alta. Es considera activitat física saludable la suma de l'activitat moderada i l'alta, on:",
                style = "margin-bottom: 10px; text-align: justify;"),
              
