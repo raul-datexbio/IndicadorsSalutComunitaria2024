@@ -357,8 +357,7 @@ ui <- tagList(
               style = "margin-left: 0px; padding-left: 20px;",
               tags$li(style = "margin-bottom: 10px;", "Agència de Salut Pública de Catalunya (ASPCAT)."),
               tags$li(style = "margin-bottom: 10px;", "Observatori del Sistema de Salut de Catalunya (OSSC), Agència de Qualitat i Avaluació Sanitàries de Catalunya (AQuAS)."),
-              tags$li(style = "margin-bottom: 10px;", "Direcció General de Planificació en Salut, Departament de Salut."),
-              tags$li("Secretaria General, Departament de Salut.")
+              tags$li(style = "margin-bottom: 10px;", "Direcció General de Planificació en Salut, Departament de Salut.")
             ),
             p("Amb la col·laboració de l'Institut Català de la Salut (ICS) i l'Idescat.", style = "margin-top: -20px;")
           )
@@ -645,13 +644,13 @@ ui <- tagList(
               div(
                 class = "highlighted-paragraph",
                 p("Explora en format taula els 43 indicadors de salut comunitària per àrea bàsica de salut (ABS) de Catalunya, organitzats en els següents àmbits: 
-                  demogràfic, socioeconòmic, morbiditat, mortalitat, estils de vida, pràctiques preventives, recursos i usos de servei.")
+            demogràfic, socioeconòmic, morbiditat, mortalitat, estils de vida, pràctiques preventives, recursos i usos de servei.")
               ),
               div(
                 class = "highlighted-paragraph",
-                p("Selecciona una o més regions sanitàries, àrees bàsiques de salut, àmbits i indicadors de salut comunitària seguint l’ordre establert i fes clic al botó ",
-                  span(style = "font-family: 'DejaVu Sans Mono', monospace; font-size: 14px; font-weight: 500;", "Aplica la selecció"),
-                  ". Un cop es mostri la taula amb les dades seleccionades, podràs modificar la selecció, ordenar les dades en ordre ascendent o descendent i exportar-les en diversos formats.")
+                p(HTML("Selecciona una o més regions sanitàries, àrees bàsiques de salut, àmbits i indicadors de salut comunitària seguint l’ordre establert i fes clic al botó 
+                       <span style='font-family: \"DejaVu Sans Mono\", monospace; font-size: 14px; font-weight: 500;'>Aplica la selecció</span>. 
+                       Un cop es mostri la taula amb les dades seleccionades, podràs modificar la selecció, ordenar les dades en ordre ascendent o descendent i exportar-les en diversos formats."))
               )
             )
           )
@@ -1803,7 +1802,7 @@ server <- function(input, output, session) {
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
              p("Aquest indicador ens informa de les persones que degut a la seva situació econòmica vulnerable estan exemptes de copagament farmacèutic. 
-               Són persones que principalment es troben en alguna situació següent: perceptores de rendes de d'integració social, perceptores de pensió 
+               Són persones que principalment es troben en alguna situació següent: perceptores de rendes d'integració social, perceptores de pensió 
                no contributiva, en atur i que han perdut el dret a percebre el subsidi d'atur o beneficiaries de l'ingrés mínim vital.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2031,11 +2030,11 @@ server <- function(input, output, session) {
                  class = "fraction",
                  div(
                    class = "fraction-top",
-                   "Població de menys de 18 anys atesa a CSM segons diagnòstics seleccionats"
+                   "Població menor de 18 anys atesa a CSM segons diagnòstics seleccionats"
                  ),
                  div(
                    class = "fraction-bottom",
-                   "Població de menys de 18 anys de referència d’un CSM"
+                   "Població menor de 18 anys de referència d’un CSM"
                  )
                ),
                "× 100"
@@ -2209,7 +2208,7 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.",
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponent del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2250,8 +2249,8 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.
-               La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal i com recomana l’Eurostat.",
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponent del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.
+               La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal com recomana l’Eurostat.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2292,7 +2291,7 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.",
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponent del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2333,8 +2332,8 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.
-               La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal i com recomana l’Eurostat.",
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponent del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.
+               La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal com recomana l’Eurostat.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2376,7 +2375,7 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS per a les persones de 15 anys i més. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.",
+             p("Disponible per sexe i ABS per a les persones de 15 anys i més. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponent del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2418,8 +2417,8 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS per a les persones de 15 anys i més. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.
-               La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal i com recomana l’Eurostat.",
+             p("Disponible per sexe i ABS per a les persones de 15 anys i més. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponent del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.
+               La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal com recomana l’Eurostat.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2459,7 +2458,7 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS per a les persones de 15 anys i més. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.",
+             p("Disponible per sexe i ABS per a les persones de 15 anys i més. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponent del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2499,8 +2498,8 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS per a les persones de 15 anys i més. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.
-               La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal i com recomana l’Eurostat.",
+             p("Disponible per sexe i ABS per a les persones de 15 anys i més. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponent del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.
+               La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal com recomana l’Eurostat.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2841,7 +2840,7 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. 
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponent del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. 
                Per aquest motiu és una única dada pel període 2019-2022.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2874,8 +2873,8 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. 
-               Per aquest motiu és una única dada pel període 2019-2022. La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal i com recomana l’Eurostat. Es calcula l’interval de confiança al 95%.",
+             p("Disponible per sexe i ABS. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponent del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. 
+               Per aquest motiu és una única dada pel període 2019-2022. La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal com recomana l’Eurostat. Es calcula l’interval de confiança al 95%.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2893,7 +2892,7 @@ server <- function(input, output, session) {
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
              p("Aquest indicador és clau per avaluar l'alimentació d'una població en relació amb el patró dietètic mediterrani, reconegut com un model alimentari saludable. 
-               El seguiment de la dieta mediterrània es mesura a partir de l'instrument MEDAS (Mediterranean Diet Adherence Screener), que consta de 14 preguntes sobre els diferents elements que la composen. 
+               El seguiment de la dieta mediterrània es mesura a partir de l'instrument MEDAS (Mediterranean Diet Adherence Screener), que consta de 14 preguntes sobre els diferents elements que la componen. 
                S'hi estableixen tres categories: compliment baix (≤ 5 punts), compliment mitjà (entre 6 i 9 punts) i compliment alt (≥ 10 punts). 
                Es considera com a seguiment adequat de les recomanacions d'alimentació mediterrània els nivells de compliment mitjà i alt.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -2905,7 +2904,7 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS per a les persones de 15 anys i més. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. 
+             p("Disponible per sexe i ABS per a les persones de 15 anys i més. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponent del seu SSF. 
               A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
@@ -2924,7 +2923,7 @@ server <- function(input, output, session) {
              h2(icon("pencil", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
              p("Aquest indicador és clau per avaluar l'alimentació d'una població en relació amb el patró dietètic mediterrani, reconegut com un model alimentari saludable. 
-               El seguiment de la dieta mediterrània es mesura a partir de l'instrument MEDAS (Mediterranean Diet Adherence Screener), que consta de 14 preguntes sobre els diferents elements que la composen. 
+               El seguiment de la dieta mediterrània es mesura a partir de l'instrument MEDAS (Mediterranean Diet Adherence Screener), que consta de 14 preguntes sobre els diferents elements que la componen. 
                S'hi estableixen tres categories: compliment baix (≤ 5 punts), compliment mitjà (entre 6 i 9 punts) i compliment alt (≥ 10 punts). 
                Es considera com a seguiment adequat de les recomanacions d'alimentació mediterrània els nivells de compliment mitjà i alt.",
                style = "margin-bottom: 20px; text-align: justify;"),
@@ -2936,9 +2935,9 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS per a les persones de 15 anys i més. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. 
+             p("Disponible per sexe i ABS per a les persones de 15 anys i més. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponent del seu SSF. 
                A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022. 
-               La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal i com recomana l’Eurostat. Es calcula l’interval de confiança al 95%.",
+               La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal com recomana l’Eurostat. Es calcula l’interval de confiança al 95%.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2957,7 +2956,7 @@ server <- function(input, output, session) {
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
              p("Aquest indicador mesura el grau en què les persones d'aquest rang d'edat compleixen les recomanacions d'activitat física per mantenir un estil de vida saludable, segons les directrius de l'Organització Mundial de la Salut (OMS).
                Aquestes recomanacions inclouen almenys 150-300 minuts setmanals d'activitat física aeròbica moderada o 75-150 minuts d'activitat vigorosa, combinades amb exercicis de força.
-               S’utilitza l'instrument IPAQ, (International Physical Activity Questionnaire) que classifica la població de 15 a 69 anys en tres categories: baixa, moderada i alta. Es considera activitat física saludable la suma de l'activitat moderada i l'alta, on:",
+               S’utilitza l'instrument IPAQ (International Physical Activity Questionnaire), que classifica la població de 15 a 69 anys en tres categories: baixa, moderada i alta. Es considera activitat física saludable la suma de l'activitat moderada i l'alta, on:",
                style = "margin-bottom: 10px; text-align: justify;"),
              
              tags$ul(
@@ -2973,7 +2972,7 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS, només per les persones de 15 a 69 anys. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.",
+             p("Disponible per sexe i ABS, només per les persones de 15 a 69 anys. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponent del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
@@ -2992,7 +2991,7 @@ server <- function(input, output, session) {
                 "Descripció", class = "title-style", style = "margin-top: 0px; display: flex; align-items: baseline;"),
              p("Aquest indicador mesura el grau en què les persones d'aquest rang d'edat compleixen les recomanacions d'activitat física per mantenir un estil de vida saludable, segons les directrius de l'Organització Mundial de la Salut (OMS).
                Aquestes recomanacions inclouen almenys 150-300 minuts setmanals d'activitat física aeròbica moderada o 75-150 minuts d'activitat vigorosa, combinades amb exercicis de força.
-               S’utilitza l'instrument IPAQ, (International Physical Activity Questionnaire) que classifica la població de 15 a 69 anys en tres categories: baixa, moderada i alta. Es considera activitat física saludable la suma de l'activitat moderada i l'alta, on:",
+               S’utilitza l'instrument IPAQ (International Physical Activity Questionnaire), que classifica la població de 15 a 69 anys en tres categories: baixa, moderada i alta. Es considera activitat física saludable la suma de l'activitat moderada i l'alta, on:",
                style = "margin-bottom: 10px; text-align: justify;"),
              
              tags$ul(
@@ -3008,8 +3007,8 @@ server <- function(input, output, session) {
              
              h2(icon("list-check", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: 0px;"), 
                 "Criteris metodològics", class = "title-style", style = "display: flex; align-items: baseline;"),
-             p("Disponible per sexe i ABS, només per les persones de 15 a 69 anys. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponen del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022. 
-               La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal i com recomana l’Eurostat. Es calcula l’interval de confiança al 95%.",
+             p("Disponible per sexe i ABS, només per les persones de 15 a 69 anys. Les dades es calculen per Sector Sanitari Funcional (SSF) i s'imputa a cada ABS el valor corresponent del seu SSF. A l’ESCA, per a poder donar resultats representatius segons SSF cal treballar amb l’acumulació de quatre anys. Per aquest motiu és una única dada pel període 2019-2022. 
+               La població tipus utilitzada per a l’estandardització és la població estàndard europea de 2013, tal com recomana l’Eurostat. Es calcula l’interval de confiança al 95%.",
                style = "margin-bottom: 20px; text-align: justify;"),
              
              h2(icon("calendar", style = "color: #5EAEFF; margin-right: 10px; font-size: 24px; vertical-align: baseline; position: relative; top: -2px;"), 
